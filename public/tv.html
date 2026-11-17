@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Menu</title>
+  <link rel="icon" href="/img/24order-logo.png">
+  <link rel="stylesheet" href="/css/board.css">
+  <style>
+    html, body { margin: 0; height: 100%; background: #000; overflow: hidden; cursor: none; }
+    #wrap { position: fixed; inset: 0; display: grid; place-items: center; }
+    #stage { position: absolute; top: 0; left: 0; }
+    .tv-msg { position: fixed; inset: 0; display: grid; place-items: center; color: #888; font: 500 22px system-ui, sans-serif; }
+  </style>
+</head>
+<body>
+  <div id="wrap"><div id="stage" class="tv-stage"></div></div>
+  <script type="module" src="/js/tv.js"></script>
+</body>
+</html>

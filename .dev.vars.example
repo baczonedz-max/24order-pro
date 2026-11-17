@@ -1,0 +1,5 @@
+# Copy this file to .dev.vars for local development (it is git-ignored).
+# In production set them as Cloudflare secrets instead (wrangler secret put ...).
+STATS_API_KEY=
+AI_AGENT_KEY=
+GEMINI_API_KEY=
