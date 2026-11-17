@@ -3,3 +3,7 @@
 STATS_API_KEY=
 AI_AGENT_KEY=
 GEMINI_API_KEY=
+
+# Local test account used while developing (only on http://localhost:8787, never in production):
+# DEV_ADMIN_EMAIL=admin@demo.test
+# DEV_ADMIN_PASSWORD=demo-pass-2026

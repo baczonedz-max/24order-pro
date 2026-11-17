@@ -1,13 +1,22 @@
 {
   "name": "24order-pro",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
-  "description": "24order Pro: TV menu (MTV) generator, AI menu import and more, on Cloudflare Workers",
+  "type": "module",
+  "description": "24order Pro: restaurant dashboard (orders, POS, products, TV menus) on Cloudflare Workers + D1",
   "scripts": {
-    "dev": "wrangler dev",
-    "deploy": "wrangler deploy"
+    "build": "vite build",
+    "dev": "vite build && wrangler dev",
+    "deploy": "vite build && wrangler deploy"
   },
   "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.11",
+    "vite": "^7.3.8",
     "wrangler": "^4.40.0"
+  },
+  "dependencies": {
+    "hono": "^4.13.19",
+    "vue": "^3.5.45",
+    "vue-router": "^4.6.5"
   }
 }

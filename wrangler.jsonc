@@ -1,22 +1,28 @@
 {
-  // Cloudflare Worker config. Static files in ./public are served directly;
-  // everything under /api/* goes to src/worker.js.
+  // Cloudflare Worker config.
+  // Build: `npm run build` (Vite builds the dashboard into ./dist).
+  // /api/* goes to src/worker.js; everything else is served from ./dist.
   "name": "24order-pro",
   "main": "src/worker.js",
   "compatibility_date": "2025-09-01",
   "assets": {
-    "directory": "./public",
+    "directory": "./dist",
     "binding": "ASSETS",
     "not_found_handling": "single-page-application",
     "run_worker_first": ["/api/*"]
   },
+  // The dashboard's own database. Create it once in Cloudflare (Storage & Databases → D1 →
+  // Create, name "24order-pro-db") and put its id below. Tables are created automatically.
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "24order-pro-db",
+      "database_id": "00000000-0000-0000-0000-000000000000"
+    }
+  ],
   "vars": {
-    // Public base of the 24order AI Agent API (menu: no auth needed).
     "ORDER_API_BASE": "https://server.24order.com/api/v1/ai-agent",
     "MAIN_API_BASE": "https://main-server.24order.com/api/v1"
   }
-  // Secrets (never commit them). Set them once with:
-  //   npx wrangler secret put STATS_API_KEY
-  //   npx wrangler secret put AI_AGENT_KEY
-  //   npx wrangler secret put GEMINI_API_KEY
+  // Secrets (never commit them): STATS_API_KEY, AI_AGENT_KEY, GEMINI_API_KEY
 }
