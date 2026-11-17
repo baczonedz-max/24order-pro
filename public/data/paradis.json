@@ -1,0 +1,2650 @@
+{
+ "restaurant": {
+  "name": "Paradis Pizza AS",
+  "logo": "https://paradis-server.24order.com/storage/settings_setup/1794749967_Asset%2025@4x.webp",
+  "currency": "kr",
+  "priceStyle": "dash",
+  "country": "NO"
+ },
+ "source": "demo",
+ "categories": [
+  {
+   "id": 1,
+   "name": "Pizza",
+   "image": "https://paradis-server.24order.com/storage/categories/1794833205_Pizza.webp",
+   "footer": [
+    {
+     "label": "EKSTRA OST",
+     "value": "M: 25,- / S: 35,-",
+     "icon": "cheese"
+    },
+    {
+     "label": "EKSTRA SAUS",
+     "value": "25,-",
+     "icon": "sauce",
+     "note": "Hvitløksaus / tomatsaus / bearnaisesaus / BBQ-saus / chillisaus / jalapenos"
+    }
+   ],
+   "foods": [
+    {
+     "id": 1,
+     "number": 1,
+     "name": "NAPOLI",
+     "image": "https://paradis-server.24order.com/storage/foods/1794752166_NAPOLI4.webp",
+     "prices": [
+      {
+       "size": "M",
+       "label": "Medium",
+       "price": 180
+      },
+      {
+       "size": "S",
+       "label": "Stor",
+       "price": 250
+      }
+     ],
+     "description": "Ost, pizzasaus, skinke, salami",
+     "components": [
+      {
+       "name": "Ost",
+       "state": "selected"
+      },
+      {
+       "name": "Pizzasaus",
+       "state": "selected"
+      },
+      {
+       "name": "Skinke",
+       "state": "selected"
+      },
+      {
+       "name": "Salami",
+       "state": "selected"
+      },
+      {
+       "name": "Ekstra ost",
+       "state": "optional",
+       "extra": {
+        "M": 25,
+        "S": 35
+       }
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 25
+      }
+     ]
+    },
+    {
+     "id": 2,
+     "number": 2,
+     "name": "MEXICO",
+     "image": "https://paradis-server.24order.com/storage/foods/1794752319_MEXICO4.webp",
+     "prices": [
+      {
+       "size": "M",
+       "label": "Medium",
+       "price": 190
+      },
+      {
+       "size": "S",
+       "label": "Stor",
+       "price": 270
+      }
+     ],
+     "description": "Ost, pizzasaus, skinke, biffkjøtt, paprika, chillipepper",
+     "components": [
+      {
+       "name": "Ost",
+       "state": "selected"
+      },
+      {
+       "name": "Pizzasaus",
+       "state": "selected"
+      },
+      {
+       "name": "Skinke",
+       "state": "selected"
+      },
+      {
+       "name": "Biffkjøtt",
+       "state": "selected"
+      },
+      {
+       "name": "Paprika",
+       "state": "selected"
+      },
+      {
+       "name": "Chillipepper",
+       "state": "selected"
+      },
+      {
+       "name": "Ekstra ost",
+       "state": "optional",
+       "extra": {
+        "M": 25,
+        "S": 35
+       }
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 25
+      }
+     ]
+    },
+    {
+     "id": 3,
+     "number": 3,
+     "name": "NORGESPIZZA",
+     "image": "https://paradis-server.24order.com/storage/foods/1794752466_NORGESPIZZA.webp",
+     "prices": [
+      {
+       "size": "M",
+       "label": "Medium",
+       "price": 190
+      },
+      {
+       "size": "S",
+       "label": "Stor",
+       "price": 270
+      }
+     ],
+     "description": "Ost, pizzasaus, skinke, champignon, løk, kjøttboller, bacon",
+     "components": [
+      {
+       "name": "Ost",
+       "state": "selected"
+      },
+      {
+       "name": "Pizzasaus",
+       "state": "selected"
+      },
+      {
+       "name": "Skinke",
+       "state": "selected"
+      },
+      {
+       "name": "Champignon",
+       "state": "selected"
+      },
+      {
+       "name": "Løk",
+       "state": "selected"
+      },
+      {
+       "name": "Kjøttboller",
+       "state": "selected"
+      },
+      {
+       "name": "Bacon",
+       "state": "selected"
+      },
+      {
+       "name": "Ekstra ost",
+       "state": "optional",
+       "extra": {
+        "M": 25,
+        "S": 35
+       }
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 25
+      }
+     ]
+    },
+    {
+     "id": 4,
+     "number": 4,
+     "name": "CALIFORNIA",
+     "image": "https://paradis-server.24order.com/storage/foods/1794752576_CALIFORNIA.webp",
+     "prices": [
+      {
+       "size": "M",
+       "label": "Medium",
+       "price": 190
+      },
+      {
+       "size": "S",
+       "label": "Stor",
+       "price": 270
+      }
+     ],
+     "description": "Biff, ferske tomater, løk, paprika, BBQ-saus, fersk dill",
+     "components": [
+      {
+       "name": "Biff",
+       "state": "selected"
+      },
+      {
+       "name": "Ferske tomater",
+       "state": "selected"
+      },
+      {
+       "name": "Løk",
+       "state": "selected"
+      },
+      {
+       "name": "Paprika",
+       "state": "selected"
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "selected"
+      },
+      {
+       "name": "Fersk dill",
+       "state": "selected"
+      },
+      {
+       "name": "Ekstra ost",
+       "state": "optional",
+       "extra": {
+        "M": 25,
+        "S": 35
+       }
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 25
+      }
+     ]
+    },
+    {
+     "id": 5,
+     "number": 5,
+     "name": "PARADIS",
+     "image": "https://paradis-server.24order.com/storage/foods/1794752689_PARADIS.webp",
+     "prices": [
+      {
+       "size": "M",
+       "label": "Medium",
+       "price": 190
+      },
+      {
+       "size": "S",
+       "label": "Stor",
+       "price": 270
+      }
+     ],
+     "description": "Ost, pizzasaus, champignon, paprika, skinke, biff, italiensk kjøttdeig",
+     "components": [
+      {
+       "name": "Ost",
+       "state": "selected"
+      },
+      {
+       "name": "Pizzasaus",
+       "state": "selected"
+      },
+      {
+       "name": "Champignon",
+       "state": "selected"
+      },
+      {
+       "name": "Paprika",
+       "state": "selected"
+      },
+      {
+       "name": "Skinke",
+       "state": "selected"
+      },
+      {
+       "name": "Biff",
+       "state": "selected"
+      },
+      {
+       "name": "Italiensk kjøttdeig",
+       "state": "selected"
+      },
+      {
+       "name": "Ekstra ost",
+       "state": "optional",
+       "extra": {
+        "M": 25,
+        "S": 35
+       }
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 25
+      }
+     ]
+    },
+    {
+     "id": 6,
+     "number": 6,
+     "name": "MILANO",
+     "image": "https://paradis-server.24order.com/storage/foods/1794752828_MILANO4.webp",
+     "prices": [
+      {
+       "size": "M",
+       "label": "Medium",
+       "price": 190
+      },
+      {
+       "size": "S",
+       "label": "Stor",
+       "price": 270
+      }
+     ],
+     "description": "Ost, pizzasaus, champignon, paprika, skinke, salami, ananas",
+     "components": [
+      {
+       "name": "Ost",
+       "state": "selected"
+      },
+      {
+       "name": "Pizzasaus",
+       "state": "selected"
+      },
+      {
+       "name": "Champignon",
+       "state": "selected"
+      },
+      {
+       "name": "Paprika",
+       "state": "selected"
+      },
+      {
+       "name": "Skinke",
+       "state": "selected"
+      },
+      {
+       "name": "Salami",
+       "state": "selected"
+      },
+      {
+       "name": "Ananas",
+       "state": "selected"
+      },
+      {
+       "name": "Ekstra ost",
+       "state": "optional",
+       "extra": {
+        "M": 25,
+        "S": 35
+       }
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 25
+      }
+     ]
+    },
+    {
+     "id": 7,
+     "number": 7,
+     "name": "SARPSBORG",
+     "image": "https://paradis-server.24order.com/storage/foods/1794752861_SARPSBORG.webp",
+     "prices": [
+      {
+       "size": "M",
+       "label": "Medium",
+       "price": 190
+      },
+      {
+       "size": "S",
+       "label": "Stor",
+       "price": 270
+      }
+     ],
+     "description": "Ost, pizzasaus, skinke, salami, pepperoni, paprika, italiensk kjøttdeig",
+     "components": [
+      {
+       "name": "Ost",
+       "state": "selected"
+      },
+      {
+       "name": "Pizzasaus",
+       "state": "selected"
+      },
+      {
+       "name": "Skinke",
+       "state": "selected"
+      },
+      {
+       "name": "Salami",
+       "state": "selected"
+      },
+      {
+       "name": "Pepperoni",
+       "state": "selected"
+      },
+      {
+       "name": "Paprika",
+       "state": "selected"
+      },
+      {
+       "name": "Italiensk kjøttdeig",
+       "state": "selected"
+      },
+      {
+       "name": "Ekstra ost",
+       "state": "optional",
+       "extra": {
+        "M": 25,
+        "S": 35
+       }
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 25
+      }
+     ]
+    },
+    {
+     "id": 8,
+     "number": 8,
+     "name": "HOLLYWOOD",
+     "image": "https://paradis-server.24order.com/storage/foods/1794752940_HOLLYWOOD.webp",
+     "prices": [
+      {
+       "size": "M",
+       "label": "Medium",
+       "price": 190
+      },
+      {
+       "size": "S",
+       "label": "Stor",
+       "price": 270
+      }
+     ],
+     "description": "Ost, pizzasaus, skinke, salami, pepperoni, kjøttboller",
+     "components": [
+      {
+       "name": "Ost",
+       "state": "selected"
+      },
+      {
+       "name": "Pizzasaus",
+       "state": "selected"
+      },
+      {
+       "name": "Skinke",
+       "state": "selected"
+      },
+      {
+       "name": "Salami",
+       "state": "selected"
+      },
+      {
+       "name": "Pepperoni",
+       "state": "selected"
+      },
+      {
+       "name": "Kjøttboller",
+       "state": "selected"
+      },
+      {
+       "name": "Ekstra ost",
+       "state": "optional",
+       "extra": {
+        "M": 25,
+        "S": 35
+       }
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 25
+      }
+     ]
+    },
+    {
+     "id": 9,
+     "number": 9,
+     "name": "FRANSK",
+     "image": "https://paradis-server.24order.com/storage/foods/1794753268_FRANSK.webp",
+     "prices": [
+      {
+       "size": "M",
+       "label": "Medium",
+       "price": 190
+      },
+      {
+       "size": "S",
+       "label": "Stor",
+       "price": 270
+      }
+     ],
+     "description": "Ost, pizzasaus, skinke, salami, champignon, biff",
+     "components": [
+      {
+       "name": "Ost",
+       "state": "selected"
+      },
+      {
+       "name": "Pizzasaus",
+       "state": "selected"
+      },
+      {
+       "name": "Skinke",
+       "state": "selected"
+      },
+      {
+       "name": "Salami",
+       "state": "selected"
+      },
+      {
+       "name": "Champignon",
+       "state": "selected"
+      },
+      {
+       "name": "Biff",
+       "state": "selected"
+      },
+      {
+       "name": "Ekstra ost",
+       "state": "optional",
+       "extra": {
+        "M": 25,
+        "S": 35
+       }
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 25
+      }
+     ]
+    },
+    {
+     "id": 10,
+     "number": 10,
+     "name": "SPESIAL",
+     "image": "https://paradis-server.24order.com/storage/foods/1794753631_SPESIAL.webp",
+     "prices": [
+      {
+       "size": "M",
+       "label": "Medium",
+       "price": 195
+      },
+      {
+       "size": "S",
+       "label": "Stor",
+       "price": 280
+      }
+     ],
+     "description": "Ost, pizzasaus, alt av kjøtt og grønnsaker skåret i små biter",
+     "components": [
+      {
+       "name": "Ost",
+       "state": "selected"
+      },
+      {
+       "name": "Pizzasaus",
+       "state": "selected"
+      },
+      {
+       "name": "Alt av kjøtt og grønnsaker skåret i små biter",
+       "state": "selected"
+      },
+      {
+       "name": "Ekstra ost",
+       "state": "optional",
+       "extra": {
+        "M": 25,
+        "S": 35
+       }
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 25
+      }
+     ]
+    },
+    {
+     "id": 11,
+     "number": 11,
+     "name": "AMERICAN WAY",
+     "image": "https://paradis-server.24order.com/storage/foods/1794753914_AMERICAN%20WAY.webp",
+     "prices": [
+      {
+       "size": "M",
+       "label": "Medium",
+       "price": 190
+      },
+      {
+       "size": "S",
+       "label": "Stor",
+       "price": 270
+      }
+     ],
+     "description": "Ost, pizzasaus, skinke, salami, kjøttboller (barnepizza)",
+     "components": [
+      {
+       "name": "Ost",
+       "state": "selected"
+      },
+      {
+       "name": "Pizzasaus",
+       "state": "selected"
+      },
+      {
+       "name": "Skinke",
+       "state": "selected"
+      },
+      {
+       "name": "Salami",
+       "state": "selected"
+      },
+      {
+       "name": "Kjøttboller (barnepizza)",
+       "state": "selected"
+      },
+      {
+       "name": "Ekstra ost",
+       "state": "optional",
+       "extra": {
+        "M": 25,
+        "S": 35
+       }
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 25
+      }
+     ]
+    },
+    {
+     "id": 12,
+     "number": 12,
+     "name": "BOSTON",
+     "image": "https://paradis-server.24order.com/storage/foods/1794754476_BOSTON.webp",
+     "prices": [
+      {
+       "size": "M",
+       "label": "Medium",
+       "price": 190
+      },
+      {
+       "size": "S",
+       "label": "Stor",
+       "price": 270
+      }
+     ],
+     "description": "Ost, pizzasaus, champignon, paprika, skinke, salami, pepperoni",
+     "components": [
+      {
+       "name": "Ost",
+       "state": "selected"
+      },
+      {
+       "name": "Pizzasaus",
+       "state": "selected"
+      },
+      {
+       "name": "Champignon",
+       "state": "selected"
+      },
+      {
+       "name": "Paprika",
+       "state": "selected"
+      },
+      {
+       "name": "Skinke",
+       "state": "selected"
+      },
+      {
+       "name": "Salami",
+       "state": "selected"
+      },
+      {
+       "name": "Pepperoni",
+       "state": "selected"
+      },
+      {
+       "name": "Ekstra ost",
+       "state": "optional",
+       "extra": {
+        "M": 25,
+        "S": 35
+       }
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 25
+      }
+     ]
+    },
+    {
+     "id": 13,
+     "number": 13,
+     "name": "GRENSELØS",
+     "image": "https://paradis-server.24order.com/storage/foods/1794754609_Lag%20din%20egen%20pizza%20copy.webp",
+     "prices": [
+      {
+       "size": "M",
+       "label": "Medium",
+       "price": 190
+      },
+      {
+       "size": "S",
+       "label": "Stor",
+       "price": 270
+      }
+     ],
+     "description": "Sett sammen egen pizza. Fem ingredienser (over fem, M: 190,- S: 270,-)",
+     "components": [
+      {
+       "name": "Sett sammen egen pizza. Fem ingredienser (over fem",
+       "state": "selected"
+      },
+      {
+       "name": "M: 190",
+       "state": "selected"
+      },
+      {
+       "name": "- S: 270",
+       "state": "selected"
+      },
+      {
+       "name": "-)",
+       "state": "selected"
+      },
+      {
+       "name": "Ekstra ost",
+       "state": "optional",
+       "extra": {
+        "M": 25,
+        "S": 35
+       }
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 25
+      }
+     ]
+    },
+    {
+     "id": 14,
+     "number": 14,
+     "name": "L.A.",
+     "image": "https://paradis-server.24order.com/storage/foods/1794754737_L.A.webp",
+     "prices": [
+      {
+       "size": "M",
+       "label": "Medium",
+       "price": 190
+      },
+      {
+       "size": "S",
+       "label": "Stor",
+       "price": 270
+      }
+     ],
+     "description": "Ost, pizzasaus, paprika, skinke, salami, biff, kjøttboller",
+     "components": [
+      {
+       "name": "Ost",
+       "state": "selected"
+      },
+      {
+       "name": "Pizzasaus",
+       "state": "selected"
+      },
+      {
+       "name": "Paprika",
+       "state": "selected"
+      },
+      {
+       "name": "Skinke",
+       "state": "selected"
+      },
+      {
+       "name": "Salami",
+       "state": "selected"
+      },
+      {
+       "name": "Biff",
+       "state": "selected"
+      },
+      {
+       "name": "Kjøttboller",
+       "state": "selected"
+      },
+      {
+       "name": "Ekstra ost",
+       "state": "optional",
+       "extra": {
+        "M": 25,
+        "S": 35
+       }
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 25
+      }
+     ]
+    },
+    {
+     "id": 15,
+     "number": 15,
+     "name": "SPANIA",
+     "image": "https://paradis-server.24order.com/storage/foods/1794830055_SPANIA.webp",
+     "prices": [
+      {
+       "size": "M",
+       "label": "Medium",
+       "price": 190
+      },
+      {
+       "size": "S",
+       "label": "Stor",
+       "price": 270
+      }
+     ],
+     "description": "Ost, pizzasaus, skinke, salami, pepperoni, champignon, purreløk",
+     "components": [
+      {
+       "name": "Ost",
+       "state": "selected"
+      },
+      {
+       "name": "Pizzasaus",
+       "state": "selected"
+      },
+      {
+       "name": "Skinke",
+       "state": "selected"
+      },
+      {
+       "name": "Salami",
+       "state": "selected"
+      },
+      {
+       "name": "Pepperoni",
+       "state": "selected"
+      },
+      {
+       "name": "Champignon",
+       "state": "selected"
+      },
+      {
+       "name": "Purreløk",
+       "state": "selected"
+      },
+      {
+       "name": "Ekstra ost",
+       "state": "optional",
+       "extra": {
+        "M": 25,
+        "S": 35
+       }
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 25
+      }
+     ]
+    },
+    {
+     "id": 16,
+     "number": 16,
+     "name": "TURBO",
+     "image": "https://paradis-server.24order.com/storage/foods/1794830159_TURBO.webp",
+     "prices": [
+      {
+       "size": "M",
+       "label": "Medium",
+       "price": 180
+      },
+      {
+       "size": "S",
+       "label": "Stor",
+       "price": 260
+      }
+     ],
+     "description": "Ost, pizzasaus, champignon, paprika, skinke, biff, hvitløk",
+     "components": [
+      {
+       "name": "Ost",
+       "state": "selected"
+      },
+      {
+       "name": "Pizzasaus",
+       "state": "selected"
+      },
+      {
+       "name": "Champignon",
+       "state": "selected"
+      },
+      {
+       "name": "Paprika",
+       "state": "selected"
+      },
+      {
+       "name": "Skinke",
+       "state": "selected"
+      },
+      {
+       "name": "Biff",
+       "state": "selected"
+      },
+      {
+       "name": "Hvitløk",
+       "state": "selected"
+      },
+      {
+       "name": "Ekstra ost",
+       "state": "optional",
+       "extra": {
+        "M": 25,
+        "S": 35
+       }
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 25
+      }
+     ]
+    },
+    {
+     "id": 17,
+     "number": 17,
+     "name": "VEGETAR",
+     "image": "https://paradis-server.24order.com/storage/foods/1794830286_VEGETAR3.webp",
+     "prices": [
+      {
+       "size": "M",
+       "label": "Medium",
+       "price": 180
+      },
+      {
+       "size": "S",
+       "label": "Stor",
+       "price": 250
+      }
+     ],
+     "description": "Ost, pizzasaus, champignon, paprika, mais, løk, oliven, ananas",
+     "components": [
+      {
+       "name": "Ost",
+       "state": "selected"
+      },
+      {
+       "name": "Pizzasaus",
+       "state": "selected"
+      },
+      {
+       "name": "Champignon",
+       "state": "selected"
+      },
+      {
+       "name": "Paprika",
+       "state": "selected"
+      },
+      {
+       "name": "Mais",
+       "state": "selected"
+      },
+      {
+       "name": "Løk",
+       "state": "selected"
+      },
+      {
+       "name": "Oliven",
+       "state": "selected"
+      },
+      {
+       "name": "Ananas",
+       "state": "selected"
+      },
+      {
+       "name": "Ekstra ost",
+       "state": "optional",
+       "extra": {
+        "M": 25,
+        "S": 35
+       }
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 25
+      }
+     ]
+    },
+    {
+     "id": 18,
+     "number": 18,
+     "name": "KEBABPIZZA",
+     "image": "https://paradis-server.24order.com/storage/foods/1794830445_KEBABPIZZA6.webp",
+     "prices": [
+      {
+       "size": "M",
+       "label": "Medium",
+       "price": 190
+      },
+      {
+       "size": "S",
+       "label": "Stor",
+       "price": 270
+      }
+     ],
+     "description": "Ost, pizzasaus, kebabkjøtt, champignon, paprika, mais, løk, peppermix",
+     "components": [
+      {
+       "name": "Ost",
+       "state": "selected"
+      },
+      {
+       "name": "Pizzasaus",
+       "state": "selected"
+      },
+      {
+       "name": "Kebabkjøtt",
+       "state": "selected"
+      },
+      {
+       "name": "Champignon",
+       "state": "selected"
+      },
+      {
+       "name": "Paprika",
+       "state": "selected"
+      },
+      {
+       "name": "Mais",
+       "state": "selected"
+      },
+      {
+       "name": "Løk",
+       "state": "selected"
+      },
+      {
+       "name": "Peppermix",
+       "state": "selected"
+      },
+      {
+       "name": "Ekstra ost",
+       "state": "optional",
+       "extra": {
+        "M": 25,
+        "S": 35
+       }
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 25
+      }
+     ]
+    },
+    {
+     "id": 19,
+     "number": 19,
+     "name": "PEPPERONI",
+     "image": "https://paradis-server.24order.com/storage/foods/1794830783_PEPPERONI.webp",
+     "prices": [
+      {
+       "size": "M",
+       "label": "Medium",
+       "price": 190
+      },
+      {
+       "size": "S",
+       "label": "Stor",
+       "price": 270
+      }
+     ],
+     "description": "Ost, pizzasaus, pepperoni, biff, løkringer, bacon",
+     "components": [
+      {
+       "name": "Ost",
+       "state": "selected"
+      },
+      {
+       "name": "Pizzasaus",
+       "state": "selected"
+      },
+      {
+       "name": "Pepperoni",
+       "state": "selected"
+      },
+      {
+       "name": "Biff",
+       "state": "selected"
+      },
+      {
+       "name": "Løkringer",
+       "state": "selected"
+      },
+      {
+       "name": "Bacon",
+       "state": "selected"
+      },
+      {
+       "name": "Ekstra ost",
+       "state": "optional",
+       "extra": {
+        "M": 25,
+        "S": 35
+       }
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 25
+      }
+     ]
+    },
+    {
+     "id": 20,
+     "number": 20,
+     "name": "MUSLIMSK PIZZA",
+     "image": "https://paradis-server.24order.com/storage/foods/1794831020_MUSLIMSK%20PIZZA.webp",
+     "prices": [
+      {
+       "size": "M",
+       "label": "Medium",
+       "price": 190
+      },
+      {
+       "size": "S",
+       "label": "Stor",
+       "price": 270
+      }
+     ],
+     "description": "Ost, pizzasaus, champignon, paprika, biff, mais, løk, peppermix",
+     "components": [
+      {
+       "name": "Ost",
+       "state": "selected"
+      },
+      {
+       "name": "Pizzasaus",
+       "state": "selected"
+      },
+      {
+       "name": "Champignon",
+       "state": "selected"
+      },
+      {
+       "name": "Paprika",
+       "state": "selected"
+      },
+      {
+       "name": "Biff",
+       "state": "selected"
+      },
+      {
+       "name": "Mais",
+       "state": "selected"
+      },
+      {
+       "name": "Løk",
+       "state": "selected"
+      },
+      {
+       "name": "Peppermix",
+       "state": "selected"
+      },
+      {
+       "name": "Ekstra ost",
+       "state": "optional",
+       "extra": {
+        "M": 25,
+        "S": 35
+       }
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 25
+      }
+     ]
+    },
+    {
+     "id": 21,
+     "number": 21,
+     "name": "KYLLINGPIZZA",
+     "image": "https://paradis-server.24order.com/storage/foods/1794831086_KYLLINGPIZZA.webp",
+     "prices": [
+      {
+       "size": "M",
+       "label": "Medium",
+       "price": 190
+      },
+      {
+       "size": "S",
+       "label": "Stor",
+       "price": 270
+      }
+     ],
+     "description": "Ost, pizzasaus, marinert kylling, grønnsaker",
+     "components": [
+      {
+       "name": "Ost",
+       "state": "selected"
+      },
+      {
+       "name": "Pizzasaus",
+       "state": "selected"
+      },
+      {
+       "name": "Marinert kylling",
+       "state": "selected"
+      },
+      {
+       "name": "Grønnsaker",
+       "state": "selected"
+      },
+      {
+       "name": "Ekstra ost",
+       "state": "optional",
+       "extra": {
+        "M": 25,
+        "S": 35
+       }
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 25
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "name": "Kebab",
+   "image": "https://paradis-server.24order.com/storage/categories/1794833229_kebab%202.webp",
+   "footer": [
+    {
+     "label": "EKSTRA TILBEHØR",
+     "value": "5,-",
+     "note": "Mais / løk / ost / ananas / hvitløk / jalapenos / tomater / x-dressing"
+    }
+   ],
+   "foods": [
+    {
+     "id": 22,
+     "number": 1,
+     "name": "KEBAB I RULL",
+     "image": "https://paradis-server.24order.com/storage/categories/1794833229_kebab%202.webp",
+     "prices": [
+      {
+       "size": "",
+       "label": "",
+       "price": 120
+      }
+     ],
+     "description": "Kebab / kylling",
+     "components": [
+      {
+       "name": "Kebab",
+       "state": "selected"
+      },
+      {
+       "name": "Kylling",
+       "state": "optional"
+      },
+      {
+       "name": "Mais",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Løk",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Ost",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Ananas",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Hvitløk",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Tomater",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "X-dressing",
+       "state": "optional",
+       "extra": 5
+      }
+     ]
+    },
+    {
+     "id": 23,
+     "number": 2,
+     "name": "EKSTRA STOR TYRKISK KEBAB",
+     "image": "https://paradis-server.24order.com/storage/categories/1794833229_kebab%202.webp",
+     "prices": [
+      {
+       "size": "",
+       "label": "",
+       "price": 120
+      }
+     ],
+     "description": "",
+     "components": [
+      {
+       "name": "Mais",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Løk",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Ost",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Ananas",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Hvitløk",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Tomater",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "X-dressing",
+       "state": "optional",
+       "extra": 5
+      }
+     ]
+    },
+    {
+     "id": 24,
+     "number": 3,
+     "name": "STOR TYRKISK KEBAB",
+     "image": "https://paradis-server.24order.com/storage/categories/1794833229_kebab%202.webp",
+     "prices": [
+      {
+       "size": "",
+       "label": "",
+       "price": 110
+      }
+     ],
+     "description": "",
+     "components": [
+      {
+       "name": "Mais",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Løk",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Ost",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Ananas",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Hvitløk",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Tomater",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "X-dressing",
+       "state": "optional",
+       "extra": 5
+      }
+     ]
+    },
+    {
+     "id": 25,
+     "number": 4,
+     "name": "LITEN TYRKISK KEBAB",
+     "image": "https://paradis-server.24order.com/storage/categories/1794833229_kebab%202.webp",
+     "prices": [
+      {
+       "size": "",
+       "label": "",
+       "price": 100
+      }
+     ],
+     "description": "",
+     "components": [
+      {
+       "name": "Mais",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Løk",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Ost",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Ananas",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Hvitløk",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Tomater",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "X-dressing",
+       "state": "optional",
+       "extra": 5
+      }
+     ]
+    },
+    {
+     "id": 26,
+     "number": 5,
+     "name": "EKSTRA STOR KYLLINGKEBAB",
+     "image": "https://paradis-server.24order.com/storage/categories/1794833229_kebab%202.webp",
+     "prices": [
+      {
+       "size": "",
+       "label": "",
+       "price": 120
+      }
+     ],
+     "description": "",
+     "components": [
+      {
+       "name": "Mais",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Løk",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Ost",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Ananas",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Hvitløk",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Tomater",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "X-dressing",
+       "state": "optional",
+       "extra": 5
+      }
+     ]
+    },
+    {
+     "id": 27,
+     "number": 6,
+     "name": "STOR KYLLINGKEBAB",
+     "image": "https://paradis-server.24order.com/storage/categories/1794833229_kebab%202.webp",
+     "prices": [
+      {
+       "size": "",
+       "label": "",
+       "price": 110
+      }
+     ],
+     "description": "",
+     "components": [
+      {
+       "name": "Mais",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Løk",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Ost",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Ananas",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Hvitløk",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Tomater",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "X-dressing",
+       "state": "optional",
+       "extra": 5
+      }
+     ]
+    },
+    {
+     "id": 28,
+     "number": 7,
+     "name": "LITEN KYLLINGKEBAB",
+     "image": "https://paradis-server.24order.com/storage/categories/1794833229_kebab%202.webp",
+     "prices": [
+      {
+       "size": "",
+       "label": "",
+       "price": 100
+      }
+     ],
+     "description": "",
+     "components": [
+      {
+       "name": "Mais",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Løk",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Ost",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Ananas",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Hvitløk",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Tomater",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "X-dressing",
+       "state": "optional",
+       "extra": 5
+      }
+     ]
+    },
+    {
+     "id": 29,
+     "number": 8,
+     "name": "KEBABMIDDAG (TYRKISK)",
+     "image": "https://paradis-server.24order.com/storage/categories/1794833229_kebab%202.webp",
+     "prices": [
+      {
+       "size": "",
+       "label": "",
+       "price": 160
+      }
+     ],
+     "description": "Med / uten pommes frites (+10,-)",
+     "components": [
+      {
+       "name": "Pommes frites",
+       "state": "optional",
+       "extra": 10
+      },
+      {
+       "name": "Mais",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Løk",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Ost",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Ananas",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Hvitløk",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Tomater",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "X-dressing",
+       "state": "optional",
+       "extra": 5
+      }
+     ]
+    },
+    {
+     "id": 30,
+     "number": 9,
+     "name": "KYLLINGMIDDAG (TYRKISK)",
+     "image": "https://paradis-server.24order.com/storage/categories/1794833229_kebab%202.webp",
+     "prices": [
+      {
+       "size": "",
+       "label": "",
+       "price": 160
+      }
+     ],
+     "description": "Med / uten pommes frites (+10,-)",
+     "components": [
+      {
+       "name": "Pommes frites",
+       "state": "optional",
+       "extra": 10
+      },
+      {
+       "name": "Mais",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Løk",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Ost",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Ananas",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Hvitløk",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "Tomater",
+       "state": "optional",
+       "extra": 5
+      },
+      {
+       "name": "X-dressing",
+       "state": "optional",
+       "extra": 5
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "name": "Hamburgere",
+   "image": "https://paradis-server.24order.com/storage/categories/1794833183_Hamburger.webp",
+   "footer": [
+    {
+     "label": "TILLEGG FOR OST",
+     "value": "5,-"
+    }
+   ],
+   "foods": [
+    {
+     "id": 31,
+     "number": 1,
+     "name": "HAMBURGER MENY 200G",
+     "image": "https://paradis-server.24order.com/storage/categories/1794833183_Hamburger.webp",
+     "prices": [
+      {
+       "size": "",
+       "label": "",
+       "price": 140
+      }
+     ],
+     "description": "m/salat og pommes frites",
+     "components": [
+      {
+       "name": "Salat",
+       "state": "selected"
+      },
+      {
+       "name": "Pommes frites",
+       "state": "selected"
+      },
+      {
+       "name": "Ost",
+       "state": "optional",
+       "extra": 5
+      }
+     ]
+    },
+    {
+     "id": 32,
+     "number": 2,
+     "name": "HAMBURGER MENY 150G",
+     "image": "https://paradis-server.24order.com/storage/categories/1794833183_Hamburger.webp",
+     "prices": [
+      {
+       "size": "",
+       "label": "",
+       "price": 125
+      }
+     ],
+     "description": "m/salat og pommes frites",
+     "components": [
+      {
+       "name": "Salat",
+       "state": "selected"
+      },
+      {
+       "name": "Pommes frites",
+       "state": "selected"
+      },
+      {
+       "name": "Ost",
+       "state": "optional",
+       "extra": 5
+      }
+     ]
+    },
+    {
+     "id": 33,
+     "number": 3,
+     "name": "HAMBURGER 200G",
+     "image": "https://paradis-server.24order.com/storage/categories/1794833183_Hamburger.webp",
+     "prices": [
+      {
+       "size": "",
+       "label": "",
+       "price": 120
+      }
+     ],
+     "description": "",
+     "components": [
+      {
+       "name": "Ost",
+       "state": "optional",
+       "extra": 5
+      }
+     ]
+    },
+    {
+     "id": 34,
+     "number": 4,
+     "name": "HAMBURGER 150G",
+     "image": "https://paradis-server.24order.com/storage/categories/1794833183_Hamburger.webp",
+     "prices": [
+      {
+       "size": "",
+       "label": "",
+       "price": 100
+      }
+     ],
+     "description": "",
+     "components": [
+      {
+       "name": "Ost",
+       "state": "optional",
+       "extra": 5
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "name": "Salater",
+   "image": "https://paradis-server.24order.com/storage/categories/1794833021_Salater2.webp",
+   "foods": [
+    {
+     "id": 35,
+     "number": 1,
+     "name": "KYLLINGSALAT",
+     "image": "https://paradis-server.24order.com/storage/categories/1794833021_Salater2.webp",
+     "prices": [
+      {
+       "size": "",
+       "label": "",
+       "price": 90
+      }
+     ],
+     "description": "",
+     "components": [],
+     "tag": null
+    },
+    {
+     "id": 36,
+     "number": 2,
+     "name": "SKINKESALAT",
+     "image": "https://paradis-server.24order.com/storage/categories/1794833021_Salater2.webp",
+     "prices": [
+      {
+       "size": "",
+       "label": "",
+       "price": 90
+      }
+     ],
+     "description": "",
+     "components": [],
+     "tag": null
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "name": "Pommes frites",
+   "image": "https://paradis-server.24order.com/storage/categories/1794833267_chips.webp",
+   "foods": [
+    {
+     "id": 37,
+     "number": 1,
+     "name": "POMMES FRITES – STOR",
+     "image": "https://paradis-server.24order.com/storage/categories/1794833267_chips.webp",
+     "prices": [
+      {
+       "size": "",
+       "label": "",
+       "price": 60
+      }
+     ],
+     "description": "",
+     "components": [],
+     "tag": null
+    },
+    {
+     "id": 38,
+     "number": 2,
+     "name": "POMMES FRITES – LITEN",
+     "image": "https://paradis-server.24order.com/storage/categories/1794833267_chips.webp",
+     "prices": [
+      {
+       "size": "",
+       "label": "",
+       "price": 40
+      }
+     ],
+     "description": "",
+     "components": [],
+     "tag": null
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "name": "Drikke",
+   "image": "https://paradis-server.24order.com/storage/categories/1794833133_Drikke.webp",
+   "foods": [
+    {
+     "id": 39,
+     "number": 1,
+     "name": "MINERALVANN 1,5 LITER (TAKEAWAY)",
+     "image": "https://paradis-server.24order.com/storage/categories/1794833133_Drikke.webp",
+     "prices": [
+      {
+       "size": "",
+       "label": "",
+       "price": 55
+      }
+     ],
+     "description": "",
+     "components": [],
+     "tag": "1,5 L"
+    },
+    {
+     "id": 40,
+     "number": 2,
+     "name": "MINERALVANN 0,5 LITER",
+     "image": "https://paradis-server.24order.com/storage/categories/1794833133_Drikke.webp",
+     "prices": [
+      {
+       "size": "",
+       "label": "",
+       "price": 35
+      }
+     ],
+     "description": "",
+     "components": [],
+     "tag": "0,5 L"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "name": "Sauser",
+   "image": "https://paradis-server.24order.com/storage/categories/1794833050_dressing.webp",
+   "foods": [
+    {
+     "id": 41,
+     "number": 1,
+     "name": "Hvitløksaus",
+     "image": "https://paradis-server.24order.com/storage/categories/1794833050_dressing.webp",
+     "prices": [
+      {
+       "size": "",
+       "label": "",
+       "price": 25
+      }
+     ],
+     "description": "",
+     "components": [],
+     "tag": null
+    },
+    {
+     "id": 42,
+     "number": 2,
+     "name": "BBQ-saus",
+     "image": "https://paradis-server.24order.com/storage/categories/1794833050_dressing.webp",
+     "prices": [
+      {
+       "size": "",
+       "label": "",
+       "price": 25
+      }
+     ],
+     "description": "",
+     "components": [],
+     "tag": null
+    },
+    {
+     "id": 43,
+     "number": 3,
+     "name": "Chilisaus",
+     "image": "https://paradis-server.24order.com/storage/categories/1794833050_dressing.webp",
+     "prices": [
+      {
+       "size": "",
+       "label": "",
+       "price": 25
+      }
+     ],
+     "description": "",
+     "components": [],
+     "tag": null
+    },
+    {
+     "id": 44,
+     "number": 4,
+     "name": "Bearnaisesaus",
+     "image": "https://paradis-server.24order.com/storage/categories/1794833050_dressing.webp",
+     "prices": [
+      {
+       "size": "",
+       "label": "",
+       "price": 25
+      }
+     ],
+     "description": "",
+     "components": [],
+     "tag": null
+    },
+    {
+     "id": 45,
+     "number": 5,
+     "name": "Tomatsaus",
+     "image": "https://paradis-server.24order.com/storage/categories/1794833050_dressing.webp",
+     "prices": [
+      {
+       "size": "",
+       "label": "",
+       "price": 25
+      }
+     ],
+     "description": "",
+     "components": [],
+     "tag": null
+    }
+   ],
+   "footer": [
+    {
+     "label": "PRIS PER SAUS",
+     "value": "25,-"
+    }
+   ]
+  }
+ ]
+}

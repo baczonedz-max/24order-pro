@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>24order Pro · TV Menu Builder</title>
+  <link rel="icon" href="/img/24order-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/board.css">
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/"><img src="/img/24order-logo.png" alt="24order"><span data-t="appTitle"></span></a>
+    <div class="spacer"></div>
+    <select id="lang" class="lang" aria-label="Language"></select>
+  </header>
+
+  <main class="layout">
+    <aside class="panel">
+      <section class="group">
+        <h2 data-t="source"></h2>
+        <div class="seg" role="radiogroup">
+          <label><input type="radio" name="source" value="demo"><span data-t="demo"></span></label>
+          <label><input type="radio" name="source" value="live"><span data-t="live"></span></label>
+        </div>
+        <div id="liveBox" class="live" hidden>
+          <label class="field"><span data-t="server"></span><input id="server" placeholder="server.24order.com" spellcheck="false"></label>
+          <label class="field"><span data-t="branch"></span><input id="branch" inputmode="numeric"></label>
+          <button id="loadLive" class="btn" type="button" data-t="load"></button>
+          <p class="note" data-t="liveNote"></p>
+        </div>
+      </section>
+
+      <section class="group">
+        <h2 data-t="template"></h2>
+        <div id="templates" class="tpl-list"></div>
+      </section>
+
+      <section class="group">
+        <h2 data-t="categories"></h2>
+        <p class="hint" data-t="categoriesHint"></p>
+        <div id="cats" class="cats"></div>
+      </section>
+
+      <section class="group">
+        <label class="field"><span data-t="title"></span><input id="title" data-t-ph="titlePh"></label>
+        <label class="field" id="colsField"><span data-t="columns"></span><input id="columns" type="number" min="2" max="6"></label>
+      </section>
+
+      <section class="group">
+        <h2 data-t="show"></h2>
+        <label class="check"><input type="checkbox" id="showNumbers"><span data-t="numbers"></span></label>
+        <label class="check"><input type="checkbox" id="showDesc"><span data-t="ingredients"></span></label>
+        <label class="check"><input type="checkbox" id="showFooter"><span data-t="footer"></span></label>
+        <label class="check"><input type="checkbox" id="embers"><span data-t="embers"></span></label>
+      </section>
+
+      <section class="group">
+        <h2 data-t="colours"></h2>
+        <div class="colors">
+          <label class="color"><input type="color" id="accent"><span data-t="accent"></span></label>
+          <label class="color"><input type="color" id="priceColor"><span data-t="priceColor"></span></label>
+        </div>
+      </section>
+    </aside>
+
+    <section class="preview">
+      <div class="actions">
+        <span id="status" class="status" role="status"></span>
+        <div class="spacer"></div>
+        <button id="copyLink" class="btn ghost" type="button" data-t="copyLink"></button>
+        <button id="saveScreen" class="btn ghost" type="button" data-t="save"></button>
+        <a id="openTv" class="btn primary" target="_blank" rel="noopener" data-t="openTv"></a>
+      </div>
+      <div id="viewport" class="viewport"><div id="stage" class="tv-stage"></div></div>
+      <section class="saved">
+        <h2 data-t="saved"></h2>
+        <ul id="savedList"></ul>
+      </section>
+    </section>
+  </main>
+
+  <script type="module" src="/js/editor.js"></script>
+</body>
+</html>
