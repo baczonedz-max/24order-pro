@@ -3,29 +3,24 @@ import { ref, reactive, onMounted, computed } from 'vue';
 import { t } from '../i18n.js';
 import Icon from '../components/Icon.vue';
 import { SLOTS, photos, loadPhotos, photoUrl, photoRow, cutOut, savePhoto, generate, dropPhoto } from '../food/photos.js';
-import { piece, kindOf } from '../food/art.js';
 import { api } from '../api.js';
 
 const busy = reactive({}); // key -> 'gen' | 'up'
 const errs = reactive({});
 const removeBg = ref(true);
 const bulk = ref(null); // { done, total }
+const bulkErr = ref('');
 const fileFor = ref(null);
 const fileInput = ref(null);
 
-onMounted(() => loadPhotos(true));
+// First visit with no photos at all: start making them right away.
+onMounted(async () => {
+  await loadPhotos(true);
+  if (!Object.keys(photos.map).length) genMissing();
+});
 
 const total = computed(() => SLOTS.reduce((a, g) => a + g.items.length, 0));
 const have = computed(() => SLOTS.reduce((a, g) => a + g.items.filter((s) => photos.map[s.key]).length, 0));
-const kindOfKey = (key) => key.split('.')[1];
-const MINI = {
-  'base.pizza': '<circle r="14" fill="#e0a45a"/><circle r="11.5" fill="#d9452b"/><circle r="10" fill="#f8db8b"/>',
-  'base.pizza_sauce': '<circle r="14" fill="#e0a45a"/><circle r="11.5" fill="#d9452b"/>',
-  'base.dough': '<circle r="14" fill="#e0a45a"/><circle r="11.5" fill="#f1cf94"/>',
-  'side.bun_top': '<path d="M-14 6 C-14 -8 14 -8 14 6 Z" fill="#e2a050"/><circle cx="-5" cy="-2" r="1" fill="#fff5dc"/><circle cx="4" cy="-4" r="1" fill="#fff5dc"/>',
-  'side.bun_bottom': '<path d="M-14 -3 L14 -3 L12 5 L-12 5 Z" fill="#df9a48"/>',
-};
-const fallback = (key) => MINI[key] || piece(kindOfKey(key), key);
 
 async function gen(slot) {
   busy[slot.key] = 'gen';
@@ -46,7 +41,7 @@ async function genMissing() {
   const todo = SLOTS.flatMap((g) => g.items).filter((s) => !photos.map[s.key]);
   bulk.value = { done: 0, total: todo.length };
   for (const s of todo) {
-    try { await gen(s); } catch (e) { if (e.status === 501 || e.status === 429) break; }
+    try { await gen(s); } catch (e) { if (e.status === 501 || e.status === 429) { bulkErr.value = e.message; break; } }
     bulk.value.done++;
   }
   bulk.value = null;
@@ -97,6 +92,7 @@ async function remove(slot) {
       </button>
     </header>
 
+    <p v-if="bulkErr" class="form-error">{{ bulkErr }}</p>
     <div class="card photo-note">
       <Icon name="sparkle" />
       <p>{{ t('photosAiNote') }}</p>
@@ -109,9 +105,9 @@ async function remove(slot) {
         <article v-for="s in g.items" :key="s.key" class="photo-card" :class="{ wide: g.group === 'pizza' }">
           <div class="ph-box">
             <img v-if="photoUrl(s.key)" :src="photoUrl(s.key)" alt="">
-            <svg v-else viewBox="-16 -16 32 32" class="ph-fallback" v-html="fallback(s.key)" />
+            <span v-else class="ph-empty"><Icon name="components" :size="26" />{{ t('noPhotoYet') }}</span>
             <span v-if="busy[s.key]" class="ph-busy"><span class="spinner"></span>{{ busy[s.key] === 'gen' ? t('generating') : t('upload') }}…</span>
-            <span class="ph-src pill plain">{{ photoRow(s.key) ? (photoRow(s.key).source === 'ai' ? t('aiPhoto') : t('yourPhoto')) : t('drawing') }}</span>
+            <span class="ph-src pill plain">{{ photoRow(s.key) ? (photoRow(s.key).source === 'ai' ? t('aiPhoto') : t('yourPhoto')) : '—' }}</span>
           </div>
           <div class="ph-meta">
             <strong>{{ s.label }}</strong>
@@ -141,7 +137,7 @@ async function remove(slot) {
 .ph-box { position: relative; aspect-ratio: 1; border-radius: 10px; display: grid; place-items: center; overflow: hidden;
   background: repeating-conic-gradient(var(--sunken) 0 25%, var(--surface) 0 50%) 0 0 / 16px 16px; }
 .ph-box img { max-width: 86%; max-height: 86%; object-fit: contain; filter: drop-shadow(0 6px 10px rgba(0,0,0,.18)); }
-.ph-fallback { width: 55%; height: 55%; opacity: .5; }
+.ph-empty { display: grid; justify-items: center; gap: 6px; color: var(--muted); font-size: 12px; font-weight: 500; }
 .ph-busy { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 8px; background: color-mix(in srgb, var(--surface) 80%, transparent); font-weight: 600; font-size: 13px; }
 .ph-src { position: absolute; top: 6px; inset-inline-start: 6px; background: var(--surface); box-shadow: var(--sh-1); }
 .ph-meta strong { font-size: 13px; }

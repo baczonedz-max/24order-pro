@@ -457,6 +457,7 @@ img { display: block; max-width: 100%; }
 .ing .th { width: 54px; height: 54px; border-radius: 50%; background: var(--sunken); display: grid; place-items: center; }
 .ing .th svg { width: 46px; height: 46px; overflow: visible; }
 .ing .th img { width: 46px; height: 46px; object-fit: contain; }
+.ing .th-letter { font-size: 20px; font-weight: 600; color: var(--muted); }
 .ing .nm { font-size: 12.5px; font-weight: 500; line-height: 1.2; overflow-wrap: anywhere; }
 .ing .pr { font-size: 11.5px; color: var(--muted); font-weight: 500; }
 .ing .mark { position: absolute; top: 6px; inset-inline-end: 6px; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; color: #fff; transform: scale(0); transition: transform .2s cubic-bezier(.2, .9, .3, 1.5); }
