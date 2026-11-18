@@ -7,6 +7,7 @@ import { kindOf, modeOf } from '../food/art.js';
 import { api } from '../api.js';
 
 // What this restaurant's menu actually uses: ingredient kinds (with the menu's own names) and dish types.
+const engine = ref(null); // { gemini, workersAi }
 const menu = reactive({ names: {}, pizza: false, burger: false, loaded: false });
 async function loadMenu() {
   try {
@@ -41,7 +42,7 @@ const fileInput = ref(null);
 
 // First visit with no photos at all: start making them right away.
 onMounted(async () => {
-  await Promise.all([loadPhotos(true), loadMenu()]);
+  await Promise.all([loadPhotos(true), loadMenu(), api('/ai/status').then((r) => (engine.value = r.data)).catch(() => {})]);
   if (!Object.keys(photos.map).length) genMissing();
 });
 
@@ -122,6 +123,7 @@ async function remove(slot) {
     <div class="card photo-note">
       <Icon name="sparkle" />
       <p>{{ t('photosAiNote') }}</p>
+      <span v-if="engine" class="pill" :class="engine.gemini ? 'st-ready' : engine.workersAi ? 'st-preparing' : 'st-cancelled'">{{ engine.gemini ? 'Gemini' : engine.workersAi ? 'Cloudflare AI' : t('noAi') }}</span>
       <span class="pill plain">{{ have }} / {{ total }}</span>
     </div>
 

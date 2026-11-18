@@ -52,13 +52,54 @@ export async function deleteMedia(c) {
 }
 
 /** Generate one photo with Workers AI (FLUX.1 schnell, free daily quota). Returns base64 JPEG. */
+/* ---------- AI image generation: Gemini first (if a key is set), Workers AI as a backup ---------- */
+const geminiKey = (env) => env.GEMINI_API_KEY || env.GOOGLE_API_KEY || env.GEMINI_KEY || '';
+
+/** Which image generators this deployment can use (never returns the key itself). */
+export function aiStatus(c) {
+  return c.json({ success: true, data: { gemini: !!geminiKey(c.env), workersAi: !!c.env.AI, geminiModel: c.env.GEMINI_IMAGE_MODEL || 'gemini-2.5-flash-image' } });
+}
+
+async function viaGemini(env, prompt) {
+  const model = env.GEMINI_IMAGE_MODEL || 'gemini-2.5-flash-image';
+  const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', 'x-goog-api-key': geminiKey(env) },
+    body: JSON.stringify({
+      contents: [{ role: 'user', parts: [{ text: `${prompt}. Square image.` }] }],
+      generationConfig: { responseModalities: ['TEXT', 'IMAGE'] },
+    }),
+  });
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok) throw httpError(res.status === 429 ? 429 : 502, `Gemini: ${json.error?.message || `HTTP ${res.status}`}`);
+  const cand = json.candidates?.[0];
+  const part = cand?.content?.parts?.find((p) => p.inlineData || p.inline_data);
+  const data = part?.inlineData || part?.inline_data;
+  if (!data?.data) throw httpError(502, `Gemini did not return an image${cand?.finishReason ? ` (${cand.finishReason})` : ''}`);
+  return { image: data.data, mime: data.mimeType || data.mime_type || 'image/png', provider: 'gemini' };
+}
+
+async function viaWorkersAi(env, prompt) {
+  // FLUX.1 schnell accepts only { prompt, steps } (steps max 8); each call is already random.
+  const out = await env.AI.run('@cf/black-forest-labs/flux-1-schnell', { prompt, steps: 8 });
+  if (!out?.image) throw httpError(502, 'The AI did not return an image');
+  return { image: out.image, mime: 'image/jpeg', provider: 'workers-ai' };
+}
+
 export async function generateImage(c) {
-  if (!c.env.AI) throw httpError(501, 'AI is not available in this environment');
+  const env = c.env;
+  if (!geminiKey(env) && !env.AI) throw httpError(501, 'No image AI is configured (set GEMINI_API_KEY in Cloudflare)');
   const body = await c.req.json().catch(() => ({}));
   const prompt = String(body.prompt || '').trim().slice(0, 1500);
   if (prompt.length < 10) throw httpError(422, 'Prompt is too short');
-  // FLUX.1 schnell accepts only { prompt, steps } (steps max 8); each call is already random.
-  const out = await c.env.AI.run('@cf/black-forest-labs/flux-1-schnell', { prompt, steps: 8 });
-  if (!out?.image) throw httpError(502, 'The AI did not return an image');
-  return c.json({ success: true, data: { image: out.image, mime: 'image/jpeg' } });
+
+  const errors = [];
+  if (geminiKey(env)) {
+    try { return c.json({ success: true, data: await viaGemini(env, prompt) }); } catch (e) { errors.push(e); }
+  }
+  if (env.AI) {
+    try { return c.json({ success: true, data: await viaWorkersAi(env, prompt) }); } catch (e) { errors.push(e); }
+  }
+  const quota = errors.some((e) => e.status === 429 || /4006|quota|exhausted|allocation/i.test(e.message));
+  throw httpError(quota ? 429 : errors[0]?.status || 502, errors.map((e) => e.message).join(' · '));
 }
