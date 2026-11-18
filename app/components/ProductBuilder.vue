@@ -37,16 +37,35 @@ const stageItems = computed(() => comps.value.map((c) => ({
 
 const title = computed(() => ({ pizza: t('buildPizza'), burger: t('buildBurger') })[mode.value] || t('buildDish'));
 
-function toggle(which, id) {
+const fly = ref(null);
+const baking = ref(false);
+
+function toggle(which, id, ev) {
   const r = which === 'removed' ? removed : added;
   const s = new Set(r.value);
   s.has(id) ? s.delete(id) : s.add(id);
   r.value = s;
   bumped.value = null;
   requestAnimationFrame(() => (bumped.value = id));
+  // The ingredient is now on the dish: let its pieces fly from this button.
+  const nowOn = which === 'added' ? s.has(id) : !s.has(id);
+  const th = ev?.currentTarget?.querySelector('.th') || ev?.currentTarget;
+  if (nowOn && th) {
+    const b = th.getBoundingClientRect();
+    fly.value = { id, x: b.left + b.width / 2, y: b.top + b.height / 2, t: Date.now() };
+  }
 }
 
 function save() {
+  // Pizza: a short "oven" moment before it goes to the cart, like the reference.
+  if (mode.value === 'pizza' && !baking.value && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    baking.value = true;
+    setTimeout(commit, 1100);
+    return;
+  }
+  commit();
+}
+function commit() {
   emit('save', {
     key: props.line?.key || crypto.randomUUID(),
     food_id: props.food.id,
@@ -77,7 +96,7 @@ onUnmounted(() => { window.removeEventListener('keydown', onKey); document.body.
           </div>
         </div>
         <div class="stage-art">
-          <FoodStage :mode="mode" :image="food.image || ''" :items="stageItems" />
+          <FoodStage :mode="mode" :image="food.image || ''" :items="stageItems" :fly="fly" :baking="baking" />
         </div>
         <div class="stage-sum">
           <span v-if="food.sizes.length > 1 && size" class="mod note">{{ size.label || size.code }}</span>
@@ -101,7 +120,7 @@ onUnmounted(() => { window.removeEventListener('keydown', onKey); document.body.
           <div v-if="base.length" class="opts-sec">
             <h3>{{ t('included') }} <small>{{ t('includedHint') }}</small></h3>
             <div class="ing-grid">
-              <button v-for="c in base" :key="c.id" type="button" class="ing" :class="[removed.has(c.id) ? 'out' : 'in', { bump: bumped === c.id }]" :aria-pressed="!removed.has(c.id)" @click="toggle('removed', c.id)">
+              <button v-for="c in base" :key="c.id" type="button" class="ing" :class="[removed.has(c.id) ? 'out' : 'in', { bump: bumped === c.id }]" :aria-pressed="!removed.has(c.id)" @click="toggle('removed', c.id, $event)">
                 <span class="mark"><Icon :name="removed.has(c.id) ? 'x' : 'check'" :size="13" :stroke="3" /></span>
                 <span class="th" :class="{ pile: thumbPile(c.kind).length > 1 }"><img v-for="(u, k) in thumbPile(c.kind)" :key="u" :src="u" alt="" :class="'p' + k"><b v-if="!thumbPile(c.kind).length" class="th-letter">{{ c.name.trim().slice(0, 1).toUpperCase() }}</b></span>
                 <span class="nm">{{ c.name }}</span>
@@ -113,7 +132,7 @@ onUnmounted(() => { window.removeEventListener('keydown', onKey); document.body.
           <div v-if="extras.length" class="opts-sec">
             <h3>{{ t('extras') }} <small>{{ t('extrasHint') }}</small></h3>
             <div class="ing-grid">
-              <button v-for="c in extras" :key="c.id" type="button" class="ing" :class="{ on: added.has(c.id), bump: bumped === c.id }" :aria-pressed="added.has(c.id)" @click="toggle('added', c.id)">
+              <button v-for="c in extras" :key="c.id" type="button" class="ing" :class="{ on: added.has(c.id), bump: bumped === c.id }" :aria-pressed="added.has(c.id)" @click="toggle('added', c.id, $event)">
                 <span class="mark"><Icon name="check" :size="13" :stroke="3" /></span>
                 <span class="th" :class="{ pile: thumbPile(c.kind).length > 1 }"><img v-for="(u, k) in thumbPile(c.kind)" :key="u" :src="u" alt="" :class="'p' + k"><b v-if="!thumbPile(c.kind).length" class="th-letter">{{ c.name.trim().slice(0, 1).toUpperCase() }}</b></span>
                 <span class="nm">{{ c.name }}</span>
@@ -134,7 +153,7 @@ onUnmounted(() => { window.removeEventListener('keydown', onKey); document.body.
             <b aria-live="polite">{{ qty }}</b>
             <button type="button" class="icon-btn" aria-label="+" :disabled="qty >= 99" @click="qty++"><Icon name="plus" /></button>
           </div>
-          <button class="btn primary lg" type="button" @click="save">
+          <button class="btn primary lg" type="button" :disabled="baking" @click="save">
             <span>{{ line ? t('save') : t('addToCart') }}</span><span class="num">{{ money(unit * qty) }}</span>
           </button>
         </footer>

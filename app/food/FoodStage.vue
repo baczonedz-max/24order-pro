@@ -4,8 +4,8 @@
 // - burger: photo layers (bun, patty, cheese, lettuce…) stacked one by one
 // - anything else, or when photos are missing: the product's own photo with its ingredients around it.
 // No drawings: an ingredient without a photo is shown as a label, never as a cartoon.
-import { computed, ref, onMounted } from 'vue';
-import { scatter, isSauce } from './art.js';
+import { computed, ref, watch, nextTick, onMounted } from 'vue';
+import { scatter, isSauce, rng } from './art.js';
 import { photoUrl, photoRow, thumbPhoto, variants } from './photos.js';
 
 const props = defineProps({
@@ -13,7 +13,13 @@ const props = defineProps({
   image: { type: String, default: '' },
   // Every ingredient of the product: { id, name, kind, base: bool, on: bool }
   items: { type: Array, default: () => [] },
+  // Set by the builder when an ingredient is added: { id, x, y } = screen point of the tapped button.
+  // That ingredient's pieces fly from there onto the pizza.
+  fly: { type: Object, default: null },
+  // True while the "oven" effect plays after "Add to cart".
+  baking: { type: Boolean, default: false },
 });
+const svg = ref(null);
 
 const on = computed(() => props.items.filter((i) => i.on));
 // When the builder opens, the dish is built step by step (like the video); later changes animate at once.
@@ -33,21 +39,82 @@ const bakedBase = computed(() => photoUrl('base.pizza'));
 const rawBase = computed(() => (sauceOn.value ? photoUrl('base.pizza_sauce') : photoUrl('base.dough') || photoUrl('base.pizza_sauce')));
 const showBaked = computed(() => !!bakedBase.value && (cheeseOn.value || !rawBase.value));
 const basePhoto = computed(() => bakedBase.value || rawBase.value);
-const cheeseBits = scatter(31, 10, 62);
+// Sauce colours for the drizzle: body, darker edge, gloss.
+const SAUCE = {
+  sauce_white: ['#f4ecd6', '#cdbf9c', '#ffffff'],
+  sauce_bbq: ['#5c2615', '#341209', '#b06a4c'],
+  sauce_chili: ['#d2421d', '#952b10', '#ff9f7f'],
+};
+/** A smooth zig-zag that stays inside the pizza (radius r), like sauce poured from a bottle. */
+function drizzlePath(seed, r = 74) {
+  const R = rng(seed);
+  const n = 9;
+  const pts = [];
+  for (let k = 0; k < n; k++) {
+    const x = -r * 0.92 + (k * 2 * r * 0.92) / (n - 1) + (R() - 0.5) * 6;
+    const lim = Math.sqrt(Math.max(0, r * r - x * x)) * 0.86;
+    pts.push([x, (k % 2 ? -1 : 1) * lim * (0.75 + R() * 0.25)]);
+  }
+  let d = `M${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`;
+  for (let k = 1; k < n; k++) {
+    const [x0, y0] = pts[k - 1];
+    const [x1, y1] = pts[k];
+    d += ` C${(x0 + (x1 - x0) * 0.5).toFixed(1)} ${y0.toFixed(1)} ${(x0 + (x1 - x0) * 0.5).toFixed(1)} ${y1.toFixed(1)} ${x1.toFixed(1)} ${y1.toFixed(1)}`;
+  }
+  return d;
+}
+
 const cheesePieces = computed(() => variants('top.cheese'));
-const toppings = computed(() =>
-  on.value
-    .filter((i) => i.kind !== 'cheese' && i.kind !== 'sauce_tomato')
-    .map((i) => {
-      const vs = variants(`top.${i.kind}`);
-      if (!vs.length) return null;
-      if (isSauce(i.kind)) return { id: i.id, overlay: vs[0], rot: (i.id * 47) % 360 };
-      const n = isSauce(i.kind) ? 5 : i.kind === 'herbs' || i.kind === 'corn' ? 10 : i.kind === 'beef' || i.kind === 'kebab' ? 9 : 8;
-      return { id: i.id, vs, size: isSauce(i.kind) ? 30 : 40, pts: scatter(i.id * 7 + 3, i.base ? n : n + 3, 62) };
-    })
-    .filter(Boolean)
-    .map((tp, order) => ({ ...tp, order })),
-);
+// Piece sizes (in pizza units; the pizza is ~200 wide) and counts per ingredient, close to a real pizza.
+const SIZE = { cheese: 26, ham: 34, salami: 34, pepperoni: 30, mushroom: 30, onion: 32, leek: 26, olive: 18, jalapeno: 22, pepper: 30, pineapple: 26, corn: 16, meatball: 26, chicken: 28, kebab: 34, beef: 24, bacon: 32, tomato: 32, garlic: 18, herbs: 26, shrimp: 30, tuna: 24, egg: 40, lettuce: 30, pickles: 24 };
+const COUNT = { olive: 8, corn: 10, garlic: 7, herbs: 6, beef: 9, kebab: 7, jalapeno: 8, egg: 3 };
+const toppings = computed(() => {
+  const list = on.value.filter((i) => i.kind !== 'sauce_tomato');
+  const out = [];
+  for (const i of list) {
+    if (i.kind === 'cheese') {
+      // Base cheese is in the base photo; extra cheese adds shredded mozzarella on top.
+      if (i.base || !cheesePieces.value.length) continue;
+      out.push({ id: i.id, vs: cheesePieces.value, size: SIZE.cheese, pts: scatter(i.id * 11 + 5, 12, 74) });
+      continue;
+    }
+    if (isSauce(i.kind)) {
+      const c = SAUCE[i.kind] || SAUCE.sauce_white;
+      out.push({ id: i.id, sauce: drizzlePath(i.id * 13 + 7), rot: (i.id * 47) % 180, c });
+      continue;
+    }
+    const vs = variants(`top.${i.kind}`);
+    if (!vs.length) continue;
+    const n = (COUNT[i.kind] || 7) + (i.base ? 0 : 2);
+    // Spread to the edge of the topping area (the crust starts at ~85), like a real pizza.
+    out.push({ id: i.id, vs, size: SIZE[i.kind] || 30, pts: scatter(i.id * 7 + 3, n, 74) });
+  }
+  return out.map((tp, order) => ({ ...tp, order }));
+});
+
+/* Pieces fly from the tapped button to their place on the pizza (Web Animations API). */
+const SPRING = 'cubic-bezier(.3, 1.45, .45, 1)';
+function toSvg(x, y) {
+  const el = svg.value;
+  if (!el?.getScreenCTM) return null;
+  const p = el.createSVGPoint();
+  p.x = x; p.y = y;
+  return p.matrixTransform(el.getScreenCTM().inverse());
+}
+watch(() => props.fly, async (f) => {
+  if (!f) return;
+  await nextTick();
+  const from = toSvg(f.x, f.y);
+  const nodes = svg.value?.querySelectorAll(`[data-top="${f.id}"] .fly`) || [];
+  nodes.forEach((el, i) => {
+    const tx = Number(el.dataset.x), ty = Number(el.dataset.y);
+    const start = from ? `translate(${from.x - tx}px, ${from.y - ty}px) scale(.55)` : 'translateY(-40px) scale(1.4)';
+    el.animate([{ transform: start, opacity: 0.2 }, { transform: 'none', opacity: 1 }], { duration: 620, delay: i * 38, easing: SPRING, fill: 'backwards' });
+  });
+  svg.value?.querySelectorAll(`[data-top="${f.id}"] .drizzle`).forEach((el) => {
+    el.animate([{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }], { duration: 900, easing: 'ease-out', fill: 'backwards' });
+  });
+});
 
 /* ---------- Burger ---------- */
 const ORDER = { sauce_white: 1, sauce_bbq: 1, sauce_chili: 1, sauce_tomato: 1, lettuce: 2, tomato: 3, pickles: 4, jalapeno: 4, beef: 5, kebab: 5, meatball: 5, chicken: 5, cheese: 6, bacon: 7, egg: 8, onion: 9, leek: 9, onion_rings: 10 };
@@ -109,30 +176,37 @@ const ring = computed(() => {
 
 <template>
   <!-- PIZZA -->
-  <svg v-if="view === 'pizza'" viewBox="-118 -118 236 236" role="img" aria-hidden="true">
+  <svg v-if="view === 'pizza'" ref="svg" viewBox="-118 -118 236 236" role="img" aria-hidden="true" :class="{ baking }">
     <defs>
-      <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-opacity=".28" /></filter>
+      <radialGradient id="pcShadow"><stop offset="0" stop-color="#000" stop-opacity=".42" /><stop offset=".5" stop-color="#000" stop-opacity=".14" /><stop offset=".72" stop-color="#000" stop-opacity="0" /></radialGradient>
+      <radialGradient id="ovenGlow"><stop offset="0" stop-color="#fd992f" stop-opacity=".55" /><stop offset=".45" stop-color="#df4d0c" stop-opacity=".28" /><stop offset=".72" stop-color="#df4d0c" stop-opacity="0" /></radialGradient>
     </defs>
-    <ellipse cx="0" cy="8" rx="104" ry="100" fill="#000" opacity=".12" />
+    <ellipse cx="0" cy="9" rx="104" ry="100" fill="#000" opacity=".14" />
     <g class="base-in">
       <image v-if="rawBase" :href="rawBase" x="-108" y="-108" width="216" height="216" preserveAspectRatio="xMidYMid meet" />
       <image v-if="bakedBase" class="base-baked" :style="{ opacity: showBaked ? 1 : 0 }" :href="bakedBase" x="-108" y="-108" width="216" height="216" preserveAspectRatio="xMidYMid meet" />
     </g>
-    <g v-if="extraCheese && cheesePieces.length">
-      <g v-for="(b, i) in cheeseBits" :key="'c' + i" :transform="`translate(${b.x.toFixed(1)} ${b.y.toFixed(1)}) rotate(${b.rot.toFixed(0)})`">
-        <image class="topping" :style="{ '--d': i * 40 + 'ms' }" :href="cheesePieces[i % cheesePieces.length]" x="-17" y="-17" width="34" height="34" />
-      </g>
-    </g>
     <TransitionGroup tag="g" name="top">
-      <g v-for="tp in toppings" :key="tp.id" filter="url(#softShadow)">
-        <g v-if="tp.overlay" :transform="`rotate(${tp.rot})`">
-          <image class="topping" :style="{ '--d': (intro ? 250 + tp.order * STEP : 0) + 'ms' }" :href="tp.overlay" x="-82" y="-82" width="164" height="164" preserveAspectRatio="xMidYMid meet" />
+      <g v-for="tp in toppings" :key="tp.id" :data-top="tp.id">
+        <!-- Sauce: a glossy drizzle across the whole pizza -->
+        <g v-if="tp.sauce" :transform="`rotate(${tp.rot})`" class="pop-in" :style="{ '--d': (intro ? 250 + tp.order * STEP : 0) + 'ms' }">
+          <path :d="tp.sauce" fill="none" stroke="#000" stroke-opacity=".22" stroke-width="5.2" stroke-linecap="round" transform="translate(1.2 2)" class="drizzle" pathLength="1" stroke-dasharray="1" />
+          <path :d="tp.sauce" fill="none" :stroke="tp.c[1]" stroke-width="4.6" stroke-linecap="round" class="drizzle" pathLength="1" stroke-dasharray="1" />
+          <path :d="tp.sauce" fill="none" :stroke="tp.c[0]" stroke-width="3.4" stroke-linecap="round" class="drizzle" pathLength="1" stroke-dasharray="1" />
+          <path :d="tp.sauce" fill="none" :stroke="tp.c[2]" stroke-opacity=".7" stroke-width="1" stroke-linecap="round" transform="translate(-.5 -.8)" class="drizzle" pathLength="1" stroke-dasharray="1" />
         </g>
-        <g v-for="(p, i) in tp.pts || []" :key="i" :transform="`translate(${p.x.toFixed(1)} ${p.y.toFixed(1)}) rotate(${p.rot.toFixed(0)}) scale(${(p.s * 0.82).toFixed(2)})`">
-          <image class="topping" :style="{ '--d': (intro ? 250 + tp.order * STEP : 0) + i * 40 + 'ms' }" :href="tp.vs[i % tp.vs.length]" :x="-tp.size / 2" :y="-tp.size / 2" :width="tp.size" :height="tp.size" preserveAspectRatio="xMidYMid meet" />
+        <!-- Pieces: real photo cut-outs with a soft shadow, each landing with a spring -->
+        <g v-for="(p, i) in tp.pts || []" :key="i" :transform="`translate(${p.x.toFixed(1)} ${p.y.toFixed(1)})`">
+          <g class="fly pop-in" :data-x="p.x.toFixed(1)" :data-y="p.y.toFixed(1)" :style="{ '--d': (intro ? 250 + tp.order * STEP : 0) + i * 38 + 'ms' }">
+            <circle :r="tp.size * 0.42" :cx="tp.size * 0.07" :cy="tp.size * 0.11" fill="url(#pcShadow)" />
+            <g :transform="`rotate(${p.rot.toFixed(0)}) scale(${p.s.toFixed(2)})`">
+              <image class="topping" :style="{ '--d': (intro ? 250 + tp.order * STEP : 0) + i * 38 + 'ms' }" :href="tp.vs[i % tp.vs.length]" :x="-tp.size / 2" :y="-tp.size / 2" :width="tp.size" :height="tp.size" preserveAspectRatio="xMidYMid meet" />
+            </g>
+          </g>
         </g>
       </g>
     </TransitionGroup>
+    <circle class="oven" r="150" fill="url(#ovenGlow)" />
   </svg>
 
   <!-- BURGER -->

@@ -26,10 +26,10 @@ const TOPS = [
   ['garlic', 'Garlic', 'peeled garlic cloves', 'black'],
   ['pepper', 'Bell pepper', 'strips of red, yellow and green bell pepper', 'white'],
   ['jalapeno', 'Jalapeño', 'round slices of green jalapeño pepper', 'white'],
-  ['chili', 'Chili', 'small slices of fresh red chili pepper', 'white'],
+  ['chili', 'Chili', 'thin round slices of fresh red chili pepper', 'white'],
   ['olive', 'Olive', 'black olive ring slices', 'white'],
   ['pineapple', 'Pineapple', 'small chunks of pineapple', 'white'],
-  ['corn', 'Corn', 'small clusters of sweet corn kernels', 'white'],
+  ['corn', 'Corn', 'small piles of loose sweet corn kernels, no cob', 'white'],
   ['meatball', 'Meatball', 'small cooked meatballs', 'white'],
   ['chicken', 'Chicken', 'small cubes of grilled chicken', 'white'],
   ['kebab', 'Kebab meat', 'small piles of sliced doner kebab', 'white'],
@@ -52,9 +52,9 @@ const SAUCES = [
   ['sauce_tomato', 'Tomato sauce', 'red tomato sauce', 'white'],
 ];
 const SIDES = [
-  ['bun_top', 'Top bun', 'the top half of a golden sesame seed burger bun', 'white'],
-  ['bun_bottom', 'Bottom bun', 'the bottom half of a golden burger bun, cut side up', 'white'],
-  ['beef', 'Beef patty', 'one thick juicy grilled beef burger patty', 'white'],
+  ['bun_top', 'Top bun', 'only the top half of a golden sesame seed hamburger bun on its own, dome side up, no filling, no meat, no burger', 'white'],
+  ['bun_bottom', 'Bottom bun', 'only the bottom half of a hamburger bun on its own, flat cut side up, no filling, no plate', 'white'],
+  ['beef', 'Beef patty', 'one single thick grilled beef burger patty on its own, no bun, no bread, no cheese, no vegetables', 'white'],
   ['chicken', 'Chicken fillet', 'one crispy golden fried chicken fillet', 'white'],
   ['cheese', 'Cheese slice', 'one slice of melted yellow cheddar cheese, flat, slightly drooping at the edges', 'white'],
   ['lettuce', 'Lettuce', 'a flat layer of fresh green iceberg lettuce leaves', 'white'],
@@ -85,32 +85,53 @@ export const SLOTS = [
   { group: 'burger', items: SIDES.map(([k, label, what, bg]) => ({ key: `side.${k}`, kind: k, label, prompt: SIDE(what, bg), alt: SHORT(what, bg).replace('top view', 'side view'), bg })) },
 ];
 
-/* ---------- Index of stored photos ---------- */
-export const photos = reactive({ map: {}, loaded: false });
+/* ---------- Index of photos ----------
+ * Two sources:
+ *  - the built-in library shipped with the app (public/img/ingredients, cleaned AI photos),
+ *  - the restaurant's own database (uploads and newly generated photos).
+ * For each slot the database wins when it holds an upload or a photo newer than the library;
+ * otherwise the library is used. */
+export const photos = reactive({ map: {}, lib: {}, libBuilt: '', blocked: [], loaded: false });
 
 export async function loadPhotos(force = false) {
   if (photos.loaded && !force) return;
-  try {
-    const rows = (await api('/media')).data;
-    photos.map = Object.fromEntries(rows.map((r) => [r.key, r]));
-  } catch {}
+  const [db, lib] = await Promise.all([
+    api('/media').then((r) => r.data).catch(() => []),
+    fetch('/img/ingredients/manifest.json').then((r) => (r.ok ? r.json() : null)).catch(() => null),
+  ]);
+  photos.map = Object.fromEntries(db.map((r) => [r.key, r]));
+  if (lib) { photos.lib = lib.items || {}; photos.libBuilt = lib.built_at || ''; photos.blocked = lib.blocked || []; }
   photos.loaded = true;
 }
 export function setPhoto(row) { photos.map = { ...photos.map, [row.key]: row }; }
 export function dropPhoto(key) { const m = { ...photos.map }; delete m[key]; photos.map = m; }
-const url = (key) => { const r = photos.map[key]; return r ? `/api/media/${key}?v=${encodeURIComponent(r.updated_at)}` : null; };
-export const photoUrl = url;
-export const photoRow = (key) => photos.map[key] || null;
 
-/** Every stored key of a slot: "top.salami" itself and/or "top.salami.0", "top.salami.1", … */
-export function slotKeys(key) {
-  return Object.keys(photos.map)
-    .filter((k) => k === key || (k.startsWith(key + '.') && /^\d+$/.test(k.slice(key.length + 1))))
-    .sort((a, b) => (a === key ? -1 : b === key ? 1 : Number(a.split('.').pop()) - Number(b.split('.').pop())));
+const isSlotKey = (key, k) => k === key || (k.startsWith(key + '.') && /^\d+$/.test(k.slice(key.length + 1)));
+const order = (key) => (a, b) => (a === key ? -1 : b === key ? 1 : Number(a.split('.').pop()) - Number(b.split('.').pop()));
+const dbKeys = (key) => Object.keys(photos.map).filter((k) => isSlotKey(key, k)).sort(order(key));
+const libKeys = (key) => Object.keys(photos.lib).filter((k) => isSlotKey(key, k)).sort(order(key));
+/** Does this slot come from the restaurant's database (instead of the built-in library)? */
+function useDb(key) {
+  const keys = dbKeys(key);
+  if (!keys.length) return false;
+  // Older AI photos known to be wrong are ignored until a new one is made or uploaded.
+  const fresh = keys.some((k) => photos.map[k].source === 'upload' || photos.map[k].updated_at > photos.libBuilt);
+  if (photos.blocked.includes(key) && !fresh) return false;
+  if (!libKeys(key).length) return true;
+  return keys.some((k) => photos.map[k].source === 'upload' || photos.map[k].updated_at > photos.libBuilt);
 }
+function rowsOf(key) {
+  if (useDb(key)) return dbKeys(key).map((k) => ({ ...photos.map[k], url: `/api/media/${k}?v=${encodeURIComponent(photos.map[k].updated_at)}` }));
+  return libKeys(key).map((k) => ({ key: k, ...photos.lib[k], source: 'library', url: `/img/ingredients/${k}.webp?v=${encodeURIComponent(photos.libBuilt)}` }));
+}
+/** Database keys of a slot (what Delete removes). */
+export const slotKeys = dbKeys;
 /** URLs of all piece variants of a slot (empty when there is no photo). */
-export const variants = (key) => slotKeys(key).map(url);
-export const slotRow = (key) => photos.map[slotKeys(key)[0]] || null;
+export const variants = (key) => rowsOf(key).map((r) => r.url);
+export const slotRow = (key) => rowsOf(key)[0] || null;
+export const photoUrl = (key) => rowsOf(key)[0]?.url || null;
+export const photoRow = slotRow;
+
 /** Up to three pieces for an ingredient icon (top view first, then side view). */
 export function thumbPile(kind) {
   const top = variants(`top.${kind}`);

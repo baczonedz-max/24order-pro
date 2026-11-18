@@ -1,0 +1,386 @@
+{
+ "built_at": "2026-11-18T11:38:13.281Z",
+ "items": {
+  "base.dough": {
+   "w": 718,
+   "h": 735
+  },
+  "base.pizza": {
+   "w": 730,
+   "h": 702
+  },
+  "base.pizza_sauce": {
+   "w": 778,
+   "h": 774
+  },
+  "side.cheese": {
+   "w": 548,
+   "h": 304
+  },
+  "side.egg": {
+   "w": 323,
+   "h": 181
+  },
+  "side.fries": {
+   "w": 458,
+   "h": 576
+  },
+  "side.jalapeno": {
+   "w": 688,
+   "h": 267
+  },
+  "side.lettuce": {
+   "w": 732,
+   "h": 412
+  },
+  "side.onion": {
+   "w": 770,
+   "h": 449
+  },
+  "side.onion_rings": {
+   "w": 829,
+   "h": 397
+  },
+  "side.pickles": {
+   "w": 635,
+   "h": 208
+  },
+  "side.tomato": {
+   "w": 512,
+   "h": 298
+  },
+  "top.bacon.0": {
+   "w": 475,
+   "h": 175
+  },
+  "top.beef.0": {
+   "w": 216,
+   "h": 261
+  },
+  "top.beef.1": {
+   "w": 201,
+   "h": 224
+  },
+  "top.beef.2": {
+   "w": 207,
+   "h": 192
+  },
+  "top.beef.3": {
+   "w": 202,
+   "h": 221
+  },
+  "top.cheese.0": {
+   "w": 323,
+   "h": 286
+  },
+  "top.cheese.1": {
+   "w": 305,
+   "h": 276
+  },
+  "top.cheese.2": {
+   "w": 284,
+   "h": 299
+  },
+  "top.cheese.3": {
+   "w": 279,
+   "h": 277
+  },
+  "top.chicken.0": {
+   "w": 467,
+   "h": 771
+  },
+  "top.chicken.1": {
+   "w": 496,
+   "h": 628
+  },
+  "top.egg.0": {
+   "w": 215,
+   "h": 218
+  },
+  "top.egg.1": {
+   "w": 201,
+   "h": 218
+  },
+  "top.egg.2": {
+   "w": 195,
+   "h": 207
+  },
+  "top.egg.3": {
+   "w": 200,
+   "h": 201
+  },
+  "top.fries.0": {
+   "w": 362,
+   "h": 627
+  },
+  "top.fries.1": {
+   "w": 368,
+   "h": 317
+  },
+  "top.fries.2": {
+   "w": 300,
+   "h": 330
+  },
+  "top.garlic.0": {
+   "w": 245,
+   "h": 238
+  },
+  "top.garlic.1": {
+   "w": 237,
+   "h": 235
+  },
+  "top.garlic.2": {
+   "w": 214,
+   "h": 195
+  },
+  "top.garlic.3": {
+   "w": 144,
+   "h": 134
+  },
+  "top.herbs.0": {
+   "w": 352,
+   "h": 336
+  },
+  "top.jalapeno.0": {
+   "w": 302,
+   "h": 294
+  },
+  "top.jalapeno.1": {
+   "w": 234,
+   "h": 207
+  },
+  "top.jalapeno.2": {
+   "w": 159,
+   "h": 140
+  },
+  "top.jalapeno.3": {
+   "w": 159,
+   "h": 132
+  },
+  "top.kebab.0": {
+   "w": 457,
+   "h": 621
+  },
+  "top.kebab.1": {
+   "w": 365,
+   "h": 613
+  },
+  "top.leek.0": {
+   "w": 600,
+   "h": 427
+  },
+  "top.leek.1": {
+   "w": 636,
+   "h": 462
+  },
+  "top.lettuce.0": {
+   "w": 238,
+   "h": 220
+  },
+  "top.meatball.0": {
+   "w": 292,
+   "h": 244
+  },
+  "top.meatball.1": {
+   "w": 281,
+   "h": 232
+  },
+  "top.meatball.2": {
+   "w": 282,
+   "h": 235
+  },
+  "top.meatball.3": {
+   "w": 272,
+   "h": 227
+  },
+  "top.mushroom.0": {
+   "w": 218,
+   "h": 302
+  },
+  "top.mushroom.1": {
+   "w": 208,
+   "h": 193
+  },
+  "top.mushroom.2": {
+   "w": 192,
+   "h": 150
+  },
+  "top.olive.0": {
+   "w": 386,
+   "h": 223
+  },
+  "top.olive.1": {
+   "w": 388,
+   "h": 315
+  },
+  "top.olive.2": {
+   "w": 265,
+   "h": 259
+  },
+  "top.onion.0": {
+   "w": 654,
+   "h": 282
+  },
+  "top.onion.1": {
+   "w": 296,
+   "h": 290
+  },
+  "top.onion.2": {
+   "w": 315,
+   "h": 290
+  },
+  "top.pepper.0": {
+   "w": 627,
+   "h": 389
+  },
+  "top.pepper.1": {
+   "w": 148,
+   "h": 338
+  },
+  "top.pepper.2": {
+   "w": 355,
+   "h": 303
+  },
+  "top.pepper.3": {
+   "w": 244,
+   "h": 247
+  },
+  "top.pepperoni.0": {
+   "w": 265,
+   "h": 564
+  },
+  "top.pepperoni.1": {
+   "w": 306,
+   "h": 529
+  },
+  "top.pickles.0": {
+   "w": 351,
+   "h": 396
+  },
+  "top.pickles.1": {
+   "w": 345,
+   "h": 385
+  },
+  "top.pickles.2": {
+   "w": 307,
+   "h": 333
+  },
+  "top.pickles.3": {
+   "w": 307,
+   "h": 323
+  },
+  "top.pineapple.0": {
+   "w": 579,
+   "h": 341
+  },
+  "top.pineapple.1": {
+   "w": 284,
+   "h": 328
+  },
+  "top.pineapple.2": {
+   "w": 288,
+   "h": 201
+  },
+  "top.sauce_bbq.0": {
+   "w": 280,
+   "h": 216
+  },
+  "top.sauce_bbq.1": {
+   "w": 227,
+   "h": 239
+  },
+  "top.sauce_bbq.2": {
+   "w": 160,
+   "h": 178
+  },
+  "top.sauce_bbq.3": {
+   "w": 158,
+   "h": 176
+  },
+  "top.sauce_chili.0": {
+   "w": 209,
+   "h": 213
+  },
+  "top.sauce_chili.1": {
+   "w": 194,
+   "h": 189
+  },
+  "top.sauce_chili.2": {
+   "w": 181,
+   "h": 190
+  },
+  "top.sauce_chili.3": {
+   "w": 165,
+   "h": 178
+  },
+  "top.sauce_tomato.0": {
+   "w": 218,
+   "h": 195
+  },
+  "top.sauce_tomato.1": {
+   "w": 216,
+   "h": 188
+  },
+  "top.sauce_tomato.2": {
+   "w": 200,
+   "h": 177
+  },
+  "top.sauce_white.0": {
+   "w": 165,
+   "h": 171
+  },
+  "top.sauce_white.1": {
+   "w": 167,
+   "h": 171
+  },
+  "top.sauce_white.2": {
+   "w": 163,
+   "h": 165
+  },
+  "top.sauce_white.3": {
+   "w": 160,
+   "h": 158
+  },
+  "top.shrimp.0": {
+   "w": 373,
+   "h": 277
+  },
+  "top.shrimp.1": {
+   "w": 387,
+   "h": 276
+  },
+  "top.shrimp.2": {
+   "w": 256,
+   "h": 315
+  },
+  "top.shrimp.3": {
+   "w": 273,
+   "h": 274
+  },
+  "top.tuna.0": {
+   "w": 191,
+   "h": 212
+  },
+  "top.tuna.1": {
+   "w": 197,
+   "h": 201
+  },
+  "top.tuna.2": {
+   "w": 188,
+   "h": 199
+  },
+  "top.tuna.3": {
+   "w": 204,
+   "h": 184
+  }
+ },
+ "blocked": [
+  "top.salami",
+  "top.tomato",
+  "top.corn",
+  "top.chili",
+  "side.bun_top",
+  "side.bun_bottom",
+  "side.beef"
+ ]
+}

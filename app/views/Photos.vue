@@ -43,7 +43,7 @@ const fileInput = ref(null);
 // First visit with no photos at all: start making them right away.
 onMounted(async () => {
   await Promise.all([loadPhotos(true), loadMenu(), api('/ai/status').then((r) => (engine.value = r.data)).catch(() => {})]);
-  if (!Object.keys(photos.map).length) genMissing();
+  if (have.value === 0 && total.value > 0) genMissing();
 });
 
 const total = computed(() => SLOTS.reduce((a, g) => a + g.items.filter(inMenu).length, 0));
@@ -136,7 +136,7 @@ async function remove(slot) {
             <img v-else-if="variants(s.key).length" :src="variants(s.key)[0]" alt="">
             <span v-else class="ph-empty"><Icon name="components" :size="26" />{{ t('noPhotoYet') }}</span>
             <span v-if="busy[s.key]" class="ph-busy"><span class="spinner"></span>{{ busy[s.key] === 'gen' ? t('generating') : t('upload') }}…</span>
-            <span class="ph-src pill plain">{{ slotRow(s.key) ? (slotRow(s.key).source === 'ai' ? t('aiPhoto') : t('yourPhoto')) : '—' }}</span>
+            <span class="ph-src pill plain">{{ slotRow(s.key) ? t({ ai: 'aiPhoto', upload: 'yourPhoto', library: 'libraryPhoto' }[slotRow(s.key).source]) : '—' }}</span>
           </div>
           <div class="ph-meta">
             <strong>{{ menu.names[s.kind]?.join(' · ') || s.label }}</strong>
@@ -147,7 +147,7 @@ async function remove(slot) {
           <div class="ph-actions">
             <button class="btn sm soft" type="button" :disabled="!!busy[s.key] || !!bulk" :title="t('generate')" @click="gen(s).catch(() => {})"><Icon name="sparkle" :size="16" />{{ slotRow(s.key) ? t('regenerate') : t('generate') }}</button>
             <button class="icon-btn sm bordered" type="button" :disabled="!!busy[s.key]" :title="t('upload')" :aria-label="t('upload')" @click="pickFile(s)"><Icon name="import" :size="16" /></button>
-            <button v-if="slotRow(s.key)" class="icon-btn sm bordered" type="button" :title="t('remove')" :aria-label="t('remove')" @click="remove(s)"><Icon name="trash" :size="16" /></button>
+            <button v-if="slotRow(s.key) && slotRow(s.key).source !== 'library'" class="icon-btn sm bordered" type="button" :title="t('remove')" :aria-label="t('remove')" @click="remove(s)"><Icon name="trash" :size="16" /></button>
           </div>
         </article>
       </div>
