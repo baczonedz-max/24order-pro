@@ -41,6 +41,7 @@ const toppings = computed(() =>
     .map((i) => {
       const vs = variants(`top.${i.kind}`);
       if (!vs.length) return null;
+      if (isSauce(i.kind)) return { id: i.id, overlay: vs[0], rot: (i.id * 47) % 360 };
       const n = isSauce(i.kind) ? 5 : i.kind === 'herbs' || i.kind === 'corn' ? 10 : i.kind === 'beef' || i.kind === 'kebab' ? 9 : 8;
       return { id: i.id, vs, size: isSauce(i.kind) ? 30 : 40, pts: scatter(i.id * 7 + 3, i.base ? n : n + 3, 62) };
     })
@@ -53,7 +54,7 @@ const ORDER = { sauce_white: 1, sauce_bbq: 1, sauce_chili: 1, sauce_tomato: 1, l
 const MEAT = new Set(['beef', 'kebab', 'meatball', 'chicken']);
 const SIDE_KEY = { kebab: 'beef', meatball: 'beef', leek: 'onion' };
 // How much of a photo's height counts as the layer's thickness (the rest overlaps its neighbours).
-const THICK = { bun_bottom: 0.8, bun_top: 0.9, beef: 0.72, chicken: 0.72, cheese: 0.34, lettuce: 0.45, tomato: 0.5, onion: 0.45, bacon: 0.5, egg: 0.5 };
+const THICK = { sauce_white: 0.28, sauce_bbq: 0.28, sauce_chili: 0.28, sauce_tomato: 0.28, bun_bottom: 0.8, bun_top: 0.9, beef: 0.72, chicken: 0.72, cheese: 0.34, lettuce: 0.45, tomato: 0.5, onion: 0.45, bacon: 0.5, egg: 0.5 };
 function photoLayer(kind) {
   const row = photoRow(`side.${kind}`);
   if (!row || !row.w || !row.h) return null;
@@ -124,7 +125,10 @@ const ring = computed(() => {
     </g>
     <TransitionGroup tag="g" name="top">
       <g v-for="tp in toppings" :key="tp.id" filter="url(#softShadow)">
-        <g v-for="(p, i) in tp.pts" :key="i" :transform="`translate(${p.x.toFixed(1)} ${p.y.toFixed(1)}) rotate(${p.rot.toFixed(0)}) scale(${(p.s * 0.82).toFixed(2)})`">
+        <g v-if="tp.overlay" :transform="`rotate(${tp.rot})`">
+          <image class="topping" :style="{ '--d': (intro ? 250 + tp.order * STEP : 0) + 'ms' }" :href="tp.overlay" x="-82" y="-82" width="164" height="164" preserveAspectRatio="xMidYMid meet" />
+        </g>
+        <g v-for="(p, i) in tp.pts || []" :key="i" :transform="`translate(${p.x.toFixed(1)} ${p.y.toFixed(1)}) rotate(${p.rot.toFixed(0)}) scale(${(p.s * 0.82).toFixed(2)})`">
           <image class="topping" :style="{ '--d': (intro ? 250 + tp.order * STEP : 0) + i * 40 + 'ms' }" :href="tp.vs[i % tp.vs.length]" :x="-tp.size / 2" :y="-tp.size / 2" :width="tp.size" :height="tp.size" preserveAspectRatio="xMidYMid meet" />
         </g>
       </g>

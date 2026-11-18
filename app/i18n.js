@@ -193,6 +193,7 @@ const D = {
   aiPhoto: ['ذكاء اصطناعي', 'AI', 'IA', 'AI'],
   yourPhoto: ['صورتك', 'Yours', 'La vôtre', 'Ditt'],
   drawing: ['رسم', 'Drawing', 'Dessin', 'Tegning'],
+  notOnMenu: ['غير موجود في المنيو', 'Not on your menu', 'Pas dans votre menu', 'Ikke på menyen'],
   noPhotoYet: ['لا توجد صورة بعد', 'No photo yet', 'Pas encore de photo', 'Ikke noe bilde ennå'],
   group_pizza: ['قاعدة البيتزا', 'Pizza base', 'Base de pizza', 'Pizzabunn'],
   group_toppings: ['مكونات البيتزا (من الأعلى)', 'Toppings (top view)', 'Garnitures (vue de dessus)', 'Fyll (ovenfra)'],

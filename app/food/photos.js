@@ -6,21 +6,20 @@
 import { reactive } from 'vue';
 import { api } from '../api.js';
 
-const LIGHT = 'soft even studio light, sharp focus, photorealistic, high detail, no plate, no board, no cast shadow, no text';
-const TOPS4 = (what, bg) => `Professional food photography, top-down overhead view of exactly four separate ${what}, arranged in a loose two by two grid with wide empty gaps between them so that no pieces touch or overlap, each piece fully visible, isolated on a plain solid ${bg} background, ${LIGHT}`;
-const SIDE = (what, bg) => `Professional food photography, straight side view at eye level of ${what}, horizontal, isolated on a plain solid ${bg} background, centered, fully visible with plenty of empty space around it, ${LIGHT}`;
-const PIZZA = (what) => `Professional food photography, exact top-down overhead view of ${what}, perfectly round, the entire pizza fully visible and centered with empty space around it, isolated on a plain solid white background, ${LIGHT}`;
+// Plain food-photography wording. (Words like "touch", "loose" or "shot" can trip the AI's safety filter.)
+const LIGHT = 'even studio lighting, sharp, realistic food photo, high detail, no plate, no shadows, no text';
+const TOPS4 = (what, bg) => `Overhead food photograph of four ${what} placed apart from each other with clear space between them, on a seamless pure ${bg} background, top view, ${LIGHT}`;
+const DRIZZLE = (what, bg) => `Overhead food photograph of ${what} drizzled in thin zigzag lines over a round area, on a seamless pure ${bg} background, top view, ${LIGHT}`;
+const SIDE = (what, bg) => `Food photograph, side view at eye level of ${what}, horizontal, centered with empty space around it, on a seamless pure ${bg} background, ${LIGHT}`;
+const PIZZA = (what) => `Overhead food photograph of ${what}, perfectly round, the whole pizza visible and centered with empty space around it, on a seamless pure white background, ${LIGHT}`;
+const SHORT = (what, bg) => `Food photo, top view: ${what} on a plain ${bg} background`;
 
 // [key, label, four separate … (plural), background]
 const TOPS = [
   ['cheese', 'Cheese', 'small piles of shredded mozzarella cheese', 'black'],
-  ['sauce_tomato', 'Tomato sauce', 'small round dollops of red tomato pizza sauce', 'white'],
-  ['sauce_white', 'Garlic / white sauce', 'small round dollops of creamy white garlic sauce', 'black'],
-  ['sauce_bbq', 'BBQ sauce', 'small round dollops of dark brown barbecue sauce', 'white'],
-  ['sauce_chili', 'Chili sauce', 'small round dollops of red chili sauce', 'white'],
-  ['ham', 'Ham', 'square pieces of cooked ham', 'white'],
-  ['salami', 'Salami', 'round slices of salami', 'white'],
-  ['pepperoni', 'Pepperoni', 'round slices of pepperoni', 'white'],
+  ['ham', 'Ham', 'small square slices of pink cooked ham', 'white'],
+  ['salami', 'Salami', 'thin round slices of italian salami sausage', 'white'],
+  ['pepperoni', 'Pepperoni', 'thin round slices of pepperoni sausage', 'white'],
   ['mushroom', 'Mushroom', 'thin slices of white button mushroom', 'black'],
   ['onion', 'Onion', 'rings of red onion', 'white'],
   ['leek', 'Leek', 'thin rings of green leek', 'white'],
@@ -32,18 +31,25 @@ const TOPS = [
   ['pineapple', 'Pineapple', 'small chunks of pineapple', 'white'],
   ['corn', 'Corn', 'small clusters of sweet corn kernels', 'white'],
   ['meatball', 'Meatball', 'small cooked meatballs', 'white'],
-  ['chicken', 'Chicken', 'small pieces of grilled chicken breast', 'white'],
-  ['kebab', 'Kebab meat', 'small bunches of thin doner kebab meat strips', 'white'],
-  ['beef', 'Minced beef', 'small pieces of cooked seasoned minced beef', 'white'],
-  ['bacon', 'Bacon', 'short pieces of crispy bacon', 'white'],
+  ['chicken', 'Chicken', 'small cubes of grilled chicken', 'white'],
+  ['kebab', 'Kebab meat', 'small piles of sliced doner kebab', 'white'],
+  ['beef', 'Minced beef', 'small piles of cooked minced beef crumbles', 'white'],
+  ['bacon', 'Bacon', 'short crispy bacon pieces', 'white'],
   ['tomato', 'Tomato', 'round slices of fresh red tomato', 'white'],
   ['pickles', 'Pickles', 'round slices of pickle', 'white'],
   ['lettuce', 'Lettuce', 'small pieces of fresh green lettuce leaf', 'white'],
   ['herbs', 'Herbs', 'small sprigs of fresh dill', 'white'],
   ['fries', 'Fries', 'small bunches of golden french fries', 'white'],
   ['egg', 'Egg', 'small fried eggs', 'black'],
-  ['shrimp', 'Shrimp', 'cooked pink shrimps', 'white'],
+  ['shrimp', 'Shrimp', 'cooked pink prawns', 'white'],
   ['tuna', 'Tuna', 'small flakes of canned tuna', 'white'],
+];
+// Sauces: one drizzle picture laid across the whole pizza.
+const SAUCES = [
+  ['sauce_white', 'Garlic / white sauce', 'creamy white garlic sauce', 'black'],
+  ['sauce_bbq', 'BBQ sauce', 'dark brown barbecue sauce', 'white'],
+  ['sauce_chili', 'Chili sauce', 'red chili sauce', 'white'],
+  ['sauce_tomato', 'Tomato sauce', 'red tomato sauce', 'white'],
 ];
 const SIDES = [
   ['bun_top', 'Top bun', 'the top half of a golden sesame seed burger bun', 'white'],
@@ -60,6 +66,10 @@ const SIDES = [
   ['pickles', 'Pickles', 'a row of pickle slices laid flat', 'white'],
   ['jalapeno', 'Jalapeños', 'a row of green jalapeño slices laid flat', 'white'],
   ['fries', 'Fries in a box', 'golden french fries standing in a red paper fries box', 'white'],
+  ['sauce_white', 'Garlic sauce layer', 'a thin flat layer of creamy white garlic sauce with small drips hanging down', 'black'],
+  ['sauce_bbq', 'BBQ sauce layer', 'a thin flat layer of dark brown barbecue sauce with small drips hanging down', 'white'],
+  ['sauce_chili', 'Chili sauce layer', 'a thin flat layer of red chili sauce with small drips hanging down', 'white'],
+  ['sauce_tomato', 'Ketchup layer', 'a thin flat layer of red ketchup with small drips hanging down', 'white'],
 ];
 
 export const SLOTS = [
@@ -68,8 +78,11 @@ export const SLOTS = [
     { key: 'base.pizza_sauce', label: 'Pizza base with sauce', prompt: PIZZA('a whole round raw pizza dough base with red tomato sauce spread on it, no cheese, no toppings'), bg: 'white' },
     { key: 'base.dough', label: 'Plain pizza crust', prompt: PIZZA('a whole round plain pizza dough base, no sauce, no toppings'), bg: 'white' },
   ] },
-  { group: 'toppings', items: TOPS.map(([k, label, what, bg]) => ({ key: `top.${k}`, label, prompt: TOPS4(what, bg), bg, parts: 4 })) },
-  { group: 'burger', items: SIDES.map(([k, label, what, bg]) => ({ key: `side.${k}`, label, prompt: SIDE(what, bg), bg })) },
+  { group: 'toppings', items: [
+    ...TOPS.map(([k, label, what, bg]) => ({ key: `top.${k}`, kind: k, label, prompt: TOPS4(what, bg), alt: SHORT(`four ${what}`, bg), bg, parts: 4 })),
+    ...SAUCES.map(([k, label, what, bg]) => ({ key: `top.${k}`, kind: k, label, prompt: DRIZZLE(what, bg), alt: SHORT(`zigzag drizzle of ${what}`, bg), bg })),
+  ] },
+  { group: 'burger', items: SIDES.map(([k, label, what, bg]) => ({ key: `side.${k}`, kind: k, label, prompt: SIDE(what, bg), alt: SHORT(what, bg).replace('top view', 'side view'), bg })) },
 ];
 
 /* ---------- Index of stored photos ---------- */
@@ -146,7 +159,7 @@ export async function cutOut(src, { removeBg = true, max = 900, parts = 1 } = {}
     const med = (ch) => { const v = border.map((i) => px[i * 4 + ch]).sort((a, b) => a - b); return v[v.length >> 1]; };
     const bg = [med(0), med(1), med(2)];
     const dist = (i) => Math.hypot(px[i * 4] - bg[0], px[i * 4 + 1] - bg[1], px[i * 4 + 2] - bg[2]);
-    const TOL = 50; // high enough to also drop the faint shadow AI photos leave under items
+    const TOL = 56; // high enough to also drop the faint shadow AI photos leave under items
     const seen = new Uint8Array(W * H);
     const stack = [];
     for (const i of border) if (!seen[i] && dist(i) < TOL) { seen[i] = 1; stack.push(i); }
@@ -159,7 +172,8 @@ export async function cutOut(src, { removeBg = true, max = 900, parts = 1 } = {}
       if (y < H - 1 && !seen[i + W] && dist(i + W) < TOL) { seen[i + W] = 1; stack.push(i + W); }
     }
     for (let i = 0; i < W * H; i++) {
-      if (seen[i]) { px[i * 4 + 3] = 0; continue; }
+      // Also clear background-coloured pixels the edge fill can't reach (holes inside rings).
+      if (seen[i] || dist(i) < TOL * 0.5) { px[i * 4 + 3] = 0; continue; }
       const x = i % W;
       const touches = (x > 0 && seen[i - 1]) || (x < W - 1 && seen[i + 1]) || seen[i - W] || seen[i + W];
       if (touches) px[i * 4 + 3] = Math.min(255, Math.max(60, ((dist(i) - TOL) / (TOL * 0.8)) * 255));
@@ -246,6 +260,13 @@ export async function removeSlot(slot) {
 }
 
 export async function generate(slot) {
-  const { image, mime } = (await api('/ai/image', { method: 'POST', body: { prompt: slot.prompt } })).data;
-  return `data:${mime};base64,${image}`;
+  let res;
+  try {
+    res = await api('/ai/image', { method: 'POST', body: { prompt: slot.prompt } });
+  } catch (e) {
+    // The AI's safety filter sometimes refuses harmless food words (error 8007): try a shorter prompt.
+    if (!slot.alt || !/8007|NSFW/i.test(e.message)) throw e;
+    res = await api('/ai/image', { method: 'POST', body: { prompt: slot.alt } });
+  }
+  return `data:${res.data.mime};base64,${res.data.image}`;
 }

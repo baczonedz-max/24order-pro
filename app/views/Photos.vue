@@ -3,6 +3,33 @@ import { ref, reactive, onMounted, computed } from 'vue';
 import { t } from '../i18n.js';
 import Icon from '../components/Icon.vue';
 import { SLOTS, photos, loadPhotos, variants, slotRow, cutOut, saveSlot, removeSlot, generate } from '../food/photos.js';
+import { kindOf, modeOf } from '../food/art.js';
+import { api } from '../api.js';
+
+// What this restaurant's menu actually uses: ingredient kinds (with the menu's own names) and dish types.
+const menu = reactive({ names: {}, pizza: false, burger: false, loaded: false });
+async function loadMenu() {
+  try {
+    const cats = (await api('/catalog')).data;
+    const names = {};
+    for (const c of cats) for (const f of c.foods) {
+      const mode = modeOf(f, c.name);
+      if (mode === 'pizza') menu.pizza = true;
+      if (mode === 'burger') menu.burger = true;
+      for (const comp of f.components) (names[kindOf(comp.name)] ||= new Set()).add(comp.name.trim());
+    }
+    menu.names = Object.fromEntries(Object.entries(names).map(([k, v]) => [k, [...v].slice(0, 4)]));
+  } catch {}
+  menu.loaded = true;
+}
+const BURGER_BASE = new Set(['bun_top', 'bun_bottom', 'beef']);
+/** Is this photo needed by the current menu? */
+function inMenu(slot) {
+  if (slot.key.startsWith('base.')) return menu.pizza;
+  if (slot.key.startsWith('side.')) return menu.burger && (BURGER_BASE.has(slot.kind) || !!menu.names[slot.kind]);
+  return !!menu.names[slot.kind];
+}
+const groups = computed(() => SLOTS.map((g) => ({ ...g, items: [...g.items].sort((a, b) => inMenu(b) - inMenu(a)) })));
 
 const busy = reactive({}); // key -> 'gen' | 'up'
 const errs = reactive({});
@@ -14,13 +41,13 @@ const fileInput = ref(null);
 
 // First visit with no photos at all: start making them right away.
 onMounted(async () => {
-  await loadPhotos(true);
+  await Promise.all([loadPhotos(true), loadMenu()]);
   if (!Object.keys(photos.map).length) genMissing();
 });
 
-const total = computed(() => SLOTS.reduce((a, g) => a + g.items.length, 0));
+const total = computed(() => SLOTS.reduce((a, g) => a + g.items.filter(inMenu).length, 0));
 const hasPhoto = (s) => variants(s.key).length > 0;
-const have = computed(() => (photos.map, SLOTS.reduce((a, g) => a + g.items.filter(hasPhoto).length, 0)));
+const have = computed(() => (photos.map, SLOTS.reduce((a, g) => a + g.items.filter((s) => inMenu(s) && hasPhoto(s)).length, 0)));
 
 async function gen(slot) {
   busy[slot.key] = 'gen';
@@ -38,7 +65,7 @@ async function gen(slot) {
 }
 
 async function genMissing() {
-  const todo = SLOTS.flatMap((g) => g.items).filter((s) => !hasPhoto(s));
+  const todo = SLOTS.flatMap((g) => g.items).filter((s) => !hasPhoto(s) && inMenu(s));
   bulk.value = { done: 0, total: todo.length };
   for (const s of todo) {
     try { await gen(s); } catch (e) { if (e.status === 501 || e.status === 429) { bulkErr.value = e.message; break; } }
@@ -98,10 +125,10 @@ async function remove(slot) {
       <span class="pill plain">{{ have }} / {{ total }}</span>
     </div>
 
-    <section v-for="g in SLOTS" :key="g.group" class="card">
+    <section v-for="g in groups" :key="g.group" class="card">
       <div class="card-head"><h2>{{ t('group_' + g.group) }}</h2><span class="muted">{{ g.items.filter(hasPhoto).length }} / {{ g.items.length }}</span></div>
       <div class="card-body photo-grid">
-        <article v-for="s in g.items" :key="s.key" class="photo-card" :class="{ wide: g.group === 'pizza' }">
+        <article v-for="s in g.items" :key="s.key" class="photo-card" :class="{ off: menu.loaded && !inMenu(s) }">
           <div class="ph-box">
             <div v-if="variants(s.key).length > 1" class="ph-pieces"><img v-for="u in variants(s.key)" :key="u" :src="u" alt=""></div>
             <img v-else-if="variants(s.key).length" :src="variants(s.key)[0]" alt="">
@@ -110,7 +137,9 @@ async function remove(slot) {
             <span class="ph-src pill plain">{{ slotRow(s.key) ? (slotRow(s.key).source === 'ai' ? t('aiPhoto') : t('yourPhoto')) : '—' }}</span>
           </div>
           <div class="ph-meta">
-            <strong>{{ s.label }}</strong>
+            <strong>{{ menu.names[s.kind]?.join(' · ') || s.label }}</strong>
+            <small v-if="menu.names[s.kind]" class="muted">{{ s.label }}</small>
+            <small v-else-if="menu.loaded && !inMenu(s)" class="muted">{{ t('notOnMenu') }}</small>
             <p v-if="errs[s.key]" class="ph-err">{{ errs[s.key] }}</p>
           </div>
           <div class="ph-actions">
@@ -142,7 +171,9 @@ async function remove(slot) {
 .ph-empty { display: grid; justify-items: center; gap: 6px; color: var(--muted); font-size: 12px; font-weight: 500; }
 .ph-busy { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 8px; background: color-mix(in srgb, var(--surface) 80%, transparent); font-weight: 600; font-size: 13px; }
 .ph-src { position: absolute; top: 6px; inset-inline-start: 6px; background: var(--surface); box-shadow: var(--sh-1); }
-.ph-meta strong { font-size: 13px; }
+.ph-meta strong { font-size: 13px; display: block; }
+.ph-meta small { display: block; font-size: 11.5px; }
+.photo-card.off { opacity: .6; }
 .ph-err { color: var(--red); font-size: 12px; margin-top: 2px; }
 .ph-actions { display: flex; gap: 6px; }
 .ph-actions .btn { flex: 1; }
