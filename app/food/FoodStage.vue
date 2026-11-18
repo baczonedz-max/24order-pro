@@ -6,7 +6,7 @@
 // No drawings: an ingredient without a photo is shown as a label, never as a cartoon.
 import { computed, ref, onMounted } from 'vue';
 import { scatter, isSauce } from './art.js';
-import { photoUrl, photoRow, thumbPhoto } from './photos.js';
+import { photoUrl, photoRow, thumbPhoto, variants } from './photos.js';
 
 const props = defineProps({
   mode: { type: String, default: 'photo' }, // wanted mode: pizza | burger | photo
@@ -27,20 +27,22 @@ const isOn = (kind) => on.value.some((i) => i.kind === kind);
 const sauceOn = computed(() => (has('sauce_tomato') ? on.value.some((i) => i.kind === 'sauce_tomato' && i.base) : true));
 const cheeseOn = computed(() => (has('cheese') ? on.value.some((i) => i.kind === 'cheese' && i.base) : true));
 const extraCheese = computed(() => on.value.some((i) => i.kind === 'cheese' && !i.base));
-const basePhoto = computed(() => {
-  const key = sauceOn.value && cheeseOn.value ? 'base.pizza' : sauceOn.value ? 'base.pizza_sauce' : cheeseOn.value ? 'base.pizza' : 'base.dough';
-  return photoUrl(key) || photoUrl('base.pizza');
-});
+// Two stacked base photos: the raw base (dough + sauce, or plain dough) and the baked pizza with cheese.
+// Toggling cheese cross-fades between them.
+const bakedBase = computed(() => photoUrl('base.pizza'));
+const rawBase = computed(() => (sauceOn.value ? photoUrl('base.pizza_sauce') : photoUrl('base.dough') || photoUrl('base.pizza_sauce')));
+const showBaked = computed(() => !!bakedBase.value && (cheeseOn.value || !rawBase.value));
+const basePhoto = computed(() => bakedBase.value || rawBase.value);
 const cheeseBits = scatter(31, 10, 62);
-const cheesePhoto = computed(() => photoUrl('top.cheese'));
+const cheesePieces = computed(() => variants('top.cheese'));
 const toppings = computed(() =>
   on.value
     .filter((i) => i.kind !== 'cheese' && i.kind !== 'sauce_tomato')
     .map((i) => {
-      const photo = photoUrl(`top.${i.kind}`);
-      if (!photo) return null;
+      const vs = variants(`top.${i.kind}`);
+      if (!vs.length) return null;
       const n = isSauce(i.kind) ? 5 : i.kind === 'herbs' || i.kind === 'corn' ? 10 : i.kind === 'beef' || i.kind === 'kebab' ? 9 : 8;
-      return { id: i.id, photo, size: isSauce(i.kind) ? 30 : 40, pts: scatter(i.id * 7 + 3, i.base ? n : n + 3, 62) };
+      return { id: i.id, vs, size: isSauce(i.kind) ? 30 : 40, pts: scatter(i.id * 7 + 3, i.base ? n : n + 3, 62) };
     })
     .filter(Boolean)
     .map((tp, order) => ({ ...tp, order })),
@@ -111,16 +113,19 @@ const ring = computed(() => {
       <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-opacity=".28" /></filter>
     </defs>
     <ellipse cx="0" cy="8" rx="104" ry="100" fill="#000" opacity=".12" />
-    <image class="base-in" :href="basePhoto" x="-108" y="-108" width="216" height="216" preserveAspectRatio="xMidYMid meet" />
-    <g v-if="extraCheese && cheesePhoto">
+    <g class="base-in">
+      <image v-if="rawBase" :href="rawBase" x="-108" y="-108" width="216" height="216" preserveAspectRatio="xMidYMid meet" />
+      <image v-if="bakedBase" class="base-baked" :style="{ opacity: showBaked ? 1 : 0 }" :href="bakedBase" x="-108" y="-108" width="216" height="216" preserveAspectRatio="xMidYMid meet" />
+    </g>
+    <g v-if="extraCheese && cheesePieces.length">
       <g v-for="(b, i) in cheeseBits" :key="'c' + i" :transform="`translate(${b.x.toFixed(1)} ${b.y.toFixed(1)}) rotate(${b.rot.toFixed(0)})`">
-        <image class="piece" :style="{ animationDelay: i * 40 + 'ms' }" :href="cheesePhoto" x="-17" y="-17" width="34" height="34" />
+        <image class="topping" :style="{ '--d': i * 40 + 'ms' }" :href="cheesePieces[i % cheesePieces.length]" x="-17" y="-17" width="34" height="34" />
       </g>
     </g>
     <TransitionGroup tag="g" name="top">
       <g v-for="tp in toppings" :key="tp.id" filter="url(#softShadow)">
         <g v-for="(p, i) in tp.pts" :key="i" :transform="`translate(${p.x.toFixed(1)} ${p.y.toFixed(1)}) rotate(${p.rot.toFixed(0)}) scale(${(p.s * 0.82).toFixed(2)})`">
-          <image class="piece" :style="{ animationDelay: (intro ? 250 + tp.order * STEP : 0) + i * 40 + 'ms' }" :href="tp.photo" :x="-tp.size / 2" :y="-tp.size / 2" :width="tp.size" :height="tp.size" preserveAspectRatio="xMidYMid meet" />
+          <image class="topping" :style="{ '--d': (intro ? 250 + tp.order * STEP : 0) + i * 40 + 'ms' }" :href="tp.vs[i % tp.vs.length]" :x="-tp.size / 2" :y="-tp.size / 2" :width="tp.size" :height="tp.size" preserveAspectRatio="xMidYMid meet" />
         </g>
       </g>
     </TransitionGroup>

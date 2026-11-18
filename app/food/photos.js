@@ -1,45 +1,49 @@
 // Real ingredient photos: which slots exist, how the AI should shoot each one, where they're stored,
-// and in-browser background removal so every photo becomes a clean cut-out that can be layered.
+// and in-browser background removal so every photo becomes clean cut-outs that can be layered.
+//
+// Toppings are shot as FOUR separate pieces in one photo; the browser splits them into four cut-outs
+// (top.salami.0 … top.salami.3). Scattering different pieces makes the pizza look like a real one.
 import { reactive } from 'vue';
 import { api } from '../api.js';
 
-const TOP = (what, bg) => `Professional food photography, top-down overhead view of ${what}, isolated on a plain solid ${bg} background, centered, the whole item fully visible with plenty of empty space around it, soft even studio light, sharp focus, photorealistic, high detail, no plate, no board, no cast shadow, no text`;
-const SIDE = (what, bg) => `Professional food photography, straight side view at eye level of ${what}, horizontal, isolated on a plain solid ${bg} background, centered, fully visible with plenty of empty space around it, soft even studio light, sharp focus, photorealistic, high detail, no plate, no cast shadow, no text`;
-const PIZZA = (what) => `Professional food photography, exact top-down overhead view of ${what}, perfectly round, the entire pizza fully visible and centered with empty space around it, isolated on a plain solid white background, soft even studio light, photorealistic, high detail, no plate, no board, no cast shadow, no text`;
+const LIGHT = 'soft even studio light, sharp focus, photorealistic, high detail, no plate, no board, no cast shadow, no text';
+const TOPS4 = (what, bg) => `Professional food photography, top-down overhead view of exactly four separate ${what}, arranged in a loose two by two grid with wide empty gaps between them so that no pieces touch or overlap, each piece fully visible, isolated on a plain solid ${bg} background, ${LIGHT}`;
+const SIDE = (what, bg) => `Professional food photography, straight side view at eye level of ${what}, horizontal, isolated on a plain solid ${bg} background, centered, fully visible with plenty of empty space around it, ${LIGHT}`;
+const PIZZA = (what) => `Professional food photography, exact top-down overhead view of ${what}, perfectly round, the entire pizza fully visible and centered with empty space around it, isolated on a plain solid white background, ${LIGHT}`;
 
-// [key, english label, what to shoot, background]
+// [key, label, four separate … (plural), background]
 const TOPS = [
-  ['cheese', 'Cheese', 'a small pile of shredded mozzarella cheese', 'black'],
-  ['sauce_tomato', 'Tomato sauce', 'a small round dollop of red tomato pizza sauce', 'white'],
-  ['sauce_white', 'Garlic / white sauce', 'a small round dollop of creamy white garlic sauce', 'black'],
-  ['sauce_bbq', 'BBQ sauce', 'a small round dollop of dark brown barbecue sauce', 'white'],
-  ['sauce_chili', 'Chili sauce', 'a small round dollop of red chili sauce', 'white'],
-  ['ham', 'Ham', 'one square slice of cooked ham', 'white'],
-  ['salami', 'Salami', 'one round slice of salami', 'white'],
-  ['pepperoni', 'Pepperoni', 'one round slice of pepperoni', 'white'],
-  ['mushroom', 'Mushroom', 'one thin slice of white button mushroom', 'black'],
-  ['onion', 'Onion', 'one ring of red onion', 'white'],
-  ['leek', 'Leek', 'one thin ring of green leek', 'white'],
-  ['garlic', 'Garlic', 'one peeled garlic clove', 'black'],
-  ['pepper', 'Bell pepper', 'three strips of red, yellow and green bell pepper', 'white'],
-  ['jalapeno', 'Jalapeño', 'one round slice of green jalapeño pepper', 'white'],
-  ['chili', 'Chili', 'one small fresh red chili pepper', 'white'],
-  ['olive', 'Olive', 'one black olive ring slice', 'white'],
-  ['pineapple', 'Pineapple', 'one small chunk of pineapple', 'white'],
-  ['corn', 'Corn', 'a small cluster of sweet corn kernels', 'white'],
-  ['meatball', 'Meatball', 'one small cooked meatball', 'white'],
-  ['chicken', 'Chicken', 'one piece of grilled chicken breast', 'white'],
-  ['kebab', 'Kebab meat', 'a few thin strips of doner kebab meat', 'white'],
-  ['beef', 'Minced beef', 'a small piece of cooked seasoned minced beef', 'white'],
-  ['bacon', 'Bacon', 'one crispy bacon strip', 'white'],
-  ['tomato', 'Tomato', 'one round slice of fresh red tomato', 'white'],
-  ['pickles', 'Pickles', 'one round slice of pickle', 'white'],
-  ['lettuce', 'Lettuce', 'one fresh green lettuce leaf', 'white'],
-  ['herbs', 'Herbs', 'a small sprig of fresh dill', 'white'],
-  ['fries', 'Fries', 'a few golden french fries', 'white'],
-  ['egg', 'Egg', 'one fried egg', 'black'],
-  ['shrimp', 'Shrimp', 'one cooked pink shrimp', 'white'],
-  ['tuna', 'Tuna', 'a few flakes of canned tuna', 'white'],
+  ['cheese', 'Cheese', 'small piles of shredded mozzarella cheese', 'black'],
+  ['sauce_tomato', 'Tomato sauce', 'small round dollops of red tomato pizza sauce', 'white'],
+  ['sauce_white', 'Garlic / white sauce', 'small round dollops of creamy white garlic sauce', 'black'],
+  ['sauce_bbq', 'BBQ sauce', 'small round dollops of dark brown barbecue sauce', 'white'],
+  ['sauce_chili', 'Chili sauce', 'small round dollops of red chili sauce', 'white'],
+  ['ham', 'Ham', 'square pieces of cooked ham', 'white'],
+  ['salami', 'Salami', 'round slices of salami', 'white'],
+  ['pepperoni', 'Pepperoni', 'round slices of pepperoni', 'white'],
+  ['mushroom', 'Mushroom', 'thin slices of white button mushroom', 'black'],
+  ['onion', 'Onion', 'rings of red onion', 'white'],
+  ['leek', 'Leek', 'thin rings of green leek', 'white'],
+  ['garlic', 'Garlic', 'peeled garlic cloves', 'black'],
+  ['pepper', 'Bell pepper', 'strips of red, yellow and green bell pepper', 'white'],
+  ['jalapeno', 'Jalapeño', 'round slices of green jalapeño pepper', 'white'],
+  ['chili', 'Chili', 'small slices of fresh red chili pepper', 'white'],
+  ['olive', 'Olive', 'black olive ring slices', 'white'],
+  ['pineapple', 'Pineapple', 'small chunks of pineapple', 'white'],
+  ['corn', 'Corn', 'small clusters of sweet corn kernels', 'white'],
+  ['meatball', 'Meatball', 'small cooked meatballs', 'white'],
+  ['chicken', 'Chicken', 'small pieces of grilled chicken breast', 'white'],
+  ['kebab', 'Kebab meat', 'small bunches of thin doner kebab meat strips', 'white'],
+  ['beef', 'Minced beef', 'small pieces of cooked seasoned minced beef', 'white'],
+  ['bacon', 'Bacon', 'short pieces of crispy bacon', 'white'],
+  ['tomato', 'Tomato', 'round slices of fresh red tomato', 'white'],
+  ['pickles', 'Pickles', 'round slices of pickle', 'white'],
+  ['lettuce', 'Lettuce', 'small pieces of fresh green lettuce leaf', 'white'],
+  ['herbs', 'Herbs', 'small sprigs of fresh dill', 'white'],
+  ['fries', 'Fries', 'small bunches of golden french fries', 'white'],
+  ['egg', 'Egg', 'small fried eggs', 'black'],
+  ['shrimp', 'Shrimp', 'cooked pink shrimps', 'white'],
+  ['tuna', 'Tuna', 'small flakes of canned tuna', 'white'],
 ];
 const SIDES = [
   ['bun_top', 'Top bun', 'the top half of a golden sesame seed burger bun', 'white'],
@@ -61,10 +65,10 @@ const SIDES = [
 export const SLOTS = [
   { group: 'pizza', items: [
     { key: 'base.pizza', label: 'Pizza (sauce + cheese)', prompt: PIZZA('a whole round pizza with tomato sauce and melted mozzarella cheese, no other toppings'), bg: 'white' },
-    { key: 'base.pizza_sauce', label: 'Pizza base with sauce', prompt: PIZZA('a whole round pizza base with red tomato sauce spread on it, no cheese, no toppings'), bg: 'white' },
-    { key: 'base.dough', label: 'Plain pizza crust', prompt: PIZZA('a whole round baked plain pizza crust, no sauce, no toppings'), bg: 'white' },
+    { key: 'base.pizza_sauce', label: 'Pizza base with sauce', prompt: PIZZA('a whole round raw pizza dough base with red tomato sauce spread on it, no cheese, no toppings'), bg: 'white' },
+    { key: 'base.dough', label: 'Plain pizza crust', prompt: PIZZA('a whole round plain pizza dough base, no sauce, no toppings'), bg: 'white' },
   ] },
-  { group: 'toppings', items: TOPS.map(([k, label, what, bg]) => ({ key: `top.${k}`, label, prompt: TOP(what, bg), bg })) },
+  { group: 'toppings', items: TOPS.map(([k, label, what, bg]) => ({ key: `top.${k}`, label, prompt: TOPS4(what, bg), bg, parts: 4 })) },
   { group: 'burger', items: SIDES.map(([k, label, what, bg]) => ({ key: `side.${k}`, label, prompt: SIDE(what, bg), bg })) },
 ];
 
@@ -81,11 +85,29 @@ export async function loadPhotos(force = false) {
 }
 export function setPhoto(row) { photos.map = { ...photos.map, [row.key]: row }; }
 export function dropPhoto(key) { const m = { ...photos.map }; delete m[key]; photos.map = m; }
-export const photoUrl = (key) => { const r = photos.map[key]; return r ? `/api/media/${key}?v=${encodeURIComponent(r.updated_at)}` : null; };
+const url = (key) => { const r = photos.map[key]; return r ? `/api/media/${key}?v=${encodeURIComponent(r.updated_at)}` : null; };
+export const photoUrl = url;
 export const photoRow = (key) => photos.map[key] || null;
-export const thumbPhoto = (kind) => photoUrl(`top.${kind}`) || photoUrl(`side.${kind}`);
 
-/* ---------- Background removal ---------- */
+/** Every stored key of a slot: "top.salami" itself and/or "top.salami.0", "top.salami.1", … */
+export function slotKeys(key) {
+  return Object.keys(photos.map)
+    .filter((k) => k === key || (k.startsWith(key + '.') && /^\d+$/.test(k.slice(key.length + 1))))
+    .sort((a, b) => (a === key ? -1 : b === key ? 1 : Number(a.split('.').pop()) - Number(b.split('.').pop())));
+}
+/** URLs of all piece variants of a slot (empty when there is no photo). */
+export const variants = (key) => slotKeys(key).map(url);
+export const slotRow = (key) => photos.map[slotKeys(key)[0]] || null;
+/** Up to three pieces for an ingredient icon (top view first, then side view). */
+export function thumbPile(kind) {
+  const top = variants(`top.${kind}`);
+  if (top.length) return top.slice(0, 3);
+  const side = variants(`side.${kind}`);
+  return side.slice(0, 1);
+}
+export const thumbPhoto = (kind) => thumbPile(kind)[0] || null;
+
+/* ---------- Background removal and splitting ---------- */
 function loadImage(src) {
   return new Promise((res, rej) => {
     const img = new Image();
@@ -95,11 +117,16 @@ function loadImage(src) {
   });
 }
 
+async function toBlob(canvas) {
+  return (await new Promise((r) => canvas.toBlob(r, 'image/webp', 0.9))) || new Promise((r) => canvas.toBlob(r, 'image/png'));
+}
+
 /**
- * Turn a photo on a plain background into a cut-out: flood-fill the background from the edges,
- * soften the edge, crop to the item. Returns { blob, w, h, url }.
+ * Turn a photo on a plain background into cut-outs: flood-fill the background from the edges and soften
+ * the edge. With parts > 1 every separate item becomes its own cut-out (largest first).
+ * Returns [{ blob, w, h }].
  */
-export async function cutOut(src, { removeBg = true, max = 768 } = {}) {
+export async function cutOut(src, { removeBg = true, max = 900, parts = 1 } = {}) {
   const img = await loadImage(src);
   const scale = Math.min(1, max / Math.max(img.naturalWidth, img.naturalHeight));
   const W = Math.round(img.naturalWidth * scale);
@@ -126,38 +153,96 @@ export async function cutOut(src, { removeBg = true, max = 768 } = {}) {
     while (stack.length) {
       const i = stack.pop();
       const x = i % W, y = (i / W) | 0;
-      const nb = [x > 0 ? i - 1 : -1, x < W - 1 ? i + 1 : -1, y > 0 ? i - W : -1, y < H - 1 ? i + W : -1];
-      for (const j of nb) if (j >= 0 && !seen[j] && dist(j) < TOL) { seen[j] = 1; stack.push(j); }
+      if (x > 0 && !seen[i - 1] && dist(i - 1) < TOL) { seen[i - 1] = 1; stack.push(i - 1); }
+      if (x < W - 1 && !seen[i + 1] && dist(i + 1) < TOL) { seen[i + 1] = 1; stack.push(i + 1); }
+      if (y > 0 && !seen[i - W] && dist(i - W) < TOL) { seen[i - W] = 1; stack.push(i - W); }
+      if (y < H - 1 && !seen[i + W] && dist(i + W) < TOL) { seen[i + W] = 1; stack.push(i + W); }
     }
     for (let i = 0; i < W * H; i++) {
       if (seen[i]) { px[i * 4 + 3] = 0; continue; }
-      // Soften pixels that touch the background and are close to its colour.
       const x = i % W;
       const touches = (x > 0 && seen[i - 1]) || (x < W - 1 && seen[i + 1]) || seen[i - W] || seen[i + W];
       if (touches) px[i * 4 + 3] = Math.min(255, Math.max(60, ((dist(i) - TOL) / (TOL * 0.8)) * 255));
     }
   }
-
-  // Crop to the visible item with a small margin.
-  let x0 = W, y0 = H, x1 = -1, y1 = -1;
-  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) if (px[(y * W + x) * 4 + 3] > 24) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
-  if (x1 < 0) throw new Error('Nothing left after removing the background');
   ctx.putImageData(id, 0, 0);
-  const pad = 4;
-  x0 = Math.max(0, x0 - pad); y0 = Math.max(0, y0 - pad); x1 = Math.min(W - 1, x1 + pad); y1 = Math.min(H - 1, y1 + pad);
-  const out = document.createElement('canvas');
-  out.width = x1 - x0 + 1; out.height = y1 - y0 + 1;
-  out.getContext('2d').drawImage(cv, x0, y0, out.width, out.height, 0, 0, out.width, out.height);
-  const blob = await new Promise((r) => out.toBlob(r, 'image/webp', 0.9)) || await new Promise((r) => out.toBlob(r, 'image/png'));
-  return { blob, w: out.width, h: out.height, url: URL.createObjectURL(blob) };
+
+  // Find separate items (connected opaque areas).
+  const label = new Int32Array(W * H);
+  const boxes = [];
+  for (let s = 0; s < W * H; s++) {
+    if (label[s] || px[s * 4 + 3] <= 24) continue;
+    const n = boxes.length + 1;
+    const b = { x0: W, y0: H, x1: 0, y1: 0, area: 0, n };
+    const st = [s];
+    label[s] = n;
+    while (st.length) {
+      const i = st.pop();
+      const x = i % W, y = (i / W) | 0;
+      b.area++;
+      if (x < b.x0) b.x0 = x; if (x > b.x1) b.x1 = x; if (y < b.y0) b.y0 = y; if (y > b.y1) b.y1 = y;
+      for (const j of [x > 0 ? i - 1 : -1, x < W - 1 ? i + 1 : -1, y > 0 ? i - W : -1, y < H - 1 ? i + W : -1]) {
+        if (j >= 0 && !label[j] && px[j * 4 + 3] > 24) { label[j] = n; st.push(j); }
+      }
+    }
+    boxes.push(b);
+  }
+  if (!boxes.length) throw new Error('Nothing left after removing the background');
+  boxes.sort((a, b) => b.area - a.area);
+  const biggest = boxes[0].area;
+
+  const crop = async (b, only) => {
+    const pad = 4;
+    const x0 = Math.max(0, b.x0 - pad), y0 = Math.max(0, b.y0 - pad);
+    const x1 = Math.min(W - 1, b.x1 + pad), y1 = Math.min(H - 1, b.y1 + pad);
+    const out = document.createElement('canvas');
+    out.width = x1 - x0 + 1; out.height = y1 - y0 + 1;
+    const o = out.getContext('2d');
+    o.drawImage(cv, x0, y0, out.width, out.height, 0, 0, out.width, out.height);
+    if (only) {
+      // Keep only this item: clear pixels that belong to neighbours inside the box.
+      const d = o.getImageData(0, 0, out.width, out.height);
+      for (let y = 0; y < out.height; y++) for (let x = 0; x < out.width; x++) {
+        const l = label[(y + y0) * W + (x + x0)];
+        if (l && l !== b.n) d.data[(y * out.width + x) * 4 + 3] = 0;
+      }
+      o.putImageData(d, 0, 0);
+    }
+    return { blob: await toBlob(out), w: out.width, h: out.height };
+  };
+
+  if (parts > 1) {
+    // Separate pieces: anything at least 15% of the biggest one (drops crumbs and specks).
+    const pieces = boxes.filter((b) => b.area >= biggest * 0.15).slice(0, parts);
+    if (pieces.length > 1) return Promise.all(pieces.map((b) => crop(b, true)));
+  }
+  // One item: crop around everything that is not a speck.
+  const keep = boxes.filter((b) => b.area >= biggest * 0.02);
+  const all = keep.reduce((a, b) => ({ x0: Math.min(a.x0, b.x0), y0: Math.min(a.y0, b.y0), x1: Math.max(a.x1, b.x1), y1: Math.max(a.y1, b.y1) }), { x0: W, y0: H, x1: 0, y1: 0 });
+  return [await crop(all, false)];
 }
 
-export async function savePhoto(key, { blob, w, h }, source) {
+async function putOne(key, { blob, w, h }, source) {
   const res = await fetch(`/api/media/${key}?w=${w}&h=${h}&source=${source}`, { method: 'PUT', headers: { 'content-type': blob.type }, body: blob, credentials: 'same-origin' });
   const json = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(json.error || json.message || `Upload failed (${res.status})`);
+  if (!res.ok) throw new Error(json.message || `Upload failed (${res.status})`);
   setPhoto(json.data);
-  return json.data;
+}
+
+/** Save a slot's cut-outs: one image as "key", several pieces as "key.0", "key.1", … */
+export async function saveSlot(slot, cuts, source) {
+  const old = slotKeys(slot.key);
+  const keys = cuts.length > 1 ? cuts.map((_, i) => `${slot.key}.${i}`) : [slot.key];
+  for (let i = 0; i < cuts.length; i++) await putOne(keys[i], cuts[i], source);
+  for (const k of old.filter((k) => !keys.includes(k))) await removeKey(k);
+}
+
+async function removeKey(key) {
+  await api(`/media/${key}`, { method: 'DELETE' });
+  dropPhoto(key);
+}
+export async function removeSlot(slot) {
+  for (const k of slotKeys(slot.key)) await removeKey(k);
 }
 
 export async function generate(slot) {
