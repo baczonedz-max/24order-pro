@@ -55,6 +55,9 @@ const D = {
   setupText: ['أول حساب يُنشأ هنا يكون مدير المنصة.', 'The first account created here becomes the platform admin.', 'Le premier compte créé ici devient administrateur.', 'Den første kontoen som opprettes her blir administrator.'],
   createAccount: ['إنشاء الحساب', 'Create account', 'Créer le compte', 'Opprett konto'],
   passwordHint: ['8 أحرف على الأقل', 'At least 8 characters', 'Au moins 8 caractères', 'Minst 8 tegn'],
+  signInText: ['أدخل بياناتك للوصول إلى لوحة التحكم.', 'Enter your details to open the dashboard.', 'Saisissez vos identifiants pour accéder au tableau de bord.', 'Skriv inn detaljene dine for å åpne dashbordet.'],
+  authTitle: ['كل مطعمك في مكان واحد.', 'Your whole restaurant, in one place.', 'Tout votre restaurant, au même endroit.', 'Hele restauranten din, på ett sted.'],
+  authText: ['الطلبات، نقطة البيع، المنيو وشاشات التلفاز — بسرعة وبأربع لغات.', 'Orders, POS, menu and TV screens — fast, in four languages.', 'Commandes, caisse, menu et écrans TV — rapide, en quatre langues.', 'Bestillinger, kasse, meny og TV-skjermer — raskt, på fire språk.'],
 
   // home
   revenue: ['الإيرادات', 'Revenue', "Chiffre d'affaires", 'Omsetning'],
@@ -135,6 +138,60 @@ const D = {
   thanks: ['شكرًا لزيارتكم', 'Thank you!', 'Merci !', 'Takk for besøket!'],
   edit: ['تعديل', 'Edit', 'Modifier', 'Endre'],
   remove: ['حذف', 'Remove', 'Supprimer', 'Fjern'],
+
+  // shell
+  more: ['المزيد', 'More', 'Plus', 'Mer'],
+  moreModules: ['وحدات قادمة', 'Upcoming modules', 'Modules à venir', 'Kommende moduler'],
+  collapse: ['طي القائمة', 'Collapse menu', 'Réduire le menu', 'Skjul meny'],
+  expand: ['توسيع القائمة', 'Expand menu', 'Agrandir le menu', 'Vis meny'],
+  darkMode: ['الوضع الداكن', 'Dark mode', 'Mode sombre', 'Mørk modus'],
+  lightMode: ['الوضع الفاتح', 'Light mode', 'Mode clair', 'Lys modus'],
+  soon: ['قريبًا', 'Soon', 'Bientôt', 'Snart'],
+
+  // home
+  goodMorning: ['صباح الخير', 'Good morning', 'Bonjour', 'God morgen'],
+  goodAfternoon: ['مساء الخير', 'Good afternoon', 'Bon après-midi', 'God ettermiddag'],
+  goodEvening: ['مساء الخير', 'Good evening', 'Bonsoir', 'God kveld'],
+  homeLead: ['هذا ملخص مطعمك.', "Here's how your restaurant is doing.", 'Voici le résumé de votre restaurant.', 'Slik går det med restauranten.'],
+  avgOrder: ['متوسط الطلب', 'Average order', 'Panier moyen', 'Snittordre'],
+  sales: ['المبيعات', 'Sales', 'Ventes', 'Salg'],
+  salesByHour: ['حسب الساعة', 'By hour', 'Par heure', 'Per time'],
+  salesByDay: ['حسب اليوم', 'By day', 'Par jour', 'Per dag'],
+  recentOrders: ['آخر الطلبات', 'Recent orders', 'Commandes récentes', 'Siste bestillinger'],
+  viewAll: ['عرض الكل', 'View all', 'Tout voir', 'Se alle'],
+  inProgress: ['قيد التنفيذ الآن', 'in progress now', 'en cours', 'pågår nå'],
+  ofRevenue: ['من الإيرادات', 'of revenue', 'du CA', 'av omsetningen'],
+  sold: ['مباع', 'sold', 'vendus', 'solgt'],
+
+  // orders
+  board: ['لوحة', 'Board', 'Tableau', 'Tavle'],
+  list: ['قائمة', 'List', 'Liste', 'Liste'],
+  emptyColumn: ['لا يوجد شيء هنا', 'Nothing here', 'Rien ici', 'Ingenting her'],
+  orderDetails: ['تفاصيل الطلب', 'Order details', 'Détails de la commande', 'Ordredetaljer'],
+  walkIn: ['زبون مباشر', 'Walk-in', 'Client direct', 'Walk-in'],
+
+  // POS
+  currentOrder: ['الطلب الحالي', 'Current order', 'Commande en cours', 'Gjeldende bestilling'],
+  viewOrder: ['عرض الطلب', 'View order', 'Voir la commande', 'Se bestilling'],
+  charge: ['تحصيل', 'Charge', 'Encaisser', 'Ta betalt'],
+  customerBtn: ['العميل', 'Customer', 'Client', 'Kunde'],
+  discountBtn: ['خصم', 'Discount', 'Remise', 'Rabatt'],
+  noProducts: ['لا توجد منتجات مطابقة', 'No matching products', 'Aucun produit trouvé', 'Ingen produkter funnet'],
+  results: ['نتائج', 'results', 'résultats', 'treff'],
+  emptyCartTitle: ['ابدأ طلبًا جديدًا', 'Start a new order', 'Nouvelle commande', 'Start en ny bestilling'],
+
+  // builder
+  buildPizza: ['اصنع البيتزا الخاصة بك', 'Build your pizza', 'Composez votre pizza', 'Lag din pizza'],
+  buildBurger: ['اصنع البرغر الخاص بك', 'Build your burger', 'Composez votre burger', 'Bygg din burger'],
+  buildDish: ['خصّص طلبك', 'Make it yours', 'Personnalisez', 'Tilpass retten'],
+  included: ['المكونات الأساسية', 'Included', 'Inclus', 'Inkludert'],
+  includedHint: ['اضغط لإزالة', 'tap to remove', 'touchez pour retirer', 'trykk for å fjerne'],
+  extrasHint: ['اضغط للإضافة', 'tap to add', 'touchez pour ajouter', 'trykk for å legge til'],
+  free: ['مجانًا', 'Free', 'Gratuit', 'Gratis'],
+  inBase: ['مشمول', 'Included', 'Inclus', 'Inkludert'],
+  chooseSize: ['اختر الحجم', 'Choose size', 'Choisir la taille', 'Velg størrelse'],
+  notePh: ['مثلًا: مقرمشة جيدًا، بدون ملح…', 'e.g. well done, no salt…', 'ex. bien cuite, sans sel…', 'f.eks. godt stekt, uten salt…'],
+  builderHint: ['اضغط على المكونات لترى طلبك يتكوّن أمامك', 'Tap the ingredients to watch your order come together', 'Touchez les ingrédients pour voir votre commande prendre forme', 'Trykk på ingrediensene og se retten bli til'],
 };
 
 const idx = { ar: 0, en: 1, fr: 2, no: 3 };

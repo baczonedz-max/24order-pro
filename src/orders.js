@@ -171,7 +171,8 @@ export async function listOrders(db, q) {
   }
   const limit = Math.min(200, Math.max(1, Number(q.limit) || 50));
   const offset = Math.max(0, Number(q.offset) || 0);
-  const sql = `SELECT o.*, (SELECT SUM(qty) FROM order_items WHERE order_id = o.id) AS item_count FROM orders o
+  const sql = `SELECT o.*, (SELECT SUM(qty) FROM order_items WHERE order_id = o.id) AS item_count,
+    (SELECT group_concat(qty || '× ' || name, ', ') FROM order_items WHERE order_id = o.id) AS items_preview FROM orders o
     ${where.length ? 'WHERE ' + where.join(' AND ') : ''} ORDER BY o.created_at DESC LIMIT ? OFFSET ?`;
   const rows = await db.prepare(sql).bind(...args, limit, offset).all();
   return rows.results;
@@ -189,10 +190,18 @@ export async function summary(db, from, to) {
      FROM orders WHERE created_at >= ? AND created_at < ?`,
   ).bind(from, to).first();
   const top = await db.prepare(
-    `SELECT i.name, SUM(i.qty) AS qty, SUM(i.line_total) AS total FROM order_items i JOIN orders o ON o.id = i.order_id
+    `SELECT i.name, SUM(i.qty) AS qty, SUM(i.line_total) AS total, MAX(f.image) AS image FROM order_items i
+     JOIN orders o ON o.id = i.order_id LEFT JOIN foods f ON f.id = i.food_id
      WHERE o.created_at >= ? AND o.created_at < ? AND o.status != 'cancelled' GROUP BY i.name ORDER BY qty DESC LIMIT 5`,
   ).bind(from, to).all();
-  return { ...r, top: top.results };
+  // Raw points for the sales chart; the browser groups them by local hour or day.
+  const points = await db.prepare(
+    `SELECT created_at AS t, total FROM orders WHERE created_at >= ? AND created_at < ? AND status != 'cancelled' ORDER BY created_at LIMIT 5000`,
+  ).bind(from, to).all();
+  const recent = await db.prepare(
+    `SELECT id, code, status, type, table_no, customer_name, total, created_at FROM orders ORDER BY created_at DESC LIMIT 6`,
+  ).all();
+  return { ...r, top: top.results, points: points.results, recent: recent.results };
 }
 
 async function newCode(db) {

@@ -1,6 +1,6 @@
 <script setup>
-// Line icons (24×24, stroke = currentColor).
-defineProps({ name: { type: String, required: true }, size: { type: Number, default: 20 } });
+// Line icons (24×24, stroke = currentColor). Direction icons get .flip-rtl so they mirror in Arabic.
+const props = defineProps({ name: { type: String, required: true }, size: { type: Number, default: 20 }, stroke: { type: Number, default: 1.8 } });
 const P = {
   home: 'M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z',
   orders: 'M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6M9 16h4',
@@ -34,11 +34,40 @@ const P = {
   clock: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 7v5l3 2',
   note: 'M5 4h14v12l-4 4H5zM15 20v-4h4',
   edit: 'M4 20h4L19 9l-4-4L4 16zM14 6l4 4',
+  menu: 'M4 6h16M4 12h16M4 18h16',
+  sun: 'M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10zM12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4',
+  moon: 'M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z',
+  chevronDown: 'M6 9l6 6 6-6',
+  chevronRight: 'M9 6l6 6-6 6',
+  chevronLeft: 'M15 6l-6 6 6 6',
+  arrowRight: 'M5 12h14M13 6l6 6-6 6',
+  cart: 'M3 4h2l2.4 11.2a1 1 0 0 0 1 .8h9.4a1 1 0 0 0 1-.8L21 8H6M9 20.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zM18 20.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z',
+  bag: 'M5 8h14l-1 13H6zM9 8V6a3 3 0 0 1 6 0v2',
+  dine: 'M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M17 3c-1.7 0-3 2-3 5s1.3 4 3 4v9',
+  truck: 'M3 6h11v10H3zM14 9h4l3 3v4h-7M7 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM17 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4z',
+  card: 'M3 6h18v12H3zM3 10h18M7 15h3',
+  cash: 'M3 7h18v10H3zM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM6 10v.01M18 14v.01',
+  phone: 'M8 3h8a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM11 18h2',
+  hourglass: 'M6 3h12M6 21h12M7 3c0 5 10 5 10 9s-10 4-10 9M17 3c0 5-10 5-10 9s10 4 10 9',
+  user: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21c1-4 4-6 8-6s7 2 8 6',
+  board: 'M4 4h4v16H4zM10 4h4v10h-4zM16 4h4v13h-4z',
+  list: 'M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01',
+  more: 'M5 12h.01M12 12h.01M19 12h.01',
+  grid: 'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z',
+  percent: 'M19 5L5 19M7 9a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM17 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4z',
+  chart: 'M3 3v18h18M7 15l4-4 3 3 5-6',
+  trend: 'M3 17l6-6 4 4 8-8M15 7h6v6',
+  coins: 'M9 8a6 3 0 1 0 0-.01M3 8v4c0 1.7 2.7 3 6 3s6-1.3 6-3V8M3 12v4c0 1.7 2.7 3 6 3 1.2 0 2.3-.2 3.2-.5M15 13a6 3 0 1 0 6 0v4c0 1.7-2.7 3-6 3s-6-1.3-6-3',
+  flame: 'M12 21c4 0 7-3 7-7 0-5-5-7-5-11-3 2-4 5-4 7-1-1-2-2-2-4-2 2-3 5-3 8 0 4 3 7 7 7z',
+  sparkle: 'M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2z',
+  lock: 'M6 11h12v10H6zM8 11V7a4 4 0 0 1 8 0v4',
+  sidebar: 'M3 4h18v16H3zM9 4v16',
 };
+const FLIP = new Set(['chevronRight', 'chevronLeft', 'arrowRight', 'logout']);
 </script>
 
 <template>
-  <svg :width="size" :height="size" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-    <path :d="P[name] || ''" />
+  <svg :width="props.size" :height="props.size" viewBox="0 0 24 24" fill="none" stroke="currentColor" :stroke-width="props.stroke" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" :class="{ 'flip-rtl': FLIP.has(props.name) }" class="ico">
+    <path :d="P[props.name] || ''" />
   </svg>
 </template>
