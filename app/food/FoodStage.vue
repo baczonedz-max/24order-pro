@@ -3,6 +3,7 @@
 // or the product photo with its ingredients around it. Adding an ingredient animates it in.
 import { computed } from 'vue';
 import { piece, layer, scatter, rng, isSauce, BUN_TOP, BUN_BOTTOM, LAYER_W } from './art.js';
+import { photoUrl, photoRow, thumbPhoto } from './photos.js';
 
 const props = defineProps({
   mode: { type: String, default: 'photo' }, // pizza | burger | photo
@@ -36,6 +37,12 @@ function blob(seed, r, wobble, n = 30) {
 const cheesePath = blob(7, 75, 4);
 const bubbles = scatter(99, 14, 62);
 const browned = scatter(31, 10, 64);
+// A real photo of the base replaces the drawn crust/sauce/cheese when one has been made.
+const basePhoto = computed(() => {
+  const key = sauceOn.value && cheeseOn.value ? 'base.pizza' : sauceOn.value ? 'base.pizza_sauce' : cheeseOn.value ? 'base.pizza' : 'base.dough';
+  return photoUrl(key) || photoUrl('base.pizza');
+});
+const cheesePhoto = computed(() => photoUrl('top.cheese'));
 
 const toppings = computed(() =>
   on.value
@@ -49,7 +56,7 @@ const toppings = computed(() =>
         return { id: i.id, drizzle: `M${pts.join(' L')}`, color, rot: R() * 180 };
       }
       const n = i.kind === 'herbs' || i.kind === 'corn' ? 10 : i.kind === 'beef' || i.kind === 'kebab' ? 9 : 8;
-      return { id: i.id, svg: piece(i.kind, i.name), pts: scatter(i.id * 7 + 3, i.base ? n : n + 3, 62) };
+      return { id: i.id, svg: piece(i.kind, i.name), photo: photoUrl(`top.${i.kind}`), pts: scatter(i.id * 7 + 3, i.base ? n : n + 3, 62) };
     }),
 );
 
@@ -57,24 +64,45 @@ const toppings = computed(() =>
 const ORDER = { sauce_white: 1, sauce_bbq: 1, sauce_chili: 1, sauce_tomato: 1, lettuce: 2, tomato: 3, pickles: 4, jalapeno: 4, beef: 5, kebab: 5, meatball: 5, chicken: 5, cheese: 6, bacon: 7, egg: 8, onion: 9, leek: 9, onion_rings: 10, pepper: 11, chili: 11, mushroom: 11 };
 const MEAT = new Set(['beef', 'kebab', 'meatball', 'chicken']);
 const fries = computed(() => isOn('fries'));
+const SIDE_KEY = { kebab: 'beef', meatball: 'beef', leek: 'onion' };
+// How much of a photo's height counts as the layer's thickness (the rest overlaps its neighbours).
+const THICK = { bun_bottom: 0.8, bun_top: 0.9, beef: 0.72, chicken: 0.72, cheese: 0.34, lettuce: 0.45, tomato: 0.5, onion: 0.45, bacon: 0.5, egg: 0.5 };
+function photoLayer(kind) {
+  const row = photoRow(`side.${kind}`);
+  if (!row || !row.w || !row.h) return null;
+  const w = kind === 'cheese' ? 204 : kind === 'bun_top' || kind === 'bun_bottom' ? 194 : 186;
+  const ih = Math.min(110, (w * row.h) / row.w);
+  return { img: photoUrl(`side.${kind}`), iw: w, ih, h: ih * (THICK[kind] ?? 0.55) };
+}
 const stack = computed(() => {
   const list = on.value.filter((i) => i.kind !== 'fries' && i.kind !== 'herbs' && i.kind !== 'garlic' && i.kind !== 'corn');
-  const parts = list.map((i) => ({ key: 'i' + i.id, rank: ORDER[i.kind] ?? 12, ...layer(i.kind, i.name) }));
-  if (!list.some((i) => MEAT.has(i.kind))) parts.push({ key: 'patty', rank: 5, ...layer('beef') });
+  const make = (key, rank, kind, name) => {
+    const ph = photoLayer(SIDE_KEY[kind] || kind);
+    if (ph) return { key, rank, ...ph };
+    const v = layer(kind, name);
+    return { key, rank, svg: v.svg, h: v.h - 2, ih: v.h };
+  };
+  const parts = list.map((i) => make('i' + i.id, ORDER[i.kind] ?? 12, i.kind, i.name));
+  if (!list.some((i) => MEAT.has(i.kind))) parts.push(make('patty', 5, 'beef'));
   parts.sort((a, b) => a.rank - b.rank);
-  // Lay out from the bottom bun upwards; layers overlap slightly so it looks squashed together.
+
+  // Lay out from the ground upwards. y = top of each layer's band; images are centred on their band.
   const out = [];
-  let y = 0;
-  out.push({ key: 'bottom', ...BUN_BOTTOM, y: -BUN_BOTTOM.h });
-  y = -BUN_BOTTOM.h + 3;
+  const bb = photoLayer('bun_bottom');
+  let y;
+  if (bb) { y = -bb.h; out.push({ key: 'bottom', ...bb, y, iy: -bb.ih }); }
+  else { out.push({ key: 'bottom', svg: BUN_BOTTOM.svg, y: -BUN_BOTTOM.h, iy: -BUN_BOTTOM.h }); y = -BUN_BOTTOM.h + 3; }
   for (const p of parts) {
-    y -= p.h - 2;
-    out.push({ ...p, y });
+    y -= p.h;
+    out.push({ ...p, y, iy: p.img ? y - (p.ih - p.h) / 2 : y });
   }
+  const bt = photoLayer('bun_top');
+  if (bt) { y -= bt.h; out.push({ key: 'top', ...bt, y, iy: y }); return { layers: out, height: -y }; }
   y -= BUN_TOP.h - 8;
-  out.push({ key: 'top', ...BUN_TOP, y });
+  out.push({ key: 'top', svg: BUN_TOP.svg, y, iy: y });
   return { layers: out, height: -y };
 });
+const friesPhoto = computed(() => photoRow('side.fries') && photoUrl('side.fries'));
 const burgerScale = computed(() => Math.min(fries.value ? 1.12 : 1.3, 210 / stack.value.height));
 const burgerX = computed(() => (fries.value ? 118 : 150));
 
@@ -84,7 +112,7 @@ const ring = computed(() => {
   const n = Math.max(list.length, 6);
   return list.map((i, k) => {
     const a = (-90 + (k * 360) / n) * (Math.PI / 180);
-    return { id: i.id, extra: !i.base, x: Math.cos(a) * 112, y: Math.sin(a) * 112, svg: piece(i.kind, i.name) };
+    return { id: i.id, extra: !i.base, x: Math.cos(a) * 112, y: Math.sin(a) * 112, svg: piece(i.kind, i.name), photo: thumbPhoto(i.kind) };
   });
 });
 </script>
@@ -107,6 +135,8 @@ const ring = computed(() => {
     <circle r="110" fill="#c79a6b" />
     <circle r="110" fill="none" stroke="#a97e52" stroke-width="2" />
     <path d="M-80 -60 Q0 -75 80 -60 M-95 -20 Q0 -35 95 -20 M-98 20 Q0 5 98 20 M-90 60 Q0 45 90 60" stroke="#b88a5c" stroke-width="1.5" fill="none" opacity=".6" />
+    <image v-if="basePhoto" :href="basePhoto" x="-100" y="-100" width="200" height="200" preserveAspectRatio="xMidYMid meet" />
+    <template v-else>
     <circle r="96" fill="url(#crustG)" />
     <g fill="#c07a36" opacity=".55">
       <circle cx="-70" cy="-58" r="3" /><circle cx="78" cy="-44" r="2.5" /><circle cx="-88" cy="20" r="2.5" /><circle cx="60" cy="70" r="3" /><circle cx="-30" cy="88" r="2" /><circle cx="20" cy="-90" r="2.5" />
@@ -121,6 +151,13 @@ const ring = computed(() => {
         </g>
       </g>
     </transition>
+    </template>
+    <g v-if="basePhoto && extraCheese">
+      <g v-for="(b, i) in browned" :key="'pc' + i" :transform="`translate(${b.x.toFixed(1)} ${b.y.toFixed(1)}) rotate(${(b.rot).toFixed(0)})`">
+        <image v-if="cheesePhoto" class="piece" :style="{ animationDelay: i * 40 + 'ms' }" :href="cheesePhoto" x="-16" y="-16" width="32" height="32" />
+        <circle v-else class="piece" :style="{ animationDelay: i * 40 + 'ms' }" :r="5 + (i % 3) * 1.5" fill="#f3d27a" opacity=".9" />
+      </g>
+    </g>
     <TransitionGroup tag="g" name="top">
       <g v-for="tp in toppings" :key="tp.id">
         <g v-if="tp.drizzle" :transform="`rotate(${tp.rot.toFixed(0)})`">
@@ -128,7 +165,8 @@ const ring = computed(() => {
         </g>
         <template v-else>
           <g v-for="(p, i) in tp.pts" :key="i" :transform="`translate(${p.x.toFixed(1)} ${p.y.toFixed(1)}) rotate(${p.rot.toFixed(0)}) scale(${(p.s * 0.82).toFixed(2)})`">
-            <g class="piece" :style="{ animationDelay: i * 45 + 'ms' }" v-html="tp.svg" />
+            <image v-if="tp.photo" class="piece" :style="{ animationDelay: i * 45 + 'ms' }" :href="tp.photo" x="-19" y="-19" width="38" height="38" preserveAspectRatio="xMidYMid meet" />
+            <g v-else class="piece" :style="{ animationDelay: i * 45 + 'ms' }" v-html="tp.svg" />
           </g>
         </template>
       </g>
@@ -140,14 +178,16 @@ const ring = computed(() => {
     <ellipse cx="150" cy="262" rx="130" ry="12" fill="#000" opacity=".1" />
     <g class="slide" :style="{ transform: `translate(${burgerX}px, 256px) scale(${burgerScale})` }">
       <TransitionGroup tag="g" name="lay">
-        <g v-for="l in stack.layers" :key="l.key" class="slide" :style="{ transform: `translate(${-LAYER_W / 2}px, ${l.y}px)` }">
-          <g class="layer" v-html="l.svg" />
+        <g v-for="l in stack.layers" :key="l.key" class="slide" :style="{ transform: `translate(${l.img ? -l.iw / 2 : -LAYER_W / 2}px, ${l.iy}px)` }">
+          <image v-if="l.img" class="layer" :href="l.img" x="0" y="0" :width="l.iw" :height="l.ih" preserveAspectRatio="xMidYMid meet" />
+          <g v-else class="layer" v-html="l.svg" />
         </g>
       </TransitionGroup>
     </g>
     <transition name="fade">
       <g v-if="fries" transform="translate(250 256)">
-        <g class="layer">
+        <image v-if="friesPhoto" class="layer" :href="friesPhoto" x="-44" y="-120" width="88" height="120" preserveAspectRatio="xMidYMax meet" />
+        <g v-else class="layer">
           <g v-for="(f, i) in [-22, -14, -6, 2, 10, 18, -18, -2, 14]" :key="i" :transform="`rotate(${f * 0.6} 0 -40)`">
             <rect :x="f - 3" :y="-92 - (i % 3) * 8" width="7" height="60" rx="2" fill="#f5c542" stroke="#d6a320" />
           </g>
@@ -175,7 +215,8 @@ const ring = computed(() => {
         <g :transform="`translate(${r.x.toFixed(1)} ${r.y.toFixed(1)})`">
           <g class="orbit-in" :style="{ animationDelay: i * 30 + 'ms' }">
             <circle r="21" fill="#fff" :stroke="r.extra ? '#ffc20e' : '#e5e7eb'" :stroke-width="r.extra ? 3 : 1.5" />
-            <g transform="scale(.95)" v-html="r.svg" />
+            <image v-if="r.photo" :href="r.photo" x="-15" y="-15" width="30" height="30" preserveAspectRatio="xMidYMid meet" />
+            <g v-else transform="scale(.95)" v-html="r.svg" />
           </g>
         </g>
       </g>

@@ -6,6 +6,7 @@ import { t } from '../i18n.js';
 import Icon from '../components/Icon.vue';
 import ProductBuilder from '../components/ProductBuilder.vue';
 import Receipt from '../components/Receipt.vue';
+import { loadPhotos } from '../food/photos.js';
 
 const catalog = ref([]);
 const catId = ref(null);
@@ -30,6 +31,7 @@ function loadCart() {
 watch(cart, (v) => { try { sessionStorage.setItem('pos.cart', JSON.stringify(v)); } catch {} }, { deep: true });
 
 onMounted(async () => {
+  loadPhotos();
   try {
     catalog.value = (await api('/catalog')).data;
     catId.value = catalog.value[0]?.id ?? null;

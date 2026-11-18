@@ -6,6 +6,7 @@ export const NAV = [
     { to: '/pos', icon: 'pos', key: 'navPos' },
   ] },
   { label: 'navMenu', items: [
+    { to: '/ingredients', icon: 'components', key: 'navPhotos' },
     { href: '/mtv.html', icon: 'tv', key: 'navMtv' },
   ] },
 ];

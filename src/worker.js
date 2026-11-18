@@ -2,6 +2,7 @@
 // /api/* is handled here; everything else is the dashboard (./dist) and static files.
 import { Hono } from 'hono';
 import { ensureSchema } from './db.js';
+import { listMedia, getMedia, putMedia, deleteMedia, generateImage } from './media.js';
 import { hashPassword, verifyPassword, startSession, endSession, currentUser, requireUser } from './auth.js';
 import { loadCatalog, priceCart, createOrder, getOrder, setStatus, listOrders, summary, STATUSES } from './orders.js';
 import { menuRoute, statsRoute } from './menu24.js';
@@ -104,6 +105,13 @@ priv.get('/stats', (c) => statsRoute(c));
 
 /* ---------- MTV (TV menus): public, the TVs read it without signing in ---------- */
 app.get('/menu', (c) => menuRoute(c));
+
+/* ---------- Media (ingredient photos): read is public so TVs and the order page can show them ---------- */
+app.get('/media', async (c) => c.json({ success: true, data: await listMedia(c.env.DB) }));
+app.get('/media/:key', (c) => getMedia(c));
+priv.put('/media/:key', (c) => putMedia(c));
+priv.delete('/media/:key', (c) => deleteMedia(c));
+priv.post('/ai/image', (c) => generateImage(c));
 
 app.route('/', priv);
 

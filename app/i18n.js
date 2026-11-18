@@ -180,6 +180,24 @@ const D = {
   results: ['نتائج', 'results', 'résultats', 'treff'],
   emptyCartTitle: ['ابدأ طلبًا جديدًا', 'Start a new order', 'Nouvelle commande', 'Start en ny bestilling'],
 
+  // ingredient photos
+  navPhotos: ['صور المكونات', 'Ingredient photos', 'Photos des ingrédients', 'Ingrediensbilder'],
+  photosLead: ['صور حقيقية تُستخدم في بناء البيتزا والبرغر أمام الزبون.', 'Real photos used to build pizzas and burgers in front of the customer.', 'De vraies photos pour composer pizzas et burgers devant le client.', 'Ekte bilder som bygger pizza og burger foran kunden.'],
+  photosAiNote: ['يُنشئ الذكاء الاصطناعي المجاني من Cloudflare كل صورة وتُزال خلفيتها تلقائيًا. يمكنك لاحقًا استبدال أي صورة بصورتك.', "Cloudflare's free AI creates each photo and its background is removed automatically. You can replace any photo with your own later.", "L'IA gratuite de Cloudflare crée chaque photo et retire le fond automatiquement. Vous pourrez remplacer chaque photo par la vôtre.", 'Cloudflares gratis AI lager hvert bilde, og bakgrunnen fjernes automatisk. Du kan bytte ut bildene med egne senere.'],
+  genAll: ['إنشاء كل الصور الناقصة', 'Generate all missing', 'Générer les manquantes', 'Lag alle som mangler'],
+  generate: ['إنشاء بالذكاء', 'Generate', 'Générer', 'Generer'],
+  regenerate: ['إعادة الإنشاء', 'Regenerate', 'Régénérer', 'Lag på nytt'],
+  generating: ['جارٍ الإنشاء', 'Generating', 'Génération', 'Lager'],
+  upload: ['رفع صورة', 'Upload', 'Importer', 'Last opp'],
+  removeBg: ['إزالة الخلفية تلقائيًا', 'Remove background', 'Retirer le fond', 'Fjern bakgrunn'],
+  aiPhoto: ['ذكاء اصطناعي', 'AI', 'IA', 'AI'],
+  yourPhoto: ['صورتك', 'Yours', 'La vôtre', 'Ditt'],
+  drawing: ['رسم', 'Drawing', 'Dessin', 'Tegning'],
+  group_pizza: ['قاعدة البيتزا', 'Pizza base', 'Base de pizza', 'Pizzabunn'],
+  group_toppings: ['مكونات البيتزا (من الأعلى)', 'Toppings (top view)', 'Garnitures (vue de dessus)', 'Fyll (ovenfra)'],
+  group_burger: ['طبقات البرغر (من الجانب)', 'Burger layers (side view)', 'Couches du burger (vue de côté)', 'Burgerlag (fra siden)'],
+  confirmRemovePhoto: ['حذف هذه الصورة؟ سيعود الرسم مكانها.', 'Remove this photo? The drawing will be used again.', 'Supprimer cette photo ? Le dessin sera réutilisé.', 'Fjerne bildet? Tegningen brukes igjen.'],
+
   // builder
   buildPizza: ['اصنع البيتزا الخاصة بك', 'Build your pizza', 'Composez votre pizza', 'Lag din pizza'],
   buildBurger: ['اصنع البرغر الخاص بك', 'Build your burger', 'Composez votre burger', 'Bygg din burger'],

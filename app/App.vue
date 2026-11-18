@@ -35,7 +35,7 @@ async function signOut() {
   router.push('/login');
 }
 const isActive = (to) => (to === '/' ? route.path === '/' : route.path.startsWith(to));
-const moreItems = [...NAV.flatMap((g) => g.items).filter((i) => i.href), ...SOON];
+const moreItems = [...NAV.slice(1).flatMap((g) => g.items), ...SOON.map((s) => ({ ...s, soon: true }))];
 </script>
 
 <template>
@@ -85,7 +85,7 @@ const moreItems = [...NAV.flatMap((g) => g.items).filter((i) => i.href), ...SOON
         </label>
         <template v-for="it in moreItems" :key="it.key">
           <a v-if="it.href" :href="it.href" class="sb-link"><Icon :name="it.icon" /><span class="label">{{ t(it.key) }}</span></a>
-          <RouterLink v-else :to="it.to" class="sb-link soon"><Icon :name="it.icon" /><span class="label">{{ t(it.key) }}</span><span class="soon-tag">{{ t('soon') }}</span></RouterLink>
+          <RouterLink v-else :to="it.to" class="sb-link" :class="{ soon: it.soon }"><Icon :name="it.icon" /><span class="label">{{ t(it.key) }}</span><span v-if="it.soon" class="soon-tag">{{ t('soon') }}</span></RouterLink>
         </template>
       </div>
     </transition>

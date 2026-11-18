@@ -1,9 +1,17 @@
 // D1 schema. Tables are created on the first request, so a new database needs no manual step.
 // Each statement is idempotent; bump SCHEMA_VERSION and add statements to migrate later.
 
-export const SCHEMA_VERSION = 1;
+export const SCHEMA_VERSION = 2;
 
 const SCHEMA = [
+  `CREATE TABLE IF NOT EXISTS media (
+     key TEXT PRIMARY KEY,
+     mime TEXT NOT NULL,
+     data BLOB NOT NULL,
+     w INTEGER NOT NULL DEFAULT 0,
+     h INTEGER NOT NULL DEFAULT 0,
+     source TEXT NOT NULL DEFAULT 'upload',
+     updated_at TEXT NOT NULL)`,
   `CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT)`,
   `CREATE TABLE IF NOT EXISTS users (
      id INTEGER PRIMARY KEY AUTOINCREMENT,

@@ -6,7 +6,7 @@
   "description": "24order Pro: restaurant dashboard (orders, POS, products, TV menus) on Cloudflare Workers + D1",
   "scripts": {
     "build": "vite build",
-    "dev": "vite build && wrangler dev",
+    "dev": "vite build && wrangler dev -c wrangler.local.jsonc",
     "deploy": "vite build && wrangler deploy"
   },
   "devDependencies": {

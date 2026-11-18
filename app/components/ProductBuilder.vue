@@ -6,6 +6,7 @@ import { t } from '../i18n.js';
 import Icon from './Icon.vue';
 import FoodStage from '../food/FoodStage.vue';
 import { kindOf, modeOf, piece } from '../food/art.js';
+import { loadPhotos, thumbPhoto } from '../food/photos.js';
 
 const props = defineProps({
   food: { type: Object, required: true },
@@ -58,7 +59,7 @@ function save() {
 }
 
 const onKey = (e) => e.key === 'Escape' && emit('close');
-onMounted(() => { window.addEventListener('keydown', onKey); document.body.style.overflow = 'hidden'; });
+onMounted(() => { loadPhotos(); window.addEventListener('keydown', onKey); document.body.style.overflow = 'hidden'; });
 onUnmounted(() => { window.removeEventListener('keydown', onKey); document.body.style.overflow = ''; });
 </script>
 
@@ -102,7 +103,7 @@ onUnmounted(() => { window.removeEventListener('keydown', onKey); document.body.
             <div class="ing-grid">
               <button v-for="c in base" :key="c.id" type="button" class="ing" :class="[removed.has(c.id) ? 'out' : 'in', { bump: bumped === c.id }]" :aria-pressed="!removed.has(c.id)" @click="toggle('removed', c.id)">
                 <span class="mark"><Icon :name="removed.has(c.id) ? 'x' : 'check'" :size="13" :stroke="3" /></span>
-                <span class="th"><svg viewBox="-16 -16 32 32" v-html="piece(c.kind, c.name)" /></span>
+                <span class="th"><img v-if="thumbPhoto(c.kind)" :src="thumbPhoto(c.kind)" alt=""><svg v-else viewBox="-16 -16 32 32" v-html="piece(c.kind, c.name)" /></span>
                 <span class="nm">{{ c.name }}</span>
                 <span class="pr">{{ t('inBase') }}</span>
               </button>
@@ -114,7 +115,7 @@ onUnmounted(() => { window.removeEventListener('keydown', onKey); document.body.
             <div class="ing-grid">
               <button v-for="c in extras" :key="c.id" type="button" class="ing" :class="{ on: added.has(c.id), bump: bumped === c.id }" :aria-pressed="added.has(c.id)" @click="toggle('added', c.id)">
                 <span class="mark"><Icon name="check" :size="13" :stroke="3" /></span>
-                <span class="th"><svg viewBox="-16 -16 32 32" v-html="piece(c.kind, c.name)" /></span>
+                <span class="th"><img v-if="thumbPhoto(c.kind)" :src="thumbPhoto(c.kind)" alt=""><svg v-else viewBox="-16 -16 32 32" v-html="piece(c.kind, c.name)" /></span>
                 <span class="nm">{{ c.name }}</span>
                 <span class="pr">{{ extraPrice(c) ? '+' + money(extraPrice(c)) : t('free') }}</span>
               </button>

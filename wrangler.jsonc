@@ -20,6 +20,8 @@
       "database_id": "af4a18de-30af-491c-98e9-ecb8a9ab64a7"
     }
   ],
+  // Workers AI (free daily quota): generates ingredient photos. Used only on the deployed site.
+  "ai": { "binding": "AI" },
   "vars": {
     "ORDER_API_BASE": "https://server.24order.com/api/v1/ai-agent",
     "MAIN_API_BASE": "https://main-server.24order.com/api/v1"

@@ -4,7 +4,7 @@
     {
       "name": "dev",
       "runtimeExecutable": "node",
-      "runtimeArgs": ["node_modules/wrangler/bin/wrangler.js", "dev", "--port", "8787"],
+      "runtimeArgs": ["node_modules/wrangler/bin/wrangler.js", "dev", "-c", "wrangler.local.jsonc", "--port", "8787"],
       "port": 8787
     }
   ]

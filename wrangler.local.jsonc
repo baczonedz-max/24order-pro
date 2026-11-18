@@ -1,0 +1,24 @@
+{
+  // Local development only (npm run dev / launch.json). Same as wrangler.jsonc but without the
+  // Workers AI binding, so running locally never talks to a Cloudflare account.
+  "name": "24order-pro",
+  "main": "src/worker.js",
+  "compatibility_date": "2025-09-01",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "24order-pro-db",
+      "database_id": "af4a18de-30af-491c-98e9-ecb8a9ab64a7"
+    }
+  ],
+  "vars": {
+    "ORDER_API_BASE": "https://server.24order.com/api/v1/ai-agent",
+    "MAIN_API_BASE": "https://main-server.24order.com/api/v1"
+  }
+}
