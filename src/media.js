@@ -57,8 +57,8 @@ export async function generateImage(c) {
   const body = await c.req.json().catch(() => ({}));
   const prompt = String(body.prompt || '').trim().slice(0, 1500);
   if (prompt.length < 10) throw httpError(422, 'Prompt is too short');
-  const seed = Number.isInteger(body.seed) ? body.seed : Math.floor(Math.random() * 1e9);
-  const out = await c.env.AI.run('@cf/black-forest-labs/flux-1-schnell', { prompt, steps: 8, seed });
+  // FLUX.1 schnell accepts only { prompt, steps } (steps max 8); each call is already random.
+  const out = await c.env.AI.run('@cf/black-forest-labs/flux-1-schnell', { prompt, steps: 8 });
   if (!out?.image) throw httpError(502, 'The AI did not return an image');
-  return c.json({ success: true, data: { image: out.image, mime: 'image/jpeg', seed } });
+  return c.json({ success: true, data: { image: out.image, mime: 'image/jpeg' } });
 }

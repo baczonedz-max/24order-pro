@@ -119,7 +119,7 @@ export async function cutOut(src, { removeBg = true, max = 768 } = {}) {
     const med = (ch) => { const v = border.map((i) => px[i * 4 + ch]).sort((a, b) => a - b); return v[v.length >> 1]; };
     const bg = [med(0), med(1), med(2)];
     const dist = (i) => Math.hypot(px[i * 4] - bg[0], px[i * 4 + 1] - bg[1], px[i * 4 + 2] - bg[2]);
-    const TOL = 42;
+    const TOL = 50; // high enough to also drop the faint shadow AI photos leave under items
     const seen = new Uint8Array(W * H);
     const stack = [];
     for (const i of border) if (!seen[i] && dist(i) < TOL) { seen[i] = 1; stack.push(i); }

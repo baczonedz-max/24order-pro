@@ -4,7 +4,7 @@
 // - burger: photo layers (bun, patty, cheese, lettuce…) stacked one by one
 // - anything else, or when photos are missing: the product's own photo with its ingredients around it.
 // No drawings: an ingredient without a photo is shown as a label, never as a cartoon.
-import { computed } from 'vue';
+import { computed, ref, onMounted } from 'vue';
 import { scatter, isSauce } from './art.js';
 import { photoUrl, photoRow, thumbPhoto } from './photos.js';
 
@@ -16,6 +16,10 @@ const props = defineProps({
 });
 
 const on = computed(() => props.items.filter((i) => i.on));
+// When the builder opens, the dish is built step by step (like the video); later changes animate at once.
+const intro = ref(true);
+onMounted(() => setTimeout(() => (intro.value = false), 2600));
+const STEP = 300;
 const has = (kind) => props.items.some((i) => i.kind === kind && i.base);
 const isOn = (kind) => on.value.some((i) => i.kind === kind);
 
@@ -38,7 +42,8 @@ const toppings = computed(() =>
       const n = isSauce(i.kind) ? 5 : i.kind === 'herbs' || i.kind === 'corn' ? 10 : i.kind === 'beef' || i.kind === 'kebab' ? 9 : 8;
       return { id: i.id, photo, size: isSauce(i.kind) ? 30 : 40, pts: scatter(i.id * 7 + 3, i.base ? n : n + 3, 62) };
     })
-    .filter(Boolean),
+    .filter(Boolean)
+    .map((tp, order) => ({ ...tp, order })),
 );
 
 /* ---------- Burger ---------- */
@@ -106,7 +111,7 @@ const ring = computed(() => {
       <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-opacity=".28" /></filter>
     </defs>
     <ellipse cx="0" cy="8" rx="104" ry="100" fill="#000" opacity=".12" />
-    <image :href="basePhoto" x="-108" y="-108" width="216" height="216" preserveAspectRatio="xMidYMid meet" />
+    <image class="base-in" :href="basePhoto" x="-108" y="-108" width="216" height="216" preserveAspectRatio="xMidYMid meet" />
     <g v-if="extraCheese && cheesePhoto">
       <g v-for="(b, i) in cheeseBits" :key="'c' + i" :transform="`translate(${b.x.toFixed(1)} ${b.y.toFixed(1)}) rotate(${b.rot.toFixed(0)})`">
         <image class="piece" :style="{ animationDelay: i * 40 + 'ms' }" :href="cheesePhoto" x="-17" y="-17" width="34" height="34" />
@@ -115,7 +120,7 @@ const ring = computed(() => {
     <TransitionGroup tag="g" name="top">
       <g v-for="tp in toppings" :key="tp.id" filter="url(#softShadow)">
         <g v-for="(p, i) in tp.pts" :key="i" :transform="`translate(${p.x.toFixed(1)} ${p.y.toFixed(1)}) rotate(${p.rot.toFixed(0)}) scale(${(p.s * 0.82).toFixed(2)})`">
-          <image class="piece" :style="{ animationDelay: i * 45 + 'ms' }" :href="tp.photo" :x="-tp.size / 2" :y="-tp.size / 2" :width="tp.size" :height="tp.size" preserveAspectRatio="xMidYMid meet" />
+          <image class="piece" :style="{ animationDelay: (intro ? 250 + tp.order * STEP : 0) + i * 40 + 'ms' }" :href="tp.photo" :x="-tp.size / 2" :y="-tp.size / 2" :width="tp.size" :height="tp.size" preserveAspectRatio="xMidYMid meet" />
         </g>
       </g>
     </TransitionGroup>
@@ -126,14 +131,14 @@ const ring = computed(() => {
     <ellipse cx="150" cy="262" rx="120" ry="10" fill="#000" opacity=".12" />
     <g class="slide" :style="{ transform: `translate(${burgerX}px, 256px) scale(${burgerScale})` }">
       <TransitionGroup tag="g" name="lay">
-        <g v-for="l in stack.layers" :key="l.key" class="slide" :style="{ transform: `translate(${-l.iw / 2}px, ${l.iy}px)` }">
-          <image class="layer" :href="l.img" x="0" y="0" :width="l.iw" :height="l.ih" preserveAspectRatio="xMidYMid meet" />
+        <g v-for="(l, li) in stack.layers" :key="l.key" class="slide" :style="{ transform: `translate(${-l.iw / 2}px, ${l.iy}px)` }">
+          <image class="layer" :style="{ animationDelay: (intro ? li * STEP : 0) + 'ms' }" :href="l.img" x="0" y="0" :width="l.iw" :height="l.ih" preserveAspectRatio="xMidYMid meet" />
         </g>
       </TransitionGroup>
     </g>
     <transition name="fade">
       <g v-if="fries" transform="translate(250 256)">
-        <image class="layer" :href="fries" x="-46" y="-124" width="92" height="124" preserveAspectRatio="xMidYMax meet" />
+        <image class="layer" :style="{ animationDelay: (intro ? stack.layers.length * STEP : 0) + 'ms' }" :href="fries" x="-46" y="-124" width="92" height="124" preserveAspectRatio="xMidYMax meet" />
       </g>
     </transition>
   </svg>
