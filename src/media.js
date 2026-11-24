@@ -7,7 +7,7 @@ const MAX = 1_500_000; // bytes; D1 rows can hold up to 2 MB
 
 /** Keys with their size and version, so the browser can build cache-busting URLs. */
 export async function listMedia(db) {
-  const rows = await db.prepare(`SELECT key, mime, w, h, source, updated_at FROM media ORDER BY key`).all();
+  const rows = await db.prepare(`SELECT key, mime, w, h, source, updated_at FROM media WHERE key NOT LIKE 'dish.%' ORDER BY key`).all();
   return rows.results;
 }
 

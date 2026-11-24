@@ -1,7 +1,7 @@
 // D1 schema. Tables are created on the first request, so a new database needs no manual step.
 // Each statement is idempotent; bump SCHEMA_VERSION and add statements to migrate later.
 
-export const SCHEMA_VERSION = 5;
+export const SCHEMA_VERSION = 6;
 
 const SCHEMA = [
   `CREATE TABLE IF NOT EXISTS media (
@@ -60,7 +60,8 @@ const SCHEMA = [
      extra_by_size TEXT,
      sort INTEGER NOT NULL DEFAULT 0,
      choice TEXT,
-     image TEXT)`,
+     image TEXT,
+     icon TEXT)`,
   `CREATE TABLE IF NOT EXISTS orders (
      id INTEGER PRIMARY KEY AUTOINCREMENT,
      code TEXT NOT NULL UNIQUE,
@@ -96,6 +97,11 @@ const SCHEMA = [
      added_json TEXT,
      removed_json TEXT,
      note TEXT)`,
+  `CREATE TABLE IF NOT EXISTS dish_jobs (
+     key TEXT PRIMARY KEY,
+     status TEXT NOT NULL,
+     started_at TEXT NOT NULL,
+     error TEXT)`,
   `CREATE TABLE IF NOT EXISTS order_events (
      id INTEGER PRIMARY KEY AUTOINCREMENT,
      order_id INTEGER NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
@@ -118,8 +124,8 @@ export async function ensureSchema(env, request) {
   if (version < SCHEMA_VERSION) {
     await env.DB.batch(SCHEMA.map((s) => env.DB.prepare(s)));
     // v5: an option can belong to a "choose one" group (e.g. Kebab / Kylling) and carry its own photo of the dish.
-    if (version > 0 && version < 5) {
-      for (const col of ['choice TEXT', 'image TEXT']) {
+    if (version > 0 && version < 6) {
+      for (const col of ['choice TEXT', 'image TEXT', 'icon TEXT']) {
         try { await env.DB.prepare(`ALTER TABLE food_components ADD COLUMN ${col}`).run(); } catch { /* already there */ }
       }
     }
@@ -130,6 +136,8 @@ export async function ensureSchema(env, request) {
       if (version < 3) await refreshDemoPhotos(env, request);
       if (version < 4) await fillRestaurantInfo(env, request);
       if (version < 5) await applyDemoChoices(env, request);
+      // v6: the full real menu from 24order (all products, sizes, ingredients, extras and their photos).
+      if (version < 6) await reimportDemoMenu(env, request);
     }
   }
   ready = true;
@@ -184,9 +192,18 @@ async function applyDemoChoices(env, request) {
   if (stmts.length) await env.DB.batch(stmts);
 }
 
+/** v6: replace the seeded demo menu with the imported real one. Past orders keep their own copies of names and prices. */
+async function reimportDemoMenu(env, request) {
+  const res = await env.ASSETS.fetch(new Request(new URL('/data/paradis.json', request.url)));
+  if (!res.ok) return;
+  const data = await res.json();
+  if (!(data.categories || []).length) return;
+  await importMenu(env, data, { replace: true });
+}
+
 /** Import a menu in the app's JSON format (see scripts/build-demo-data.mjs). */
 export async function importMenu(env, data, { replace = false } = {}) {
-  if (replace) await env.DB.batch([env.DB.prepare(`DELETE FROM categories`)]);
+  if (replace) await env.DB.batch(['food_components', 'food_sizes', 'foods', 'categories'].map((t) => env.DB.prepare(`DELETE FROM ${t}`)));
   let catSort = 0;
   for (const c of data.categories || []) {
     const cat = await env.DB.prepare(`INSERT INTO categories(name, image, sort, footer_json) VALUES (?, ?, ?, ?) RETURNING id`)
@@ -206,8 +223,8 @@ export async function importMenu(env, data, { replace = false } = {}) {
       (f.components || []).forEach((cp, i) => {
         const bySize = cp.extra && typeof cp.extra === 'object' ? JSON.stringify(cp.extra) : null;
         const flat = typeof cp.extra === 'number' ? cp.extra : 0;
-        stmts.push(env.DB.prepare(`INSERT INTO food_components(food_id, name, state, extra_price, extra_by_size, sort, choice, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`)
-          .bind(food.id, cp.name, cp.state === 'optional' ? 'optional' : 'selected', flat, bySize, i, cp.choice || null, cp.image || null));
+        stmts.push(env.DB.prepare(`INSERT INTO food_components(food_id, name, state, extra_price, extra_by_size, sort, choice, image, icon) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+          .bind(food.id, cp.name, cp.state === 'optional' ? 'optional' : 'selected', flat, bySize, i, cp.choice || null, cp.image || null, cp.icon || null));
       });
       if (stmts.length) await env.DB.batch(stmts);
     }

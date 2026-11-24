@@ -54,8 +54,11 @@ const stageImage = computed(() => {
 const extraPrice = (c) => (c.extra_by_size && size.value?.code && c.extra_by_size[size.value.code] !== undefined ? Number(c.extra_by_size[size.value.code]) : Number(c.extra_price || 0));
 const unit = computed(() => Number(size.value?.price || 0) + comps.value.filter((c) => c.state === 'optional' && added.value.has(c.id)).reduce((a, c) => a + extraPrice(c), 0));
 
+// The restaurant's own photo of an ingredient when it has one, else the built-in library.
+const thumbs = (c) => (c.icon ? [c.icon] : thumbPile(c.kind));
+
 const stageItems = computed(() => comps.value.filter((c) => !c.choice).map((c) => ({
-  id: c.id, name: c.name, kind: c.kind, base: c.state === 'selected',
+  id: c.id, name: c.name, kind: c.kind, icon: c.icon || null, base: c.state === 'selected',
   on: c.state === 'selected' ? !removed.value.has(c.id) : added.value.has(c.id),
 })));
 
@@ -129,7 +132,7 @@ onUnmounted(() => { window.removeEventListener('keydown', onKey); document.body.
           </div>
         </div>
         <div class="stage-art">
-          <FoodStage :key="stageImage" :mode="mode" :image="stageImage" :items="stageItems" :fly="fly" :baking="baking" :scale="stageScale" />
+          <FoodStage :key="stageImage" :mode="mode" :image="stageImage" :items="stageItems" :fly="fly" :baking="baking" :scale="stageScale" :food-id="food.id" />
         </div>
         <div class="stage-sum">
           <span v-if="food.sizes.length > 1 && size" class="mod note">{{ size.label || size.code }}</span>
@@ -169,7 +172,7 @@ onUnmounted(() => { window.removeEventListener('keydown', onKey); document.body.
             <div class="ing-grid">
               <button v-for="c in base" :key="c.id" type="button" class="ing" :class="[removed.has(c.id) ? 'out' : 'in', { bump: bumped === c.id }]" :aria-pressed="!removed.has(c.id)" @click="toggle('removed', c.id, $event)">
                 <span class="mark"><Icon :name="removed.has(c.id) ? 'x' : 'check'" :size="13" :stroke="3" /></span>
-                <span class="th" :class="{ pile: thumbPile(c.kind).length > 1 }"><img v-for="(u, k) in thumbPile(c.kind)" :key="u" :src="u" alt="" :class="'p' + k"><b v-if="!thumbPile(c.kind).length" class="th-letter">{{ c.name.trim().slice(0, 1).toUpperCase() }}</b></span>
+                <span class="th" :class="{ pile: thumbs(c).length > 1 }"><img v-for="(u, k) in thumbs(c)" :key="u" :src="u" alt="" :class="'p' + k"><b v-if="!thumbs(c).length" class="th-letter">{{ c.name.trim().slice(0, 1).toUpperCase() }}</b></span>
                 <span class="nm">{{ c.name }}</span>
                 <span class="pr">{{ t('inBase') }}</span>
               </button>
@@ -181,7 +184,7 @@ onUnmounted(() => { window.removeEventListener('keydown', onKey); document.body.
             <div class="ing-grid">
               <button v-for="c in extras" :key="c.id" type="button" class="ing" :class="{ on: added.has(c.id), bump: bumped === c.id }" :aria-pressed="added.has(c.id)" @click="toggle('added', c.id, $event)">
                 <span class="mark"><Icon name="check" :size="13" :stroke="3" /></span>
-                <span class="th" :class="{ pile: thumbPile(c.kind).length > 1 }"><img v-for="(u, k) in thumbPile(c.kind)" :key="u" :src="u" alt="" :class="'p' + k"><b v-if="!thumbPile(c.kind).length" class="th-letter">{{ c.name.trim().slice(0, 1).toUpperCase() }}</b></span>
+                <span class="th" :class="{ pile: thumbs(c).length > 1 }"><img v-for="(u, k) in thumbs(c)" :key="u" :src="u" alt="" :class="'p' + k"><b v-if="!thumbs(c).length" class="th-letter">{{ c.name.trim().slice(0, 1).toUpperCase() }}</b></span>
                 <span class="nm">{{ c.name }}</span>
                 <span class="pr">{{ extraPrice(c) ? '+' + money(extraPrice(c)) : t('free') }}</span>
               </button>

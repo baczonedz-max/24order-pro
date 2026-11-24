@@ -446,6 +446,14 @@ img { display: block; max-width: 100%; }
 .ps-frame { position: relative; height: 100%; max-width: 100%; aspect-ratio: 1; border-radius: 22px; overflow: hidden; background: var(--sunken); box-shadow: 0 18px 40px rgba(16, 24, 40, .18); animation: baseIn .5s cubic-bezier(.2, .9, .3, 1.15) both; }
 .ps-img { width: 100%; height: 100%; object-fit: contain; display: block; }
 .ps-over { position: absolute; inset: 0; }
+.ps-frame { background: #fff; }
+.ps-making { position: absolute; top: 10px; inset-inline-start: 50%; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 7px; height: 28px; padding: 0 12px; border-radius: 99px; background: rgba(17, 17, 17, .78); color: #fff; font-size: 12px; font-weight: 600; white-space: nowrap; backdrop-filter: blur(6px); }
+[dir='rtl'] .ps-making { transform: translateX(50%); }
+.ps-making i { width: 12px; height: 12px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, .35); border-top-color: #fff; animation: sh-spin .8s linear infinite; }
+.ps-making.in-svg { position: static; transform: none; justify-content: center; height: 22px; font-size: 9px; padding: 0 8px; }
+@keyframes sh-spin { to { transform: rotate(360deg); } }
+.ps-fade { animation: psFade .5s ease both; }
+@keyframes psFade { from { opacity: 0; } to { opacity: 1; } }
 .ps-swap-enter-active, .ps-swap-leave-active { transition: opacity .45s ease, filter .45s ease; }
 .ps-swap-enter-from, .ps-swap-leave-to { opacity: 0; filter: blur(2px); }
 .ps-chips { position: absolute; inset-inline: 10px; bottom: 10px; display: flex; flex-wrap: wrap; gap: 6px; }

@@ -6,67 +6,72 @@
   "priceStyle": "dash",
   "country": "NO"
  },
- "source": "demo",
+ "source": "24order:paradis-server.24order.com",
+ "imported_at": "2026-11-24T23:18:52.770Z",
  "categories": [
   {
    "id": 1,
    "name": "Pizza",
    "image": "https://paradis-server.24order.com/storage/categories/1794833205_Pizza.webp",
-   "footer": [
-    {
-     "label": "EKSTRA OST",
-     "value": "M: 25,- / S: 35,-",
-     "icon": "cheese"
-    },
-    {
-     "label": "EKSTRA SAUS",
-     "value": "25,-",
-     "icon": "sauce",
-     "note": "Hvitløksaus / tomatsaus / bearnaisesaus / BBQ-saus / chillisaus / jalapenos"
-    }
-   ],
    "foods": [
     {
      "id": 1,
      "number": 1,
      "name": "NAPOLI",
      "image": "https://paradis-server.24order.com/storage/foods/1794752166_NAPOLI4.webp",
+     "description": "Ost, Pizzasaus, Skinke, Salami",
      "prices": [
       {
-       "size": "M",
+       "size": "1-1",
        "label": "Medium",
        "price": 180
       },
       {
-       "size": "S",
+       "size": "1-2",
        "label": "Stor",
        "price": 250
       }
      ],
-     "description": "Ost, pizzasaus, skinke, salami",
      "components": [
       {
        "name": "Ost",
-       "state": "selected"
+       "state": "selected",
+       "extra": {
+        "1-1": 25,
+        "1-2": 35
+       },
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
       },
       {
        "name": "Pizzasaus",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835924_Tomatsaus.webp"
       },
       {
        "name": "Skinke",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835949_Skinke.webp"
       },
       {
        "name": "Salami",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835973_Salami.webp"
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp"
       },
       {
        "name": "Ekstra ost",
        "state": "optional",
        "extra": {
-        "M": 25,
-        "S": 35
+        "1-1": 25,
+        "1-2": 35
        }
       },
       {
@@ -93,63 +98,80 @@
        "name": "Chilisaus",
        "state": "optional",
        "extra": 25
-      },
-      {
-       "name": "Jalapenos",
-       "state": "optional",
-       "extra": 25
       }
-     ]
+     ],
+     "allergens": []
     },
     {
      "id": 2,
      "number": 2,
      "name": "MEXICO",
      "image": "https://paradis-server.24order.com/storage/foods/1794752319_MEXICO4.webp",
+     "description": "Ost, Pizzasaus, Skinke, Biffkjøtt, Paprika, Chillipepper",
      "prices": [
       {
-       "size": "M",
+       "size": "1-1",
        "label": "Medium",
        "price": 190
       },
       {
-       "size": "S",
+       "size": "1-2",
        "label": "Stor",
        "price": 270
       }
      ],
-     "description": "Ost, pizzasaus, skinke, biffkjøtt, paprika, chillipepper",
      "components": [
       {
        "name": "Ost",
-       "state": "selected"
+       "state": "selected",
+       "extra": {
+        "1-1": 25,
+        "1-2": 35
+       },
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
       },
       {
        "name": "Pizzasaus",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835924_Tomatsaus.webp"
       },
       {
        "name": "Skinke",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835949_Skinke.webp"
       },
       {
        "name": "Biffkjøtt",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836048_Marinert%20Biffkj%C3%B8tt.webp"
       },
       {
        "name": "Paprika",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836078_Paprika.webp"
       },
       {
        "name": "Chillipepper",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836113_Gr%C3%B8nn%20chili.webp"
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp"
       },
       {
        "name": "Ekstra ost",
        "state": "optional",
        "extra": {
-        "M": 25,
-        "S": 35
+        "1-1": 25,
+        "1-2": 35
        }
       },
       {
@@ -176,67 +198,86 @@
        "name": "Chilisaus",
        "state": "optional",
        "extra": 25
-      },
-      {
-       "name": "Jalapenos",
-       "state": "optional",
-       "extra": 25
       }
-     ]
+     ],
+     "allergens": []
     },
     {
      "id": 3,
      "number": 3,
      "name": "NORGESPIZZA",
      "image": "https://paradis-server.24order.com/storage/foods/1794752466_NORGESPIZZA.webp",
+     "description": "Ost, Pizzasaus, Skinke, Champignon, Løk, Kjøttboller, Bacon",
      "prices": [
       {
-       "size": "M",
+       "size": "1-1",
        "label": "Medium",
        "price": 190
       },
       {
-       "size": "S",
+       "size": "1-2",
        "label": "Stor",
        "price": 270
       }
      ],
-     "description": "Ost, pizzasaus, skinke, champignon, løk, kjøttboller, bacon",
      "components": [
       {
        "name": "Ost",
-       "state": "selected"
+       "state": "selected",
+       "extra": {
+        "1-1": 25,
+        "1-2": 35
+       },
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
       },
       {
        "name": "Pizzasaus",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835924_Tomatsaus.webp"
       },
       {
        "name": "Skinke",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835949_Skinke.webp"
       },
       {
        "name": "Champignon",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836126_Sjampinjong.webp"
       },
       {
        "name": "Løk",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836135_L%C3%B8k.webp"
       },
       {
        "name": "Kjøttboller",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836219_Kj%C3%B8ttboller.webp"
       },
       {
        "name": "Bacon",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836229_Bacon.webp"
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp"
       },
       {
        "name": "Ekstra ost",
        "state": "optional",
        "extra": {
-        "M": 25,
-        "S": 35
+        "1-1": 25,
+        "1-2": 35
        }
       },
       {
@@ -263,63 +304,71 @@
        "name": "Chilisaus",
        "state": "optional",
        "extra": 25
-      },
-      {
-       "name": "Jalapenos",
-       "state": "optional",
-       "extra": 25
       }
-     ]
+     ],
+     "allergens": []
     },
     {
      "id": 4,
      "number": 4,
      "name": "CALIFORNIA",
      "image": "https://paradis-server.24order.com/storage/foods/1794752576_CALIFORNIA.webp",
+     "description": "Paprika, Løk, Biff, Ferske tomater, Fersk dill",
      "prices": [
       {
-       "size": "M",
+       "size": "1-1",
        "label": "Medium",
        "price": 190
       },
       {
-       "size": "S",
+       "size": "1-2",
        "label": "Stor",
        "price": 270
       }
      ],
-     "description": "Biff, ferske tomater, løk, paprika, BBQ-saus, fersk dill",
      "components": [
       {
-       "name": "Biff",
-       "state": "selected"
-      },
-      {
-       "name": "Ferske tomater",
-       "state": "selected"
+       "name": "Paprika",
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836078_Paprika.webp"
       },
       {
        "name": "Løk",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836135_L%C3%B8k.webp"
       },
       {
-       "name": "Paprika",
-       "state": "selected"
+       "name": "Biff",
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836240_Biff.webp"
       },
       {
-       "name": "BBQ-saus",
-       "state": "selected"
+       "name": "Ferske tomater",
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836267_Tomat.webp"
       },
       {
        "name": "Fersk dill",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836299_Dill.webp"
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp"
       },
       {
        "name": "Ekstra ost",
        "state": "optional",
        "extra": {
-        "M": 25,
-        "S": 35
+        "1-1": 25,
+        "1-2": 35
        }
       },
       {
@@ -346,67 +395,86 @@
        "name": "Chilisaus",
        "state": "optional",
        "extra": 25
-      },
-      {
-       "name": "Jalapenos",
-       "state": "optional",
-       "extra": 25
       }
-     ]
+     ],
+     "allergens": []
     },
     {
      "id": 5,
      "number": 5,
      "name": "PARADIS",
      "image": "https://paradis-server.24order.com/storage/foods/1794752689_PARADIS.webp",
+     "description": "Ost, Pizzasaus, Skinke, Paprika, Champignon, Biff, Italiensk kjøttdeig",
      "prices": [
       {
-       "size": "M",
+       "size": "1-1",
        "label": "Medium",
        "price": 190
       },
       {
-       "size": "S",
+       "size": "1-2",
        "label": "Stor",
        "price": 270
       }
      ],
-     "description": "Ost, pizzasaus, champignon, paprika, skinke, biff, italiensk kjøttdeig",
      "components": [
       {
        "name": "Ost",
-       "state": "selected"
+       "state": "selected",
+       "extra": {
+        "1-1": 25,
+        "1-2": 35
+       },
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
       },
       {
        "name": "Pizzasaus",
-       "state": "selected"
-      },
-      {
-       "name": "Champignon",
-       "state": "selected"
-      },
-      {
-       "name": "Paprika",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835924_Tomatsaus.webp"
       },
       {
        "name": "Skinke",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835949_Skinke.webp"
+      },
+      {
+       "name": "Paprika",
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836078_Paprika.webp"
+      },
+      {
+       "name": "Champignon",
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836126_Sjampinjong.webp"
       },
       {
        "name": "Biff",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836240_Biff.webp"
       },
       {
        "name": "Italiensk kjøttdeig",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836315_Kj%C3%B8ttdeig.webp"
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp"
       },
       {
        "name": "Ekstra ost",
        "state": "optional",
        "extra": {
-        "M": 25,
-        "S": 35
+        "1-1": 25,
+        "1-2": 35
        }
       },
       {
@@ -433,67 +501,86 @@
        "name": "Chilisaus",
        "state": "optional",
        "extra": 25
-      },
-      {
-       "name": "Jalapenos",
-       "state": "optional",
-       "extra": 25
       }
-     ]
+     ],
+     "allergens": []
     },
     {
      "id": 6,
      "number": 6,
      "name": "MILANO",
      "image": "https://paradis-server.24order.com/storage/foods/1794752828_MILANO4.webp",
+     "description": "Ost, Pizzasaus, Skinke, Salami, Paprika, Champignon, Ananas",
      "prices": [
       {
-       "size": "M",
+       "size": "1-1",
        "label": "Medium",
        "price": 190
       },
       {
-       "size": "S",
+       "size": "1-2",
        "label": "Stor",
        "price": 270
       }
      ],
-     "description": "Ost, pizzasaus, champignon, paprika, skinke, salami, ananas",
      "components": [
       {
        "name": "Ost",
-       "state": "selected"
+       "state": "selected",
+       "extra": {
+        "1-1": 25,
+        "1-2": 35
+       },
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
       },
       {
        "name": "Pizzasaus",
-       "state": "selected"
-      },
-      {
-       "name": "Champignon",
-       "state": "selected"
-      },
-      {
-       "name": "Paprika",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835924_Tomatsaus.webp"
       },
       {
        "name": "Skinke",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835949_Skinke.webp"
       },
       {
        "name": "Salami",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835973_Salami.webp"
+      },
+      {
+       "name": "Paprika",
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836078_Paprika.webp"
+      },
+      {
+       "name": "Champignon",
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836126_Sjampinjong.webp"
       },
       {
        "name": "Ananas",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836327_Ananas.webp"
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp"
       },
       {
        "name": "Ekstra ost",
        "state": "optional",
        "extra": {
-        "M": 25,
-        "S": 35
+        "1-1": 25,
+        "1-2": 35
        }
       },
       {
@@ -520,67 +607,86 @@
        "name": "Chilisaus",
        "state": "optional",
        "extra": 25
-      },
-      {
-       "name": "Jalapenos",
-       "state": "optional",
-       "extra": 25
       }
-     ]
+     ],
+     "allergens": []
     },
     {
      "id": 7,
      "number": 7,
      "name": "SARPSBORG",
      "image": "https://paradis-server.24order.com/storage/foods/1794752861_SARPSBORG.webp",
+     "description": "Ost, Pizzasaus, Skinke, Salami, Paprika, Italiensk kjøttdeig, Pepperoni",
      "prices": [
       {
-       "size": "M",
+       "size": "1-1",
        "label": "Medium",
        "price": 190
       },
       {
-       "size": "S",
+       "size": "1-2",
        "label": "Stor",
        "price": 270
       }
      ],
-     "description": "Ost, pizzasaus, skinke, salami, pepperoni, paprika, italiensk kjøttdeig",
      "components": [
       {
        "name": "Ost",
-       "state": "selected"
+       "state": "selected",
+       "extra": {
+        "1-1": 25,
+        "1-2": 35
+       },
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
       },
       {
        "name": "Pizzasaus",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835924_Tomatsaus.webp"
       },
       {
        "name": "Skinke",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835949_Skinke.webp"
       },
       {
        "name": "Salami",
-       "state": "selected"
-      },
-      {
-       "name": "Pepperoni",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835973_Salami.webp"
       },
       {
        "name": "Paprika",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836078_Paprika.webp"
       },
       {
        "name": "Italiensk kjøttdeig",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836315_Kj%C3%B8ttdeig.webp"
+      },
+      {
+       "name": "Pepperoni",
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836339_Pepperoni.webp"
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp"
       },
       {
        "name": "Ekstra ost",
        "state": "optional",
        "extra": {
-        "M": 25,
-        "S": 35
+        "1-1": 25,
+        "1-2": 35
        }
       },
       {
@@ -607,63 +713,80 @@
        "name": "Chilisaus",
        "state": "optional",
        "extra": 25
-      },
-      {
-       "name": "Jalapenos",
-       "state": "optional",
-       "extra": 25
       }
-     ]
+     ],
+     "allergens": []
     },
     {
      "id": 8,
      "number": 8,
      "name": "HOLLYWOOD",
      "image": "https://paradis-server.24order.com/storage/foods/1794752940_HOLLYWOOD.webp",
+     "description": "Ost, Pizzasaus, Skinke, Salami, Kjøttboller, Pepperoni",
      "prices": [
       {
-       "size": "M",
+       "size": "1-1",
        "label": "Medium",
        "price": 190
       },
       {
-       "size": "S",
+       "size": "1-2",
        "label": "Stor",
        "price": 270
       }
      ],
-     "description": "Ost, pizzasaus, skinke, salami, pepperoni, kjøttboller",
      "components": [
       {
        "name": "Ost",
-       "state": "selected"
+       "state": "selected",
+       "extra": {
+        "1-1": 25,
+        "1-2": 35
+       },
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
       },
       {
        "name": "Pizzasaus",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835924_Tomatsaus.webp"
       },
       {
        "name": "Skinke",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835949_Skinke.webp"
       },
       {
        "name": "Salami",
-       "state": "selected"
-      },
-      {
-       "name": "Pepperoni",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835973_Salami.webp"
       },
       {
        "name": "Kjøttboller",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836219_Kj%C3%B8ttboller.webp"
+      },
+      {
+       "name": "Pepperoni",
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836339_Pepperoni.webp"
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp"
       },
       {
        "name": "Ekstra ost",
        "state": "optional",
        "extra": {
-        "M": 25,
-        "S": 35
+        "1-1": 25,
+        "1-2": 35
        }
       },
       {
@@ -690,63 +813,80 @@
        "name": "Chilisaus",
        "state": "optional",
        "extra": 25
-      },
-      {
-       "name": "Jalapenos",
-       "state": "optional",
-       "extra": 25
       }
-     ]
+     ],
+     "allergens": []
     },
     {
      "id": 9,
      "number": 9,
      "name": "FRANSK",
      "image": "https://paradis-server.24order.com/storage/foods/1794753268_FRANSK.webp",
+     "description": "Ost, Pizzasaus, Skinke, Salami, Champignon, Biff",
      "prices": [
       {
-       "size": "M",
+       "size": "1-1",
        "label": "Medium",
        "price": 190
       },
       {
-       "size": "S",
+       "size": "1-2",
        "label": "Stor",
        "price": 270
       }
      ],
-     "description": "Ost, pizzasaus, skinke, salami, champignon, biff",
      "components": [
       {
        "name": "Ost",
-       "state": "selected"
+       "state": "selected",
+       "extra": {
+        "1-1": 25,
+        "1-2": 35
+       },
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
       },
       {
        "name": "Pizzasaus",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835924_Tomatsaus.webp"
       },
       {
        "name": "Skinke",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835949_Skinke.webp"
       },
       {
        "name": "Salami",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835973_Salami.webp"
       },
       {
        "name": "Champignon",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836126_Sjampinjong.webp"
       },
       {
        "name": "Biff",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836240_Biff.webp"
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp"
       },
       {
        "name": "Ekstra ost",
        "state": "optional",
        "extra": {
-        "M": 25,
-        "S": 35
+        "1-1": 25,
+        "1-2": 35
        }
       },
       {
@@ -773,51 +913,62 @@
        "name": "Chilisaus",
        "state": "optional",
        "extra": 25
-      },
-      {
-       "name": "Jalapenos",
-       "state": "optional",
-       "extra": 25
       }
-     ]
+     ],
+     "allergens": []
     },
     {
      "id": 10,
      "number": 10,
      "name": "SPESIAL",
      "image": "https://paradis-server.24order.com/storage/foods/1794753631_SPESIAL.webp",
+     "description": "Ost, Pizzasaus, Alt av kjøtt og grønnsaker skåret i små biter",
      "prices": [
       {
-       "size": "M",
+       "size": "1-1",
        "label": "Medium",
        "price": 195
       },
       {
-       "size": "S",
+       "size": "1-2",
        "label": "Stor",
        "price": 280
       }
      ],
-     "description": "Ost, pizzasaus, alt av kjøtt og grønnsaker skåret i små biter",
      "components": [
       {
        "name": "Ost",
-       "state": "selected"
+       "state": "selected",
+       "extra": {
+        "1-1": 25,
+        "1-2": 35
+       },
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
       },
       {
        "name": "Pizzasaus",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835924_Tomatsaus.webp"
       },
       {
        "name": "Alt av kjøtt og grønnsaker skåret i små biter",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": null
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp"
       },
       {
        "name": "Ekstra ost",
        "state": "optional",
        "extra": {
-        "M": 25,
-        "S": 35
+        "1-1": 25,
+        "1-2": 35
        }
       },
       {
@@ -844,59 +995,68 @@
        "name": "Chilisaus",
        "state": "optional",
        "extra": 25
-      },
-      {
-       "name": "Jalapenos",
-       "state": "optional",
-       "extra": 25
       }
-     ]
+     ],
+     "allergens": []
     },
     {
      "id": 11,
      "number": 11,
      "name": "AMERICAN WAY",
      "image": "https://paradis-server.24order.com/storage/foods/1794753914_AMERICAN%20WAY.webp",
+     "description": "Ost, Pizzasaus, Skinke, Salami, Kjøttboller",
      "prices": [
       {
-       "size": "M",
+       "size": "1-1",
        "label": "Medium",
        "price": 190
       },
       {
-       "size": "S",
+       "size": "1-2",
        "label": "Stor",
        "price": 270
       }
      ],
-     "description": "Ost, pizzasaus, skinke, salami, kjøttboller (barnepizza)",
      "components": [
       {
        "name": "Ost",
-       "state": "selected"
+       "state": "selected",
+       "extra": {
+        "1-1": 25,
+        "1-2": 35
+       },
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
       },
       {
        "name": "Pizzasaus",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835924_Tomatsaus.webp"
       },
       {
        "name": "Skinke",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835949_Skinke.webp"
       },
       {
        "name": "Salami",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835973_Salami.webp"
       },
       {
-       "name": "Kjøttboller (barnepizza)",
-       "state": "selected"
+       "name": "Kjøttboller",
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836219_Kj%C3%B8ttboller.webp"
       },
       {
        "name": "Ekstra ost",
        "state": "optional",
        "extra": {
-        "M": 25,
-        "S": 35
+        "1-1": 25,
+        "1-2": 35
        }
       },
       {
@@ -927,63 +1087,82 @@
       {
        "name": "Jalapenos",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp"
       }
-     ]
+     ],
+     "allergens": []
     },
     {
      "id": 12,
      "number": 12,
      "name": "BOSTON",
      "image": "https://paradis-server.24order.com/storage/foods/1794754476_BOSTON.webp",
+     "description": "Ost, Pizzasaus, Skinke, Salami, Paprika, Champignon, Pepperoni",
      "prices": [
       {
-       "size": "M",
+       "size": "1-1",
        "label": "Medium",
        "price": 190
       },
       {
-       "size": "S",
+       "size": "1-2",
        "label": "Stor",
        "price": 270
       }
      ],
-     "description": "Ost, pizzasaus, champignon, paprika, skinke, salami, pepperoni",
      "components": [
       {
        "name": "Ost",
-       "state": "selected"
+       "state": "selected",
+       "extra": {
+        "1-1": 25,
+        "1-2": 35
+       },
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
       },
       {
        "name": "Pizzasaus",
-       "state": "selected"
-      },
-      {
-       "name": "Champignon",
-       "state": "selected"
-      },
-      {
-       "name": "Paprika",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835924_Tomatsaus.webp"
       },
       {
        "name": "Skinke",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835949_Skinke.webp"
       },
       {
        "name": "Salami",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835973_Salami.webp"
+      },
+      {
+       "name": "Paprika",
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836078_Paprika.webp"
+      },
+      {
+       "name": "Champignon",
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836126_Sjampinjong.webp"
       },
       {
        "name": "Pepperoni",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836339_Pepperoni.webp"
       },
       {
        "name": "Ekstra ost",
        "state": "optional",
        "extra": {
-        "M": 25,
-        "S": 35
+        "1-1": 25,
+        "1-2": 35
        }
       },
       {
@@ -1014,51 +1193,37 @@
       {
        "name": "Jalapenos",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp"
       }
-     ]
+     ],
+     "allergens": []
     },
     {
      "id": 13,
      "number": 13,
      "name": "GRENSELØS",
      "image": "https://paradis-server.24order.com/storage/foods/1794754609_Lag%20din%20egen%20pizza%20copy.webp",
+     "description": "Sett sammen egen pizza. Fem ingredienser (over fem, M: 190,- S: 270,-)",
      "prices": [
       {
-       "size": "M",
+       "size": "1-1",
        "label": "Medium",
        "price": 190
       },
       {
-       "size": "S",
+       "size": "1-2",
        "label": "Stor",
        "price": 270
       }
      ],
-     "description": "Sett sammen egen pizza. Fem ingredienser (over fem, M: 190,- S: 270,-)",
      "components": [
-      {
-       "name": "Sett sammen egen pizza. Fem ingredienser (over fem",
-       "state": "selected"
-      },
-      {
-       "name": "M: 190",
-       "state": "selected"
-      },
-      {
-       "name": "- S: 270",
-       "state": "selected"
-      },
-      {
-       "name": "-)",
-       "state": "selected"
-      },
       {
        "name": "Ekstra ost",
        "state": "optional",
        "extra": {
-        "M": 25,
-        "S": 35
+        "1-1": 25,
+        "1-2": 35
        }
       },
       {
@@ -1089,63 +1254,82 @@
       {
        "name": "Jalapenos",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp"
       }
-     ]
+     ],
+     "allergens": []
     },
     {
      "id": 14,
      "number": 14,
      "name": "L.A.",
      "image": "https://paradis-server.24order.com/storage/foods/1794754737_L.A.webp",
+     "description": "Ost, Pizzasaus, Skinke, Salami, Paprika, Kjøttboller, Biff",
      "prices": [
       {
-       "size": "M",
+       "size": "1-1",
        "label": "Medium",
        "price": 190
       },
       {
-       "size": "S",
+       "size": "1-2",
        "label": "Stor",
        "price": 270
       }
      ],
-     "description": "Ost, pizzasaus, paprika, skinke, salami, biff, kjøttboller",
      "components": [
       {
        "name": "Ost",
-       "state": "selected"
+       "state": "selected",
+       "extra": {
+        "1-1": 25,
+        "1-2": 35
+       },
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
       },
       {
        "name": "Pizzasaus",
-       "state": "selected"
-      },
-      {
-       "name": "Paprika",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835924_Tomatsaus.webp"
       },
       {
        "name": "Skinke",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835949_Skinke.webp"
       },
       {
        "name": "Salami",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835973_Salami.webp"
       },
       {
-       "name": "Biff",
-       "state": "selected"
+       "name": "Paprika",
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836078_Paprika.webp"
       },
       {
        "name": "Kjøttboller",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836219_Kj%C3%B8ttboller.webp"
+      },
+      {
+       "name": "Biff",
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836240_Biff.webp"
       },
       {
        "name": "Ekstra ost",
        "state": "optional",
        "extra": {
-        "M": 25,
-        "S": 35
+        "1-1": 25,
+        "1-2": 35
        }
       },
       {
@@ -1176,63 +1360,82 @@
       {
        "name": "Jalapenos",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp"
       }
-     ]
+     ],
+     "allergens": []
     },
     {
      "id": 15,
      "number": 15,
      "name": "SPANIA",
      "image": "https://paradis-server.24order.com/storage/foods/1794830055_SPANIA.webp",
+     "description": "Ost, Pizzasaus, Skinke, Salami, Champignon, Pepperoni, Purreløk",
      "prices": [
       {
-       "size": "M",
+       "size": "1-1",
        "label": "Medium",
        "price": 190
       },
       {
-       "size": "S",
+       "size": "1-2",
        "label": "Stor",
        "price": 270
       }
      ],
-     "description": "Ost, pizzasaus, skinke, salami, pepperoni, champignon, purreløk",
      "components": [
       {
        "name": "Ost",
-       "state": "selected"
+       "state": "selected",
+       "extra": {
+        "1-1": 25,
+        "1-2": 35
+       },
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
       },
       {
        "name": "Pizzasaus",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835924_Tomatsaus.webp"
       },
       {
        "name": "Skinke",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835949_Skinke.webp"
       },
       {
        "name": "Salami",
-       "state": "selected"
-      },
-      {
-       "name": "Pepperoni",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835973_Salami.webp"
       },
       {
        "name": "Champignon",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836126_Sjampinjong.webp"
+      },
+      {
+       "name": "Pepperoni",
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836339_Pepperoni.webp"
       },
       {
        "name": "Purreløk",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836387_purrel%C3%B8k.webp"
       },
       {
        "name": "Ekstra ost",
        "state": "optional",
        "extra": {
-        "M": 25,
-        "S": 35
+        "1-1": 25,
+        "1-2": 35
        }
       },
       {
@@ -1263,63 +1466,82 @@
       {
        "name": "Jalapenos",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp"
       }
-     ]
+     ],
+     "allergens": []
     },
     {
      "id": 16,
      "number": 16,
      "name": "TURBO",
      "image": "https://paradis-server.24order.com/storage/foods/1794830159_TURBO.webp",
+     "description": "Ost, Pizzasaus, Skinke, Paprika, Champignon, Biff, Hvitløk",
      "prices": [
       {
-       "size": "M",
+       "size": "1-1",
        "label": "Medium",
        "price": 180
       },
       {
-       "size": "S",
+       "size": "1-2",
        "label": "Stor",
        "price": 260
       }
      ],
-     "description": "Ost, pizzasaus, champignon, paprika, skinke, biff, hvitløk",
      "components": [
       {
        "name": "Ost",
-       "state": "selected"
+       "state": "selected",
+       "extra": {
+        "1-1": 25,
+        "1-2": 35
+       },
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
       },
       {
        "name": "Pizzasaus",
-       "state": "selected"
-      },
-      {
-       "name": "Champignon",
-       "state": "selected"
-      },
-      {
-       "name": "Paprika",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835924_Tomatsaus.webp"
       },
       {
        "name": "Skinke",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835949_Skinke.webp"
+      },
+      {
+       "name": "Paprika",
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836078_Paprika.webp"
+      },
+      {
+       "name": "Champignon",
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836126_Sjampinjong.webp"
       },
       {
        "name": "Biff",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836240_Biff.webp"
       },
       {
        "name": "Hvitløk",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836426_Hvitl%C3%B8k.webp"
       },
       {
        "name": "Ekstra ost",
        "state": "optional",
        "extra": {
-        "M": 25,
-        "S": 35
+        "1-1": 25,
+        "1-2": 35
        }
       },
       {
@@ -1350,67 +1572,88 @@
       {
        "name": "Jalapenos",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp"
       }
-     ]
+     ],
+     "allergens": []
     },
     {
      "id": 17,
      "number": 17,
      "name": "VEGETAR",
      "image": "https://paradis-server.24order.com/storage/foods/1794830286_VEGETAR3.webp",
+     "description": "Ost, Pizzasaus, Paprika, Champignon, Løk, Ananas, Mais, Oliven",
      "prices": [
       {
-       "size": "M",
+       "size": "1-1",
        "label": "Medium",
        "price": 180
       },
       {
-       "size": "S",
+       "size": "1-2",
        "label": "Stor",
        "price": 250
       }
      ],
-     "description": "Ost, pizzasaus, champignon, paprika, mais, løk, oliven, ananas",
      "components": [
       {
        "name": "Ost",
-       "state": "selected"
+       "state": "selected",
+       "extra": {
+        "1-1": 25,
+        "1-2": 35
+       },
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
       },
       {
        "name": "Pizzasaus",
-       "state": "selected"
-      },
-      {
-       "name": "Champignon",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835924_Tomatsaus.webp"
       },
       {
        "name": "Paprika",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836078_Paprika.webp"
       },
       {
-       "name": "Mais",
-       "state": "selected"
+       "name": "Champignon",
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836126_Sjampinjong.webp"
       },
       {
        "name": "Løk",
-       "state": "selected"
-      },
-      {
-       "name": "Oliven",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836135_L%C3%B8k.webp"
       },
       {
        "name": "Ananas",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836327_Ananas.webp"
+      },
+      {
+       "name": "Mais",
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836436_Mais.webp"
+      },
+      {
+       "name": "Oliven",
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836446_Oliven.webp"
       },
       {
        "name": "Ekstra ost",
        "state": "optional",
        "extra": {
-        "M": 25,
-        "S": 35
+        "1-1": 25,
+        "1-2": 35
        }
       },
       {
@@ -1441,67 +1684,88 @@
       {
        "name": "Jalapenos",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp"
       }
-     ]
+     ],
+     "allergens": []
     },
     {
      "id": 18,
      "number": 18,
      "name": "KEBABPIZZA",
      "image": "https://paradis-server.24order.com/storage/foods/1794830445_KEBABPIZZA6.webp",
+     "description": "Ost, Pizzasaus, Paprika, Champignon, Løk, Mais, Kebabkjøtt, Peppermix",
      "prices": [
       {
-       "size": "M",
+       "size": "1-1",
        "label": "Medium",
        "price": 190
       },
       {
-       "size": "S",
+       "size": "1-2",
        "label": "Stor",
        "price": 270
       }
      ],
-     "description": "Ost, pizzasaus, kebabkjøtt, champignon, paprika, mais, løk, peppermix",
      "components": [
       {
        "name": "Ost",
-       "state": "selected"
+       "state": "selected",
+       "extra": {
+        "1-1": 25,
+        "1-2": 35
+       },
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
       },
       {
        "name": "Pizzasaus",
-       "state": "selected"
-      },
-      {
-       "name": "Kebabkjøtt",
-       "state": "selected"
-      },
-      {
-       "name": "Champignon",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835924_Tomatsaus.webp"
       },
       {
        "name": "Paprika",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836078_Paprika.webp"
       },
       {
-       "name": "Mais",
-       "state": "selected"
+       "name": "Champignon",
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836126_Sjampinjong.webp"
       },
       {
        "name": "Løk",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836135_L%C3%B8k.webp"
+      },
+      {
+       "name": "Mais",
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836436_Mais.webp"
+      },
+      {
+       "name": "Kebabkjøtt",
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836545_Marinert%20kebabkj%C3%B8tt.webp"
       },
       {
        "name": "Peppermix",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836555_Peppermix%20.webp"
       },
       {
        "name": "Ekstra ost",
        "state": "optional",
        "extra": {
-        "M": 25,
-        "S": 35
+        "1-1": 25,
+        "1-2": 35
        }
       },
       {
@@ -1532,59 +1796,76 @@
       {
        "name": "Jalapenos",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp"
       }
-     ]
+     ],
+     "allergens": []
     },
     {
      "id": 19,
      "number": 19,
      "name": "PEPPERONI",
      "image": "https://paradis-server.24order.com/storage/foods/1794830783_PEPPERONI.webp",
+     "description": "Ost, Pizzasaus, Bacon, Biff, Pepperoni, Løkringer",
      "prices": [
       {
-       "size": "M",
+       "size": "1-1",
        "label": "Medium",
        "price": 190
       },
       {
-       "size": "S",
+       "size": "1-2",
        "label": "Stor",
        "price": 270
       }
      ],
-     "description": "Ost, pizzasaus, pepperoni, biff, løkringer, bacon",
      "components": [
       {
        "name": "Ost",
-       "state": "selected"
+       "state": "selected",
+       "extra": {
+        "1-1": 25,
+        "1-2": 35
+       },
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
       },
       {
        "name": "Pizzasaus",
-       "state": "selected"
-      },
-      {
-       "name": "Pepperoni",
-       "state": "selected"
-      },
-      {
-       "name": "Biff",
-       "state": "selected"
-      },
-      {
-       "name": "Løkringer",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835924_Tomatsaus.webp"
       },
       {
        "name": "Bacon",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836229_Bacon.webp"
+      },
+      {
+       "name": "Biff",
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836240_Biff.webp"
+      },
+      {
+       "name": "Pepperoni",
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836339_Pepperoni.webp"
+      },
+      {
+       "name": "Løkringer",
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836568_L%C3%B8kringer.webp"
       },
       {
        "name": "Ekstra ost",
        "state": "optional",
        "extra": {
-        "M": 25,
-        "S": 35
+        "1-1": 25,
+        "1-2": 35
        }
       },
       {
@@ -1615,67 +1896,88 @@
       {
        "name": "Jalapenos",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp"
       }
-     ]
+     ],
+     "allergens": []
     },
     {
      "id": 20,
      "number": 20,
      "name": "MUSLIMSK PIZZA",
      "image": "https://paradis-server.24order.com/storage/foods/1794831020_MUSLIMSK%20PIZZA.webp",
+     "description": "Ost, Pizzasaus, Paprika, Champignon, Løk, Biff, Mais, Peppermix",
      "prices": [
       {
-       "size": "M",
+       "size": "1-1",
        "label": "Medium",
        "price": 190
       },
       {
-       "size": "S",
+       "size": "1-2",
        "label": "Stor",
        "price": 270
       }
      ],
-     "description": "Ost, pizzasaus, champignon, paprika, biff, mais, løk, peppermix",
      "components": [
       {
        "name": "Ost",
-       "state": "selected"
+       "state": "selected",
+       "extra": {
+        "1-1": 25,
+        "1-2": 35
+       },
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
       },
       {
        "name": "Pizzasaus",
-       "state": "selected"
-      },
-      {
-       "name": "Champignon",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835924_Tomatsaus.webp"
       },
       {
        "name": "Paprika",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836078_Paprika.webp"
       },
       {
-       "name": "Biff",
-       "state": "selected"
-      },
-      {
-       "name": "Mais",
-       "state": "selected"
+       "name": "Champignon",
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836126_Sjampinjong.webp"
       },
       {
        "name": "Løk",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836135_L%C3%B8k.webp"
+      },
+      {
+       "name": "Biff",
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836240_Biff.webp"
+      },
+      {
+       "name": "Mais",
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836436_Mais.webp"
       },
       {
        "name": "Peppermix",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836555_Peppermix%20.webp"
       },
       {
        "name": "Ekstra ost",
        "state": "optional",
        "extra": {
-        "M": 25,
-        "S": 35
+        "1-1": 25,
+        "1-2": 35
        }
       },
       {
@@ -1706,51 +2008,64 @@
       {
        "name": "Jalapenos",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp"
       }
-     ]
+     ],
+     "allergens": []
     },
     {
      "id": 21,
      "number": 21,
      "name": "KYLLINGPIZZA",
      "image": "https://paradis-server.24order.com/storage/foods/1794831086_KYLLINGPIZZA.webp",
+     "description": "Ost, Pizzasaus, Marinert kylling, Grønnsaker",
      "prices": [
       {
-       "size": "M",
+       "size": "1-1",
        "label": "Medium",
        "price": 190
       },
       {
-       "size": "S",
+       "size": "1-2",
        "label": "Stor",
        "price": 270
       }
      ],
-     "description": "Ost, pizzasaus, marinert kylling, grønnsaker",
      "components": [
       {
        "name": "Ost",
-       "state": "selected"
+       "state": "selected",
+       "extra": {
+        "1-1": 25,
+        "1-2": 35
+       },
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
       },
       {
        "name": "Pizzasaus",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835924_Tomatsaus.webp"
       },
       {
        "name": "Marinert kylling",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836580_Marinert%20Kylling.webp"
       },
       {
        "name": "Grønnsaker",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836604_Gr%C3%B8nnsaker.webp"
       },
       {
        "name": "Ekstra ost",
        "state": "optional",
        "extra": {
-        "M": 25,
-        "S": 35
+        "1-1": 25,
+        "1-2": 35
        }
       },
       {
@@ -1781,549 +2096,984 @@
       {
        "name": "Jalapenos",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp"
       }
-     ]
+     ],
+     "allergens": []
     }
    ]
   },
   {
    "id": 2,
-   "name": "Kebab",
+   "name": "KEBAB",
    "image": "https://paradis-server.24order.com/storage/categories/1794833229_kebab%202.webp",
-   "footer": [
-    {
-     "label": "EKSTRA TILBEHØR",
-     "value": "5,-",
-     "note": "Mais / løk / ost / ananas / hvitløk / jalapenos / tomater / x-dressing"
-    }
-   ],
    "foods": [
     {
      "id": 22,
      "number": 1,
      "name": "KEBAB I RULL",
      "image": "https://paradis-server.24order.com/storage/foods/1794750428_RULL.webp",
+     "description": "Kebab / kylling",
      "prices": [
       {
-       "size": "",
+       "size": "2-3",
        "label": "",
        "price": 120
       }
      ],
-     "description": "Kebab / kylling",
      "components": [
+      {
+       "name": "Isbergsalat",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836725_Salat.webp"
+      },
+      {
+       "name": "Tomat",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836670_Tomat.webp"
+      },
+      {
+       "name": "Agurk",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true
+      },
+      {
+       "name": "Rødløk",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836135_L%C3%B8k.webp"
+      },
+      {
+       "name": "Kebabsaus",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true
+      },
       {
        "name": "Kebab",
        "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836644_Marinert%20kebabkj%C3%B8tt.webp",
        "choice": "Kjøtt",
        "image": "/img/dish/rull.kebab.webp"
       },
       {
        "name": "Kylling",
        "state": "optional",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836657_Kyllingfilet.webp",
        "choice": "Kjøtt",
        "image": "https://paradis-server.24order.com/storage/foods/1794751528_Rullekebab%20kylling%201.webp"
       },
       {
-       "name": "Mais",
-       "state": "optional",
-       "extra": 5
-      },
-      {
-       "name": "Løk",
-       "state": "optional",
-       "extra": 5
-      },
-      {
        "name": "Ost",
        "state": "optional",
-       "extra": 5
-      },
-      {
-       "name": "Ananas",
-       "state": "optional",
-       "extra": 5
-      },
-      {
-       "name": "Hvitløk",
-       "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
       },
       {
        "name": "Jalapenos",
        "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp"
+      },
+      {
+       "name": "Løk",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836135_L%C3%B8k.webp"
+      },
+      {
+       "name": "Ananas",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836327_Ananas.webp"
+      },
+      {
+       "name": "Hvitløk",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836426_Hvitl%C3%B8k.webp"
+      },
+      {
+       "name": "Mais",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836436_Mais.webp"
       },
       {
        "name": "Tomater",
        "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836670_Tomat.webp"
       },
       {
        "name": "X-dressing",
        "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": null
       }
-     ]
+     ],
+     "allergens": []
     },
     {
      "id": 23,
      "number": 2,
      "name": "EKSTRA STOR TYRKISK KEBAB",
      "image": "https://paradis-server.24order.com/storage/foods/1794831387_TYRKISK%20KEBAB.webp",
+     "description": "",
      "prices": [
       {
-       "size": "",
+       "size": "2-3",
        "label": "",
        "price": 120
       }
      ],
-     "description": "",
      "components": [
       {
-       "name": "Mais",
-       "state": "optional",
-       "extra": 5
+       "name": "Kebabkjøtt",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836644_Marinert%20kebabkj%C3%B8tt.webp"
       },
       {
-       "name": "Løk",
-       "state": "optional",
-       "extra": 5
+       "name": "Isbergsalat",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836725_Salat.webp"
+      },
+      {
+       "name": "Tomat",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836670_Tomat.webp"
+      },
+      {
+       "name": "Agurk",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true
+      },
+      {
+       "name": "Rødløk",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836135_L%C3%B8k.webp"
+      },
+      {
+       "name": "Kebabsaus",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true
       },
       {
        "name": "Ost",
        "state": "optional",
-       "extra": 5
-      },
-      {
-       "name": "Ananas",
-       "state": "optional",
-       "extra": 5
-      },
-      {
-       "name": "Hvitløk",
-       "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
       },
       {
        "name": "Jalapenos",
        "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp"
+      },
+      {
+       "name": "Løk",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836135_L%C3%B8k.webp"
+      },
+      {
+       "name": "Ananas",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836327_Ananas.webp"
+      },
+      {
+       "name": "Hvitløk",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836426_Hvitl%C3%B8k.webp"
+      },
+      {
+       "name": "Mais",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836436_Mais.webp"
       },
       {
        "name": "Tomater",
        "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836670_Tomat.webp"
       },
       {
        "name": "X-dressing",
        "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": null
       }
-     ]
+     ],
+     "allergens": []
     },
     {
      "id": 24,
      "number": 3,
      "name": "STOR TYRKISK KEBAB",
      "image": "https://paradis-server.24order.com/storage/foods/1794831332_TYRKISK%20KEBAB.webp",
+     "description": "",
      "prices": [
       {
-       "size": "",
+       "size": "2-3",
        "label": "",
        "price": 110
       }
      ],
-     "description": "",
      "components": [
       {
-       "name": "Mais",
-       "state": "optional",
-       "extra": 5
+       "name": "Kebabkjøtt",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836644_Marinert%20kebabkj%C3%B8tt.webp"
       },
       {
-       "name": "Løk",
-       "state": "optional",
-       "extra": 5
+       "name": "Isbergsalat",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836725_Salat.webp"
+      },
+      {
+       "name": "Tomat",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836670_Tomat.webp"
+      },
+      {
+       "name": "Agurk",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true
+      },
+      {
+       "name": "Rødløk",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836135_L%C3%B8k.webp"
+      },
+      {
+       "name": "Kebabsaus",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true
       },
       {
        "name": "Ost",
        "state": "optional",
-       "extra": 5
-      },
-      {
-       "name": "Ananas",
-       "state": "optional",
-       "extra": 5
-      },
-      {
-       "name": "Hvitløk",
-       "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
       },
       {
        "name": "Jalapenos",
        "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp"
+      },
+      {
+       "name": "Løk",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836135_L%C3%B8k.webp"
+      },
+      {
+       "name": "Ananas",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836327_Ananas.webp"
+      },
+      {
+       "name": "Hvitløk",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836426_Hvitl%C3%B8k.webp"
+      },
+      {
+       "name": "Mais",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836436_Mais.webp"
       },
       {
        "name": "Tomater",
        "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836670_Tomat.webp"
       },
       {
        "name": "X-dressing",
        "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": null
       }
-     ]
+     ],
+     "allergens": []
     },
     {
      "id": 25,
      "number": 4,
      "name": "LITEN TYRKISK KEBAB",
      "image": "https://paradis-server.24order.com/storage/foods/1794831357_TYRKISK%20KEBAB.webp",
+     "description": "",
      "prices": [
       {
-       "size": "",
+       "size": "2-3",
        "label": "",
        "price": 100
       }
      ],
-     "description": "",
      "components": [
       {
-       "name": "Mais",
-       "state": "optional",
-       "extra": 5
+       "name": "Kebabkjøtt",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836644_Marinert%20kebabkj%C3%B8tt.webp"
       },
       {
-       "name": "Løk",
-       "state": "optional",
-       "extra": 5
+       "name": "Isbergsalat",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836725_Salat.webp"
+      },
+      {
+       "name": "Tomat",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836670_Tomat.webp"
+      },
+      {
+       "name": "Agurk",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true
+      },
+      {
+       "name": "Rødløk",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836135_L%C3%B8k.webp"
+      },
+      {
+       "name": "Kebabsaus",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true
       },
       {
        "name": "Ost",
        "state": "optional",
-       "extra": 5
-      },
-      {
-       "name": "Ananas",
-       "state": "optional",
-       "extra": 5
-      },
-      {
-       "name": "Hvitløk",
-       "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
       },
       {
        "name": "Jalapenos",
        "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp"
+      },
+      {
+       "name": "Løk",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836135_L%C3%B8k.webp"
+      },
+      {
+       "name": "Ananas",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836327_Ananas.webp"
+      },
+      {
+       "name": "Hvitløk",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836426_Hvitl%C3%B8k.webp"
+      },
+      {
+       "name": "Mais",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836436_Mais.webp"
       },
       {
        "name": "Tomater",
        "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836670_Tomat.webp"
       },
       {
        "name": "X-dressing",
        "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": null
       }
-     ]
+     ],
+     "allergens": []
     },
     {
      "id": 26,
      "number": 5,
      "name": "EKSTRA STOR KYLLINGKEBAB",
      "image": "https://paradis-server.24order.com/storage/foods/1794751546_Rullekebab%20kylling%201.webp",
+     "description": "",
      "prices": [
       {
-       "size": "",
+       "size": "2-3",
        "label": "",
        "price": 120
       }
      ],
-     "description": "",
      "components": [
       {
-       "name": "Mais",
-       "state": "optional",
-       "extra": 5
+       "name": "Kylling",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836657_Kyllingfilet.webp"
       },
       {
-       "name": "Løk",
-       "state": "optional",
-       "extra": 5
+       "name": "Isbergsalat",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836725_Salat.webp"
+      },
+      {
+       "name": "Tomat",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836670_Tomat.webp"
+      },
+      {
+       "name": "Agurk",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true
+      },
+      {
+       "name": "Rødløk",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836135_L%C3%B8k.webp"
+      },
+      {
+       "name": "Kebabsaus",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true
       },
       {
        "name": "Ost",
        "state": "optional",
-       "extra": 5
-      },
-      {
-       "name": "Ananas",
-       "state": "optional",
-       "extra": 5
-      },
-      {
-       "name": "Hvitløk",
-       "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
       },
       {
        "name": "Jalapenos",
        "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp"
+      },
+      {
+       "name": "Løk",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836135_L%C3%B8k.webp"
+      },
+      {
+       "name": "Ananas",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836327_Ananas.webp"
+      },
+      {
+       "name": "Hvitløk",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836426_Hvitl%C3%B8k.webp"
+      },
+      {
+       "name": "Mais",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836436_Mais.webp"
       },
       {
        "name": "Tomater",
        "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836670_Tomat.webp"
       },
       {
        "name": "X-dressing",
        "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": null
       }
-     ]
+     ],
+     "allergens": []
     },
     {
      "id": 27,
      "number": 6,
      "name": "STOR KYLLINGKEBAB",
      "image": "https://paradis-server.24order.com/storage/foods/1794751528_Rullekebab%20kylling%201.webp",
+     "description": "",
      "prices": [
       {
-       "size": "",
+       "size": "2-3",
        "label": "",
        "price": 110
       }
      ],
-     "description": "",
      "components": [
       {
-       "name": "Mais",
-       "state": "optional",
-       "extra": 5
+       "name": "Kylling",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836657_Kyllingfilet.webp"
       },
       {
-       "name": "Løk",
-       "state": "optional",
-       "extra": 5
+       "name": "Isbergsalat",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836725_Salat.webp"
+      },
+      {
+       "name": "Tomat",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836670_Tomat.webp"
+      },
+      {
+       "name": "Agurk",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true
+      },
+      {
+       "name": "Rødløk",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836135_L%C3%B8k.webp"
+      },
+      {
+       "name": "Kebabsaus",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true
       },
       {
        "name": "Ost",
        "state": "optional",
-       "extra": 5
-      },
-      {
-       "name": "Ananas",
-       "state": "optional",
-       "extra": 5
-      },
-      {
-       "name": "Hvitløk",
-       "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
       },
       {
        "name": "Jalapenos",
        "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp"
+      },
+      {
+       "name": "Løk",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836135_L%C3%B8k.webp"
+      },
+      {
+       "name": "Ananas",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836327_Ananas.webp"
+      },
+      {
+       "name": "Hvitløk",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836426_Hvitl%C3%B8k.webp"
+      },
+      {
+       "name": "Mais",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836436_Mais.webp"
       },
       {
        "name": "Tomater",
        "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836670_Tomat.webp"
       },
       {
        "name": "X-dressing",
        "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": null
       }
-     ]
+     ],
+     "allergens": []
     },
     {
      "id": 28,
      "number": 7,
      "name": "LITEN KYLLINGKEBAB",
      "image": "https://paradis-server.24order.com/storage/foods/1794751580_Rullekebab%20kylling%201.webp",
+     "description": "",
      "prices": [
       {
-       "size": "",
+       "size": "2-3",
        "label": "",
        "price": 100
       }
      ],
-     "description": "",
      "components": [
       {
-       "name": "Mais",
-       "state": "optional",
-       "extra": 5
+       "name": "Kylling",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836657_Kyllingfilet.webp"
       },
       {
-       "name": "Løk",
-       "state": "optional",
-       "extra": 5
+       "name": "Isbergsalat",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836725_Salat.webp"
+      },
+      {
+       "name": "Tomat",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836670_Tomat.webp"
+      },
+      {
+       "name": "Agurk",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true
+      },
+      {
+       "name": "Rødløk",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836135_L%C3%B8k.webp"
+      },
+      {
+       "name": "Kebabsaus",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true
       },
       {
        "name": "Ost",
        "state": "optional",
-       "extra": 5
-      },
-      {
-       "name": "Ananas",
-       "state": "optional",
-       "extra": 5
-      },
-      {
-       "name": "Hvitløk",
-       "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
       },
       {
        "name": "Jalapenos",
        "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp"
+      },
+      {
+       "name": "Løk",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836135_L%C3%B8k.webp"
+      },
+      {
+       "name": "Ananas",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836327_Ananas.webp"
+      },
+      {
+       "name": "Hvitløk",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836426_Hvitl%C3%B8k.webp"
+      },
+      {
+       "name": "Mais",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836436_Mais.webp"
       },
       {
        "name": "Tomater",
        "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836670_Tomat.webp"
       },
       {
        "name": "X-dressing",
        "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": null
       }
-     ]
+     ],
+     "allergens": []
     },
     {
      "id": 29,
      "number": 8,
      "name": "KEBABMIDDAG (TYRKISK)",
      "image": "https://paradis-server.24order.com/storage/foods/1794832857_KEBABMIDDAG%20(TYRKISK).webp",
+     "description": "Med / uten pommes frites",
      "prices": [
       {
-       "size": "",
+       "size": "2-3",
        "label": "",
        "price": 160
       }
      ],
-     "description": "Med / uten pommes frites (+10,-)",
      "components": [
+      {
+       "name": "Kebabkjøtt",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836644_Marinert%20kebabkj%C3%B8tt.webp"
+      },
+      {
+       "name": "Isbergsalat",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836725_Salat.webp"
+      },
+      {
+       "name": "Tomat",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836670_Tomat.webp"
+      },
+      {
+       "name": "Agurk",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true
+      },
+      {
+       "name": "Rødløk",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836135_L%C3%B8k.webp"
+      },
+      {
+       "name": "Kebabsaus",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true
+      },
       {
        "name": "Pommes frites",
        "state": "optional",
-       "extra": 10
-      },
-      {
-       "name": "Mais",
-       "state": "optional",
-       "extra": 5
-      },
-      {
-       "name": "Løk",
-       "state": "optional",
-       "extra": 5
+       "extra": 10,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836705_chips.webp"
       },
       {
        "name": "Ost",
        "state": "optional",
-       "extra": 5
-      },
-      {
-       "name": "Ananas",
-       "state": "optional",
-       "extra": 5
-      },
-      {
-       "name": "Hvitløk",
-       "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
       },
       {
        "name": "Jalapenos",
        "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp"
+      },
+      {
+       "name": "Løk",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836135_L%C3%B8k.webp"
+      },
+      {
+       "name": "Ananas",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836327_Ananas.webp"
+      },
+      {
+       "name": "Hvitløk",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836426_Hvitl%C3%B8k.webp"
+      },
+      {
+       "name": "Mais",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836436_Mais.webp"
       },
       {
        "name": "Tomater",
        "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836670_Tomat.webp"
       },
       {
        "name": "X-dressing",
        "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": null
       }
-     ]
+     ],
+     "allergens": []
     },
     {
      "id": 30,
      "number": 9,
      "name": "KYLLINGMIDDAG (TYRKISK)",
      "image": "https://paradis-server.24order.com/storage/foods/1794832300_KYLLINGMIDDAG%20(TYRKISK)%20.webp",
+     "description": "Med / uten pommes frites",
      "prices": [
       {
-       "size": "",
+       "size": "2-3",
        "label": "",
        "price": 160
       }
      ],
-     "description": "Med / uten pommes frites (+10,-)",
      "components": [
+      {
+       "name": "Kylling",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836657_Kyllingfilet.webp"
+      },
+      {
+       "name": "Isbergsalat",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836725_Salat.webp"
+      },
+      {
+       "name": "Tomat",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836670_Tomat.webp"
+      },
+      {
+       "name": "Agurk",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true
+      },
+      {
+       "name": "Rødløk",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836135_L%C3%B8k.webp"
+      },
+      {
+       "name": "Kebabsaus",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true
+      },
       {
        "name": "Pommes frites",
        "state": "optional",
-       "extra": 10
-      },
-      {
-       "name": "Mais",
-       "state": "optional",
-       "extra": 5
-      },
-      {
-       "name": "Løk",
-       "state": "optional",
-       "extra": 5
+       "extra": 10,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836705_chips.webp"
       },
       {
        "name": "Ost",
        "state": "optional",
-       "extra": 5
-      },
-      {
-       "name": "Ananas",
-       "state": "optional",
-       "extra": 5
-      },
-      {
-       "name": "Hvitløk",
-       "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
       },
       {
        "name": "Jalapenos",
        "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp"
+      },
+      {
+       "name": "Løk",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836135_L%C3%B8k.webp"
+      },
+      {
+       "name": "Ananas",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836327_Ananas.webp"
+      },
+      {
+       "name": "Hvitløk",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836426_Hvitl%C3%B8k.webp"
+      },
+      {
+       "name": "Mais",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836436_Mais.webp"
       },
       {
        "name": "Tomater",
        "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836670_Tomat.webp"
       },
       {
        "name": "X-dressing",
        "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": null
       }
-     ]
+     ],
+     "allergens": []
     }
    ]
   },
@@ -2331,112 +3081,122 @@
    "id": 3,
    "name": "Hamburgere",
    "image": "https://paradis-server.24order.com/storage/categories/1794833183_Hamburger.webp",
-   "footer": [
-    {
-     "label": "TILLEGG FOR OST",
-     "value": "5,-"
-    }
-   ],
    "foods": [
     {
      "id": 31,
      "number": 1,
      "name": "HAMBURGER MENY 200G",
      "image": "https://paradis-server.24order.com/storage/foods/1794750658_Hamburgertallerken.webp",
+     "description": "Pommes frites, Salat",
      "prices": [
       {
-       "size": "",
+       "size": "2-3",
        "label": "",
        "price": 140
       }
      ],
-     "description": "m/salat og pommes frites",
      "components": [
       {
-       "name": "Salat",
-       "state": "selected"
+       "name": "Pommes frites",
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836705_chips.webp"
       },
       {
-       "name": "Pommes frites",
-       "state": "selected"
+       "name": "Salat",
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836725_Salat.webp"
       },
       {
        "name": "Ost",
        "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
       }
-     ]
+     ],
+     "allergens": []
     },
     {
      "id": 32,
      "number": 2,
      "name": "HAMBURGER MENY 150G",
      "image": "https://paradis-server.24order.com/storage/foods/1794750674_Hamburgertallerken.webp",
+     "description": "Pommes frites, Salat",
      "prices": [
       {
-       "size": "",
+       "size": "2-3",
        "label": "",
        "price": 125
       }
      ],
-     "description": "m/salat og pommes frites",
      "components": [
-      {
-       "name": "Salat",
-       "state": "selected"
-      },
       {
        "name": "Pommes frites",
-       "state": "selected"
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836705_chips.webp"
+      },
+      {
+       "name": "Salat",
+       "state": "selected",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836725_Salat.webp"
       },
       {
        "name": "Ost",
        "state": "optional",
-       "extra": 5
-      }
-     ]
-    },
-    {
-     "id": 33,
-     "number": 3,
-     "name": "HAMBURGER 200G",
-     "image": "https://paradis-server.24order.com/storage/foods/1794750710_Hamburge.webp",
-     "prices": [
-      {
-       "size": "",
-       "label": "",
-       "price": 120
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
       }
      ],
-     "description": "",
-     "components": [
-      {
-       "name": "Ost",
-       "state": "optional",
-       "extra": 5
-      }
-     ]
+     "allergens": []
     },
     {
      "id": 34,
-     "number": 4,
+     "number": 3,
      "name": "HAMBURGER 150G",
      "image": "https://paradis-server.24order.com/storage/foods/1794750694_Hamburge.webp",
+     "description": "",
      "prices": [
       {
-       "size": "",
+       "size": "2-3",
        "label": "",
        "price": 100
       }
      ],
-     "description": "",
      "components": [
       {
        "name": "Ost",
        "state": "optional",
-       "extra": 5
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
       }
-     ]
+     ],
+     "allergens": []
+    },
+    {
+     "id": 33,
+     "number": 4,
+     "name": "HAMBURGER 200G",
+     "image": "https://paradis-server.24order.com/storage/foods/1794750710_Hamburge.webp",
+     "description": "",
+     "prices": [
+      {
+       "size": "2-3",
+       "label": "",
+       "price": 120
+      }
+     ],
+     "components": [
+      {
+       "name": "Ost",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
+      }
+     ],
+     "allergens": []
     }
    ]
   },
@@ -2450,32 +3210,128 @@
      "number": 1,
      "name": "KYLLINGSALAT",
      "image": "https://paradis-server.24order.com/storage/foods/1794750730_Kyllingsalat.webp",
+     "description": "",
      "prices": [
       {
-       "size": "",
+       "size": "2-3",
        "label": "",
        "price": 90
       }
      ],
-     "description": "",
-     "components": [],
-     "tag": null
+     "components": [
+      {
+       "name": "Kylling",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836657_Kyllingfilet.webp"
+      },
+      {
+       "name": "Isbergsalat",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836725_Salat.webp"
+      },
+      {
+       "name": "Tomat",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836670_Tomat.webp"
+      },
+      {
+       "name": "Agurk",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true
+      },
+      {
+       "name": "Rødløk",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836135_L%C3%B8k.webp"
+      },
+      {
+       "name": "Mais",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836436_Mais.webp"
+      },
+      {
+       "name": "Dressing",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true
+      }
+     ],
+     "allergens": []
     },
     {
      "id": 36,
      "number": 2,
      "name": "SKINKESALAT",
      "image": "https://paradis-server.24order.com/storage/foods/1794750745_Skinkesalat.webp",
+     "description": "",
      "prices": [
       {
-       "size": "",
+       "size": "2-3",
        "label": "",
        "price": 90
       }
      ],
-     "description": "",
-     "components": [],
-     "tag": null
+     "components": [
+      {
+       "name": "Skinke",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835949_Skinke.webp"
+      },
+      {
+       "name": "Isbergsalat",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836725_Salat.webp"
+      },
+      {
+       "name": "Tomat",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836670_Tomat.webp"
+      },
+      {
+       "name": "Agurk",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true
+      },
+      {
+       "name": "Rødløk",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836135_L%C3%B8k.webp"
+      },
+      {
+       "name": "Mais",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836436_Mais.webp"
+      },
+      {
+       "name": "Dressing",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true
+      }
+     ],
+     "allergens": []
     }
    ]
   },
@@ -2487,73 +3343,34 @@
     {
      "id": 37,
      "number": 1,
-     "name": "POMMES FRITES – STOR",
+     "name": "POMMES FRITES - STOR",
      "image": "https://paradis-server.24order.com/storage/foods/1794750846_Chips.webp",
+     "description": "",
      "prices": [
       {
-       "size": "",
+       "size": "2-3",
        "label": "",
        "price": 60
       }
      ],
-     "description": "",
      "components": [],
-     "tag": null
+     "allergens": []
     },
     {
      "id": 38,
      "number": 2,
-     "name": "POMMES FRITES – LITEN",
+     "name": "POMMES FRITES - LITEN",
      "image": "https://paradis-server.24order.com/storage/foods/1794750864_Chips.webp",
+     "description": "",
      "prices": [
       {
-       "size": "",
+       "size": "2-3",
        "label": "",
        "price": 40
       }
      ],
-     "description": "",
      "components": [],
-     "tag": null
-    }
-   ]
-  },
-  {
-   "id": 6,
-   "name": "Drikke",
-   "image": "https://paradis-server.24order.com/storage/categories/1794833133_Drikke.webp",
-   "foods": [
-    {
-     "id": 39,
-     "number": 1,
-     "name": "MINERALVANN 1,5 LITER (TAKEAWAY)",
-     "image": "https://paradis-server.24order.com/storage/foods/1794751478_MINERALVANN%201,5%20LITER.webp",
-     "prices": [
-      {
-       "size": "",
-       "label": "",
-       "price": 55
-      }
-     ],
-     "description": "",
-     "components": [],
-     "tag": "1,5 L"
-    },
-    {
-     "id": 40,
-     "number": 2,
-     "name": "MINERALVANN 0,5 LITER",
-     "image": "https://paradis-server.24order.com/storage/foods/1794751364_MINERALVANN%200,5%20LITER.webp",
-     "prices": [
-      {
-       "size": "",
-       "label": "",
-       "price": 35
-      }
-     ],
-     "description": "",
-     "components": [],
-     "tag": "0,5 L"
+     "allergens": []
     }
    ]
   },
@@ -2567,86 +3384,119 @@
      "number": 1,
      "name": "Hvitløksaus",
      "image": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp",
+     "description": "",
      "prices": [
       {
-       "size": "",
+       "size": "2-3",
        "label": "",
        "price": 25
       }
      ],
-     "description": "",
      "components": [],
-     "tag": null
+     "allergens": []
     },
     {
      "id": 42,
      "number": 2,
      "name": "BBQ-saus",
      "image": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp",
+     "description": "",
      "prices": [
       {
-       "size": "",
+       "size": "2-3",
        "label": "",
        "price": 25
       }
      ],
-     "description": "",
      "components": [],
-     "tag": null
+     "allergens": []
     },
     {
-     "id": 43,
+     "id": 45,
      "number": 3,
      "name": "Chilisaus",
      "image": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp",
+     "description": "",
      "prices": [
       {
-       "size": "",
+       "size": "2-3",
        "label": "",
        "price": 25
       }
      ],
-     "description": "",
      "components": [],
-     "tag": null
+     "allergens": []
     },
     {
      "id": 44,
      "number": 4,
      "name": "Bearnaisesaus",
      "image": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp",
+     "description": "",
      "prices": [
       {
-       "size": "",
+       "size": "2-3",
        "label": "",
        "price": 25
       }
      ],
-     "description": "",
      "components": [],
-     "tag": null
+     "allergens": []
     },
     {
-     "id": 45,
+     "id": 43,
      "number": 5,
      "name": "Tomatsaus",
      "image": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp",
+     "description": "",
      "prices": [
       {
-       "size": "",
+       "size": "2-3",
        "label": "",
        "price": 25
       }
      ],
-     "description": "",
      "components": [],
-     "tag": null
+     "allergens": []
     }
-   ],
-   "footer": [
+   ]
+  },
+  {
+   "id": 6,
+   "name": "DRIKKE",
+   "image": "https://paradis-server.24order.com/storage/categories/1794833133_Drikke.webp",
+   "foods": [
     {
-     "label": "PRIS PER SAUS",
-     "value": "25,-"
+     "id": 40,
+     "number": 1,
+     "name": "MINERALVANN 0,5 LITER",
+     "image": "https://paradis-server.24order.com/storage/foods/1794751364_MINERALVANN%200,5%20LITER.webp",
+     "description": "",
+     "prices": [
+      {
+       "size": "",
+       "label": "",
+       "price": 35
+      }
+     ],
+     "components": [],
+     "allergens": []
+    },
+    {
+     "id": 39,
+     "number": 2,
+     "name": "MINERALVANN 1,5 LITER (TAKEAWAY)",
+     "image": "https://paradis-server.24order.com/storage/foods/1794751478_MINERALVANN%201,5%20LITER.webp",
+     "description": "",
+     "prices": [
+      {
+       "size": "",
+       "label": "",
+       "price": 55
+      }
+     ],
+     "components": [],
+     "allergens": []
     }
    ]
   }

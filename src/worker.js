@@ -7,6 +7,7 @@ import { hashPassword, verifyPassword, startSession, endSession, currentUser, re
 import { loadCatalog, priceCart, createOrder, getOrder, setStatus, listOrders, summary, STATUSES } from './orders.js';
 import { menuRoute, statsRoute } from './menu24.js';
 import { shopMenu, shopPrice, shopPlaceOrder, shopTrack } from './shop.js';
+import { shopDish } from './dish.js';
 
 const app = new Hono().basePath('/api');
 
@@ -112,6 +113,7 @@ app.get('/shop/menu', (c) => shopMenu(c));
 app.post('/shop/price', (c) => shopPrice(c));
 app.post('/shop/orders', (c) => shopPlaceOrder(c));
 app.get('/shop/orders/:code', (c) => shopTrack(c));
+app.get('/shop/dish', (c) => shopDish(c));
 
 /* ---------- Media (ingredient photos): read is public so TVs and the order page can show them ---------- */
 app.get('/media', async (c) => c.json({ success: true, data: await listMedia(c.env.DB) }));

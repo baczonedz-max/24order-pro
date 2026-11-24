@@ -49,7 +49,7 @@ export async function shopMenu(c) {
         foods: cat.foods.map((f) => ({
           id: f.id, number: f.number, name: f.name, description: f.description || '', image: f.image, type: f.type,
           sizes: f.sizes.map((z) => ({ id: z.id, code: z.code, label: z.label, price: z.price })),
-          components: f.components.map((cp) => ({ id: cp.id, name: cp.name, state: cp.state, extra_price: cp.extra_price, extra_by_size: cp.extra_by_size, choice: cp.choice || null, image: cp.image || null })),
+          components: f.components.map((cp) => ({ id: cp.id, name: cp.name, state: cp.state, extra_price: cp.extra_price, extra_by_size: cp.extra_by_size, choice: cp.choice || null, image: cp.image || null, icon: cp.icon || null })),
           allergens: guessAllergens(f, cat.name),
         })),
       };

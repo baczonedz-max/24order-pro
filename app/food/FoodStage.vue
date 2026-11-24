@@ -8,6 +8,8 @@ import { computed, ref, watch, nextTick, onMounted } from 'vue';
 import { scatter, isSauce, rng } from './art.js';
 import { photoUrl, photoRow, thumbPhoto, variants } from './photos.js';
 import { loadDish, dishVariant } from './dish.js';
+import { liveDish } from './dishLive.js';
+import { t } from '../i18n.js';
 
 const props = defineProps({
   mode: { type: String, default: 'photo' }, // wanted mode: pizza | burger | photo
@@ -21,6 +23,8 @@ const props = defineProps({
   baking: { type: Boolean, default: false },
   // Pizza size: 1 = the biggest size; smaller sizes draw a smaller pizza (e.g. Medium ≈ .8).
   scale: { type: Number, default: 1 },
+  // The product id: lets the server make (once) and return a photo of the dish with the changes in it.
+  foodId: { type: Number, default: 0 },
 });
 const svg = ref(null);
 
@@ -48,6 +52,13 @@ const whiteCheese = computed(() => cheeseOn.value && !showBaked.value && cheeseP
 // removed ingredients are listed under it by the builder. A pizza is only assembled from the ingredient
 // library when the product has no photo of its own.
 const usePhoto = computed(() => props.mode === 'pizza' && !!props.image);
+// Taking something off a pizza can't be drawn: the server makes a photo of this pizza without it (once, then cached).
+const pizzaLive = computed(() => {
+  if (!usePhoto.value) return null;
+  const toks = props.items.filter((i) => i.base && !i.on).slice(0, 3).map((i) => '-' + i.id);
+  return liveDish(props.foodId, props.image, toks);
+});
+const pizzaPhoto = computed(() => (pizzaLive.value?.status === 'ready' ? pizzaLive.value.url : props.image));
 
 // Sauce colours for the drizzle: body, darker edge, gloss.
 const SAUCE = {
@@ -129,7 +140,7 @@ const toppings = computed(() => {
 
 /* Cooked look: melted cheese creeps over the edges of each piece. The patches are cut from the baked
    pizza photo itself, so where there is no piece they match the cheese underneath and can't be seen. */
-const meltSrc = computed(() => (usePhoto.value ? props.image : bakedBase.value));
+const meltSrc = computed(() => (usePhoto.value ? pizzaPhoto.value : bakedBase.value));
 const meltBlobs = computed(() => {
   if (!usePhoto.value && !showBaked.value) return [];
   const out = [];
@@ -227,10 +238,19 @@ const view = computed(() => {
 const changed = computed(() => props.items.filter((i) => (i.base ? !i.on : i.on)));
 // A ready-made photo of the dish with these changes in it (cheese melted inside the burger…), when there is one.
 const shown = computed(() => dishVariant(props.image, changed.value.map((i) => (i.base ? '-' : '+') + i.kind)));
+// Otherwise the server makes one (the first time) for up to three changes.
+const live = computed(() => {
+  if (props.mode === 'pizza' || shown.value.covered.length === changed.value.length) return null;
+  return liveDish(props.foodId, props.image, changed.value.slice(-3).map((i) => (i.base ? '-' : '+') + i.id));
+});
+const liveCovered = computed(() => (live.value?.status === 'ready' ? changed.value.slice(-3).map((i) => i.id) : []));
+const shownUrl = computed(() => (live.value?.status === 'ready' ? live.value.url : shown.value.url));
+const preparing = computed(() => live.value?.status === 'pending' || pizzaLive.value?.status === 'pending');
 // Changes that the photo doesn't show yet are pinned on it as labels.
 const changes = computed(() => changed.value
+  .filter((i) => !liveCovered.value.includes(i.id))
   .filter((i) => !shown.value.covered.includes((i.base ? '-' : '+') + i.kind))
-  .map((i) => ({ id: i.id, minus: i.base, name: i.name, photo: thumbPhoto(i.kind) })));
+  .map((i) => ({ id: i.id, minus: i.base, name: i.name, photo: i.icon || thumbPhoto(i.kind) })));
 </script>
 
 <template>
@@ -238,6 +258,7 @@ const changes = computed(() => changed.value
   <svg v-if="view === 'pizza'" ref="svg" viewBox="-118 -118 236 236" role="img" aria-hidden="true" :class="{ baking }">
     <defs>
       <radialGradient id="pcShadow"><stop offset="0" stop-color="#000" stop-opacity=".42" /><stop offset=".5" stop-color="#000" stop-opacity=".14" /><stop offset=".72" stop-color="#000" stop-opacity="0" /></radialGradient>
+      <clipPath id="pizzaRound"><circle r="93" /></clipPath>
       <radialGradient id="plateShadow"><stop offset=".82" stop-color="#000" stop-opacity=".22" /><stop offset="1" stop-color="#000" stop-opacity="0" /></radialGradient>
       <radialGradient id="ovenGlow"><stop offset="0" stop-color="#fd992f" stop-opacity=".55" /><stop offset=".45" stop-color="#df4d0c" stop-opacity=".28" /><stop offset=".72" stop-color="#df4d0c" stop-opacity="0" /></radialGradient>
       <!-- Baked toppings: warmer, a little less fresh, with browned edges -->
@@ -294,7 +315,9 @@ const changes = computed(() => changed.value
           <image v-if="bakedBase" class="base-baked" :style="{ opacity: showBaked ? 1 : 0 }" :href="bakedBase" x="-108" y="-108" width="216" height="216" preserveAspectRatio="xMidYMid meet" />
         </g>
         <!-- The product's own photo: exactly the pizza the restaurant sells -->
-        <image v-if="image" class="base-baked" :style="{ opacity: usePhoto ? 1 : 0 }" :href="image" x="-108" y="-108" width="216" height="216" preserveAspectRatio="xMidYMid meet" />
+        <image v-if="image" class="base-baked" :style="{ opacity: usePhoto && pizzaPhoto === image ? 1 : 0 }" :href="image" x="-108" y="-108" width="216" height="216" preserveAspectRatio="xMidYMid meet" />
+        <!-- The AI photo of this pizza without what was taken off (white background, so cut round) -->
+        <image v-if="usePhoto && pizzaPhoto !== image" :key="pizzaPhoto" class="base-baked ps-fade" :href="pizzaPhoto" x="-108" y="-108" width="216" height="216" preserveAspectRatio="xMidYMid meet" clip-path="url(#pizzaRound)" />
       </g>
       <TransitionGroup tag="g" name="top">
         <g v-for="tp in toppings" :key="tp.id" :data-top="tp.id">
@@ -350,6 +373,7 @@ const changes = computed(() => changed.value
       </g>
     </g>
     <circle class="oven" r="150" fill="url(#ovenGlow)" />
+    <foreignObject v-if="preparing" x="-70" y="96" width="140" height="22"><div class="ps-making in-svg"><i></i>{{ t('makingPhoto') }}</div></foreignObject>
   </svg>
 
   <!-- BURGER -->
@@ -373,7 +397,8 @@ const changes = computed(() => changed.value
   <div v-else class="ps">
     <div class="ps-frame">
       <img v-if="image" :src="image" alt="" class="ps-img">
-      <transition name="ps-swap"><img v-if="shown.url && shown.url !== image" :key="shown.url" :src="shown.url" alt="" class="ps-img ps-over"></transition>
+      <transition name="ps-swap"><img v-if="shownUrl && shownUrl !== image" :key="shownUrl" :src="shownUrl" alt="" class="ps-img ps-over"></transition>
+      <transition name="fade"><span v-if="preparing" class="ps-making"><i></i>{{ t('makingPhoto') }}</span></transition>
       <TransitionGroup tag="div" name="chip" class="ps-chips">
         <span v-for="c in changes" :key="c.id" class="ps-chip" :class="c.minus ? 'minus' : 'plus'">
           <img v-if="c.photo" :src="c.photo" alt=""><b>{{ c.minus ? '−' : '+' }}</b>{{ c.name }}

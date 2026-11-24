@@ -211,6 +211,7 @@ const D = {
   extrasHint: ['اضغط للإضافة', 'tap to add', 'touchez pour ajouter', 'trykk for å legge til'],
   free: ['مجانًا', 'Free', 'Gratuit', 'Gratis'],
   inBase: ['مشمول', 'Included', 'Inclus', 'Inkludert'],
+  makingPhoto: ['نجهّز الصورة…', 'Making the photo…', 'Préparation de la photo…', 'Lager bildet…'],
   chooseOne: ['اختر واحدًا', 'choose one', 'au choix', 'velg én'],
   chooseSize: ['اختر الحجم', 'Choose size', 'Choisir la taille', 'Velg størrelse'],
   notePh: ['مثلًا: مقرمشة جيدًا، بدون ملح…', 'e.g. well done, no salt…', 'ex. bien cuite, sans sel…', 'f.eks. godt stekt, uten salt…'],
