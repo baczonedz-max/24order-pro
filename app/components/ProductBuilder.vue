@@ -26,12 +26,35 @@ const bumped = ref(null);
 const mode = computed(() => modeOf(props.food, props.categoryName));
 const size = computed(() => props.food.sizes.find((s) => s.id === sizeId.value));
 const comps = computed(() => props.food.components.map((c) => ({ ...c, kind: kindOf(c.name) })));
-const base = computed(() => comps.value.filter((c) => c.state === 'selected'));
-const extras = computed(() => comps.value.filter((c) => c.state === 'optional'));
+const base = computed(() => comps.value.filter((c) => c.state === 'selected' && !c.choice));
+const extras = computed(() => comps.value.filter((c) => c.state === 'optional' && !c.choice));
+// "Choose one" groups (e.g. Kjøtt: Kebab / Kylling). Picking one adds it and takes the others off.
+const choiceGroups = computed(() => {
+  const m = {};
+  for (const c of comps.value) if (c.choice) (m[c.choice] ||= []).push(c);
+  return Object.entries(m).map(([name, list]) => ({ name, list }));
+});
+const isChosen = (c) => (c.state === 'selected' ? !removed.value.has(c.id) : added.value.has(c.id));
+const chosenIn = (g) => g.list.find(isChosen) || g.list.find((c) => c.state === 'selected') || g.list[0];
+function choose(g, c) {
+  const rem = new Set(removed.value);
+  const add = new Set(added.value);
+  for (const x of g.list) {
+    if (x.state === 'selected') x.id === c.id ? rem.delete(x.id) : rem.add(x.id);
+    else x.id === c.id ? add.add(x.id) : add.delete(x.id);
+  }
+  removed.value = rem;
+  added.value = add;
+}
+// The stage shows the photo of the chosen option when it has one (kylling rull vs kebab rull).
+const stageImage = computed(() => {
+  for (const g of choiceGroups.value) { const c = chosenIn(g); if (c?.image) return c.image; }
+  return props.food.image || '';
+});
 const extraPrice = (c) => (c.extra_by_size && size.value?.code && c.extra_by_size[size.value.code] !== undefined ? Number(c.extra_by_size[size.value.code]) : Number(c.extra_price || 0));
-const unit = computed(() => Number(size.value?.price || 0) + extras.value.filter((c) => added.value.has(c.id)).reduce((a, c) => a + extraPrice(c), 0));
+const unit = computed(() => Number(size.value?.price || 0) + comps.value.filter((c) => c.state === 'optional' && added.value.has(c.id)).reduce((a, c) => a + extraPrice(c), 0));
 
-const stageItems = computed(() => comps.value.map((c) => ({
+const stageItems = computed(() => comps.value.filter((c) => !c.choice).map((c) => ({
   id: c.id, name: c.name, kind: c.kind, base: c.state === 'selected',
   on: c.state === 'selected' ? !removed.value.has(c.id) : added.value.has(c.id),
 })));
@@ -106,10 +129,11 @@ onUnmounted(() => { window.removeEventListener('keydown', onKey); document.body.
           </div>
         </div>
         <div class="stage-art">
-          <FoodStage :mode="mode" :image="food.image || ''" :items="stageItems" :fly="fly" :baking="baking" :scale="stageScale" />
+          <FoodStage :key="stageImage" :mode="mode" :image="stageImage" :items="stageItems" :fly="fly" :baking="baking" :scale="stageScale" />
         </div>
         <div class="stage-sum">
           <span v-if="food.sizes.length > 1 && size" class="mod note">{{ size.label || size.code }}</span>
+          <span v-for="g in choiceGroups" :key="'g' + g.name" class="mod note">{{ chosenIn(g).name }}</span>
           <!-- Pizzas list the changes here; other products pin them on their photo -->
           <template v-if="mode === 'pizza'">
             <span v-for="c in base.filter((c) => removed.has(c.id))" :key="'r' + c.id" class="mod minus">{{ c.name }}</span>
@@ -126,6 +150,16 @@ onUnmounted(() => { window.removeEventListener('keydown', onKey); document.body.
             <div class="size-grid">
               <button v-for="s in food.sizes" :key="s.id" type="button" class="size-card" :class="{ on: sizeId === s.id }" :aria-pressed="sizeId === s.id" @click="sizeId = s.id">
                 <b>{{ s.label || s.code }}</b><span>{{ money(s.price) }}</span>
+              </button>
+            </div>
+          </div>
+
+          <div v-for="g in choiceGroups" :key="g.name" class="opts-sec">
+            <h3>{{ g.name }} <small>{{ t('chooseOne') }}</small></h3>
+            <div class="size-grid">
+              <button v-for="c in g.list" :key="c.id" type="button" class="size-card choice-card" :class="{ on: chosenIn(g).id === c.id }" :aria-pressed="chosenIn(g).id === c.id" @click="choose(g, c)">
+                <img v-if="c.image" :src="c.image" alt="" class="choice-img">
+                <b>{{ c.name }}</b><span>{{ extraPrice(c) ? '+' + money(extraPrice(c)) : t('inBase') }}</span>
               </button>
             </div>
           </div>

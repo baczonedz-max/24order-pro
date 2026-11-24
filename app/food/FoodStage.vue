@@ -7,6 +7,7 @@
 import { computed, ref, watch, nextTick, onMounted } from 'vue';
 import { scatter, isSauce, rng } from './art.js';
 import { photoUrl, photoRow, thumbPhoto, variants } from './photos.js';
+import { loadDish, dishVariant } from './dish.js';
 
 const props = defineProps({
   mode: { type: String, default: 'photo' }, // wanted mode: pizza | burger | photo
@@ -26,7 +27,7 @@ const svg = ref(null);
 const on = computed(() => props.items.filter((i) => i.on));
 // When the builder opens, the dish is built step by step (like the video); later changes animate at once.
 const intro = ref(true);
-onMounted(() => setTimeout(() => (intro.value = false), 2600));
+onMounted(() => { loadDish(); setTimeout(() => (intro.value = false), 2600); });
 const STEP = 300;
 const has = (kind) => props.items.some((i) => i.kind === kind && i.base);
 const isOn = (kind) => on.value.some((i) => i.kind === kind);
@@ -60,18 +61,19 @@ const SAUCE = {
 function stripePath(y, amp, seed, r) {
   const half = Math.sqrt(Math.max(0, r * r - y * y)) * 0.88;
   const R = rng(seed);
-  const n = Math.max(3, Math.round(half / 9));
+  const n = Math.max(4, Math.round(half / 6.5));
   const pts = [];
   for (let k = 0; k <= n; k++) pts.push([-half + (k * 2 * half) / n + (R() - 0.5) * 2, y + (k % 2 ? -1 : 1) * amp * (0.5 + R() * 0.5)]);
   let d = `M${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`;
   for (let k = 1; k < pts.length; k++) {
     const [x0, y0] = pts[k - 1];
     const [x1, y1] = pts[k];
-    const mx = (x0 + x1) / 2;
-    d += ` C${mx.toFixed(1)} ${y0.toFixed(1)} ${mx.toFixed(1)} ${y1.toFixed(1)} ${x1.toFixed(1)} ${y1.toFixed(1)}`;
+    // Hand-poured zigzag: quick turns, straight runs between them.
+    const dx = x1 - x0;
+    d += ` C${(x0 + dx * 0.3).toFixed(1)} ${y0.toFixed(1)} ${(x1 - dx * 0.3).toFixed(1)} ${y1.toFixed(1)} ${x1.toFixed(1)} ${y1.toFixed(1)}`;
   }
   // A little pool where the bottle started and stopped.
-  const dots = [{ x: pts[0][0], y: pts[0][1], r: 2.4 }, { x: pts[n][0], y: pts[n][1], r: 2.1 }];
+  const dots = [{ x: pts[0][0], y: pts[0][1], r: 1.8 }, { x: pts[n][0], y: pts[n][1], r: 1.5 }];
   return { d, dots };
 }
 // Sauces never cross: they all run the same way and take turns line by line
@@ -85,10 +87,12 @@ const sauces = computed(() => {
   const T = per * S;
   const r = 78;
   const gap = (2 * r) / (T + 1);
-  const amp = Math.min(3.4, gap * 0.22);
+  const amp = Math.min(4.6, gap * 0.28);
   return list.map((i, k) => ({
     id: i.id,
     c: SAUCE[i.kind] || SAUCE.sauce_white,
+    // A real photo of the sauce (from the ingredient library) gives each line its texture, gloss and colour.
+    tex: variants(`top.${i.kind}`)[i.id % Math.max(1, variants(`top.${i.kind}`).length)] || null,
     lines: Array.from({ length: per }, (_, j) => stripePath(-r + gap * (j * S + k + 1), amp, i.id * 13 + j, r)),
   }));
 });
@@ -220,8 +224,12 @@ const view = computed(() => {
 
 /* ---------- Product photo, with the changes pinned on it ---------- */
 // The photo stays exactly as the restaurant took it; added extras and removed ingredients appear as labels.
-const changes = computed(() => props.items
-  .filter((i) => (i.base ? !i.on : i.on))
+const changed = computed(() => props.items.filter((i) => (i.base ? !i.on : i.on)));
+// A ready-made photo of the dish with these changes in it (cheese melted inside the burger…), when there is one.
+const shown = computed(() => dishVariant(props.image, changed.value.map((i) => (i.base ? '-' : '+') + i.kind)));
+// Changes that the photo doesn't show yet are pinned on it as labels.
+const changes = computed(() => changed.value
+  .filter((i) => !shown.value.covered.includes((i.base ? '-' : '+') + i.kind))
   .map((i) => ({ id: i.id, minus: i.base, name: i.name, photo: thumbPhoto(i.kind) })));
 </script>
 
@@ -316,7 +324,21 @@ const changes = computed(() => props.items
       <g :transform="`rotate(${SAUCE_TILT})`">
         <TransitionGroup tag="g" name="top">
           <g v-for="(sc, k) in sauces" :key="sc.id" :data-top="sc.id" class="pop-in" filter="url(#sauceFx)" :style="{ '--d': (intro ? 250 + (toppings.length + k) * STEP : 0) + 'ms' }">
-            <g v-for="(ln, j) in sc.lines" :key="j">
+            <template v-if="sc.tex">
+              <!-- The lines cut out of the real sauce photo; a slightly offset second pass makes the width uneven -->
+              <mask :id="'sm' + sc.id" maskUnits="userSpaceOnUse" x="-150" y="-150" width="300" height="300">
+                <g v-for="(ln, j) in sc.lines" :key="j">
+                  <path :d="ln.d" fill="none" stroke="#fff" stroke-width="2.9" stroke-linecap="round" stroke-linejoin="round" class="drizzle" pathLength="1" stroke-dasharray="1" />
+                  <path :d="ln.d" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" transform="translate(.5 .4)" class="drizzle" pathLength="1" stroke-dasharray="1" />
+                  <circle v-for="(dt, q) in ln.dots" :key="q" :cx="dt.x.toFixed(1)" :cy="dt.y.toFixed(1)" :r="dt.r.toFixed(1)" fill="#fff" />
+                </g>
+              </mask>
+              <g opacity=".35">
+                <path v-for="(ln, j) in sc.lines" :key="j" :d="ln.d" fill="none" :stroke="sc.c[1]" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" class="drizzle" pathLength="1" stroke-dasharray="1" />
+              </g>
+              <image :href="sc.tex" x="-150" y="-150" width="300" height="300" preserveAspectRatio="xMidYMid slice" :mask="`url(#sm${sc.id})`" />
+            </template>
+            <g v-for="(ln, j) in sc.tex ? [] : sc.lines" :key="j">
               <path :d="ln.d" fill="none" :stroke="sc.c[1]" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round" class="drizzle" pathLength="1" stroke-dasharray="1" />
               <path :d="ln.d" fill="none" :stroke="sc.c[0]" stroke-width="3.7" stroke-linecap="round" stroke-linejoin="round" class="drizzle" pathLength="1" stroke-dasharray="1" />
               <!-- wet shine along the top of the line -->
@@ -351,6 +373,7 @@ const changes = computed(() => props.items
   <div v-else class="ps">
     <div class="ps-frame">
       <img v-if="image" :src="image" alt="" class="ps-img">
+      <transition name="ps-swap"><img v-if="shown.url && shown.url !== image" :key="shown.url" :src="shown.url" alt="" class="ps-img ps-over"></transition>
       <TransitionGroup tag="div" name="chip" class="ps-chips">
         <span v-for="c in changes" :key="c.id" class="ps-chip" :class="c.minus ? 'minus' : 'plus'">
           <img v-if="c.photo" :src="c.photo" alt=""><b>{{ c.minus ? '−' : '+' }}</b>{{ c.name }}

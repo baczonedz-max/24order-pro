@@ -57,18 +57,16 @@ export function lineInfo(l) {
   const adds = f.components.filter((c) => l.add.includes(c.id));
   const rems = f.components.filter((c) => l.remove.includes(c.id));
   const unit = Number(size?.price || 0) + adds.reduce((a, c) => a + extraOf(c, size), 0);
-  return { f, size: f.sizes.length > 1 ? size?.label || size?.code : null, adds, rems, total: unit * l.qty };
+  // "Choose one" options are shown by name (Kylling), not as "+ Kylling − Kebab".
+  const picked = f.components.filter((c) => c.choice && (c.state === 'selected' ? !l.remove.includes(c.id) : l.add.includes(c.id)));
+  const label = [f.sizes.length > 1 ? size?.label || size?.code : null, ...picked.map((c) => c.name)].filter(Boolean).join(' · ') || null;
+  return { f, size: label, adds: adds.filter((c) => !c.choice), rems: rems.filter((c) => !c.choice), total: unit * l.qty };
 }
 export const cartTotal = computed(() => shop.priced?.total ?? shop.cart.reduce((a, l) => a + (lineInfo(l)?.total || 0), 0));
 
-/** Tap on a product: simple products go straight into the cart, the rest open the builder. */
+/** Tap on a product: it always opens the builder (photo, size, options, note, quantity). */
 export function openFood(f, categoryName) {
-  const simple = f.sizes.length <= 1 && !f.components.length;
-  if (!simple) return (shop.editing = { food: f, line: null, categoryName });
-  const same = shop.cart.find((l) => l.food_id === f.id && !l.add.length && !l.remove.length && !l.note);
-  if (same) same.qty = Math.min(99, same.qty + 1);
-  else shop.cart.push({ key: crypto.randomUUID(), food_id: f.id, size_id: f.sizes[0]?.id, add: [], remove: [], qty: 1, note: '' });
-  shop.flash++;
+  shop.editing = { food: f, line: null, categoryName };
 }
 
 export function editLine(l) {

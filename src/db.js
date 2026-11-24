@@ -1,7 +1,7 @@
 // D1 schema. Tables are created on the first request, so a new database needs no manual step.
 // Each statement is idempotent; bump SCHEMA_VERSION and add statements to migrate later.
 
-export const SCHEMA_VERSION = 4;
+export const SCHEMA_VERSION = 5;
 
 const SCHEMA = [
   `CREATE TABLE IF NOT EXISTS media (
@@ -58,7 +58,9 @@ const SCHEMA = [
      state TEXT NOT NULL DEFAULT 'selected',
      extra_price REAL NOT NULL DEFAULT 0,
      extra_by_size TEXT,
-     sort INTEGER NOT NULL DEFAULT 0)`,
+     sort INTEGER NOT NULL DEFAULT 0,
+     choice TEXT,
+     image TEXT)`,
   `CREATE TABLE IF NOT EXISTS orders (
      id INTEGER PRIMARY KEY AUTOINCREMENT,
      code TEXT NOT NULL UNIQUE,
@@ -115,12 +117,19 @@ export async function ensureSchema(env, request) {
   }
   if (version < SCHEMA_VERSION) {
     await env.DB.batch(SCHEMA.map((s) => env.DB.prepare(s)));
+    // v5: an option can belong to a "choose one" group (e.g. Kebab / Kylling) and carry its own photo of the dish.
+    if (version > 0 && version < 5) {
+      for (const col of ['choice TEXT', 'image TEXT']) {
+        try { await env.DB.prepare(`ALTER TABLE food_components ADD COLUMN ${col}`).run(); } catch { /* already there */ }
+      }
+    }
     await env.DB.prepare(`INSERT OR REPLACE INTO settings(key, value) VALUES ('schema_version', ?)`).bind(String(SCHEMA_VERSION)).run();
     const count = await env.DB.prepare(`SELECT COUNT(*) AS n FROM categories`).first();
     if (!count?.n) await seedDemoMenu(env, request);
     else {
       if (version < 3) await refreshDemoPhotos(env, request);
       if (version < 4) await fillRestaurantInfo(env, request);
+      if (version < 5) await applyDemoChoices(env, request);
     }
   }
   ready = true;
@@ -161,6 +170,20 @@ async function fillRestaurantInfo(env, request) {
   await env.DB.batch([put('restaurant_name', r.name || 'Restaurant'), put('restaurant_logo', r.logo || ''), put('currency', r.currency || 'kr')]);
 }
 
+/** v5: demo options that are a "choose one" group or have their own dish photo get those settings. */
+async function applyDemoChoices(env, request) {
+  const res = await env.ASSETS.fetch(new Request(new URL('/data/paradis.json', request.url)));
+  if (!res.ok) return;
+  const data = await res.json();
+  const stmts = [];
+  for (const c of data.categories || []) for (const f of c.foods || []) for (const cp of f.components || []) {
+    if (!cp.choice && !cp.image) continue;
+    stmts.push(env.DB.prepare(`UPDATE food_components SET choice = ?, image = ? WHERE name = ? AND food_id IN (SELECT id FROM foods WHERE name = ?)`)
+      .bind(cp.choice || null, cp.image || null, cp.name, f.name));
+  }
+  if (stmts.length) await env.DB.batch(stmts);
+}
+
 /** Import a menu in the app's JSON format (see scripts/build-demo-data.mjs). */
 export async function importMenu(env, data, { replace = false } = {}) {
   if (replace) await env.DB.batch([env.DB.prepare(`DELETE FROM categories`)]);
@@ -183,8 +206,8 @@ export async function importMenu(env, data, { replace = false } = {}) {
       (f.components || []).forEach((cp, i) => {
         const bySize = cp.extra && typeof cp.extra === 'object' ? JSON.stringify(cp.extra) : null;
         const flat = typeof cp.extra === 'number' ? cp.extra : 0;
-        stmts.push(env.DB.prepare(`INSERT INTO food_components(food_id, name, state, extra_price, extra_by_size, sort) VALUES (?, ?, ?, ?, ?, ?)`)
-          .bind(food.id, cp.name, cp.state === 'optional' ? 'optional' : 'selected', flat, bySize, i));
+        stmts.push(env.DB.prepare(`INSERT INTO food_components(food_id, name, state, extra_price, extra_by_size, sort, choice, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`)
+          .bind(food.id, cp.name, cp.state === 'optional' ? 'optional' : 'selected', flat, bySize, i, cp.choice || null, cp.image || null));
       });
       if (stmts.length) await env.DB.batch(stmts);
     }

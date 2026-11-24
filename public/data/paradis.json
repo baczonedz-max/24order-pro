@@ -1815,11 +1815,15 @@
      "components": [
       {
        "name": "Kebab",
-       "state": "selected"
+       "state": "selected",
+       "choice": "Kjøtt",
+       "image": "https://paradis-server.24order.com/storage/foods/1794750428_RULL.webp"
       },
       {
        "name": "Kylling",
-       "state": "optional"
+       "state": "optional",
+       "choice": "Kjøtt",
+       "image": "https://paradis-server.24order.com/storage/foods/1794751528_Rullekebab%20kylling%201.webp"
       },
       {
        "name": "Mais",

@@ -1,0 +1,45 @@
+{
+  "about": "Photos of dishes with a change already made (AI photo editing of the restaurant's own photo, FLUX.2 on Workers AI). Keys: product photo file name, then '+kind' / '-kind' changes.",
+  "photos": {
+    "1794750694_Hamburge.webp": {
+      "+cheese": "hamburger.cheese.webp"
+    },
+    "1794750710_Hamburge.webp": {
+      "+cheese": "hamburger.cheese.webp"
+    },
+    "1794750658_Hamburgertallerken.webp": {
+      "+cheese": "menu.cheese.webp",
+      "+cheese -lettuce": "menu.cheese.nolettuce.webp",
+      "+cheese -fries": "menu.cheese.nofries.webp",
+      "+cheese -fries -lettuce": "menu.cheese.nofries.nolettuce.webp",
+      "-fries": "menu.nofries.webp",
+      "-fries -lettuce": "menu.nofries.nolettuce.webp"
+    },
+    "1794750674_Hamburgertallerken.webp": {
+      "+cheese": "menu.cheese.webp",
+      "+cheese -lettuce": "menu.cheese.nolettuce.webp",
+      "+cheese -fries": "menu.cheese.nofries.webp",
+      "+cheese -fries -lettuce": "menu.cheese.nofries.nolettuce.webp",
+      "-fries": "menu.nofries.webp",
+      "-fries -lettuce": "menu.nofries.nolettuce.webp"
+    },
+    "1794750428_RULL.webp": {
+      "+cheese": "rull.cheese.webp",
+      "+onion": "rull.onion.webp",
+      "+corn": "rull.corn.webp",
+      "+jalapeno": "rull.jalapeno.webp",
+      "+tomato": "rull.tomato.webp",
+      "+pineapple": "rull.pineapple.webp",
+      "+garlic": "rull.garlic.webp"
+    },
+    "1794751528_Rullekebab kylling 1.webp": {
+      "+cheese": "kyllingrull.cheese.webp",
+      "+onion": "kyllingrull.onion.webp",
+      "+corn": "kyllingrull.corn.webp",
+      "+jalapeno": "kyllingrull.jalapeno.webp",
+      "+tomato": "kyllingrull.tomato.webp",
+      "+pineapple": "kyllingrull.pineapple.webp",
+      "+garlic": "kyllingrull.garlic.webp"
+    }
+  }
+}

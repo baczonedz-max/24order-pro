@@ -66,6 +66,12 @@ export async function priceCart(db, { items = [], type = 'takeaway', discount = 
     const fc = comps.results.filter((c) => c.food_id === food.id).map((c) => ({ ...c, extra_by_size: c.extra_by_size ? JSON.parse(c.extra_by_size) : null }));
     const added = (it.add || []).map((id) => fc.find((c) => c.id === Number(id) && c.state === 'optional')).filter(Boolean);
     const removed = (it.remove || []).map((id) => fc.find((c) => c.id === Number(id) && c.state === 'selected')).filter(Boolean);
+    const groups = {};
+    for (const c of fc) if (c.choice) (groups[c.choice] ||= []).push(c);
+    for (const [g, list] of Object.entries(groups)) {
+      const chosen = list.filter((c) => (c.state === 'selected' ? !removed.includes(c) : added.includes(c)));
+      if (chosen.length !== 1) throw httpError(422, `Item ${idx + 1}: choose one ${g}`);
+    }
     const extras = added.reduce((a, c) => a + extraPrice(c, size), 0);
     const unit = round2(Number(size.price) + extras);
     const taxRate = type === 'dine_in' ? Number(food.tax_dinein) : Number(food.tax_takeaway);

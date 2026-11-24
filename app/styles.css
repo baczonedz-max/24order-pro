@@ -445,6 +445,9 @@ img { display: block; max-width: 100%; }
 .ps { position: absolute; inset: 0; display: grid; place-items: center; }
 .ps-frame { position: relative; height: 100%; max-width: 100%; aspect-ratio: 1; border-radius: 22px; overflow: hidden; background: var(--sunken); box-shadow: 0 18px 40px rgba(16, 24, 40, .18); animation: baseIn .5s cubic-bezier(.2, .9, .3, 1.15) both; }
 .ps-img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.ps-over { position: absolute; inset: 0; }
+.ps-swap-enter-active, .ps-swap-leave-active { transition: opacity .45s ease, filter .45s ease; }
+.ps-swap-enter-from, .ps-swap-leave-to { opacity: 0; filter: blur(2px); }
 .ps-chips { position: absolute; inset-inline: 10px; bottom: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
 .ps-chip { display: inline-flex; align-items: center; gap: 5px; height: 30px; padding: 0 10px 0 4px; border-radius: 99px; background: rgba(255, 255, 255, .94); color: #111; font-size: 12px; font-weight: 600; box-shadow: 0 4px 12px rgba(0, 0, 0, .18); backdrop-filter: blur(6px); }
 .ps-chip img { width: 24px; height: 24px; border-radius: 50%; object-fit: contain; background: #f4f4f4; }
@@ -467,6 +470,9 @@ img { display: block; max-width: 100%; }
 .size-card { display: grid; gap: 2px; padding: 12px 14px; border-radius: 14px; border: 1.5px solid var(--line); background: var(--surface); text-align: start; transition: border-color .15s, background .15s; }
 .size-card b { font-size: 15px; }
 .size-card span { color: var(--text-2); font-weight: 500; }
+/* "Choose one" option with its own dish photo (e.g. kebab rull / kylling rull) */
+.choice-card { grid-template-columns: 52px minmax(0, 1fr); column-gap: 10px; align-items: center; }
+.choice-card .choice-img { grid-row: span 2; width: 52px; height: 52px; border-radius: 12px; object-fit: contain; background: var(--sunken); }
 .size-card.on { border-color: var(--brand); background: var(--brand-soft); }
 .ing-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px; }
 .ing { position: relative; display: grid; justify-items: center; align-content: start; gap: 4px; padding: 12px 6px 10px; border-radius: 16px; border: 1.5px solid var(--line); background: var(--surface); text-align: center; transition: border-color .15s, background .15s, opacity .15s, transform .12s; }
@@ -660,3 +666,51 @@ svg.baking .topping { filter: url(#cooked) brightness(.9) contrast(1.06) saturat
 .empty .ico { display: block; }
 @media (max-width: 767px) { .hide-sm { display: none !important; } }
 @media (min-width: 1024px) { .shell:not(.collapsed) .sb-foot .hide-sm { display: flex; } }
+
+/* ---------- Product builder on phones: the dish fills the top, options are a clean list ---------- */
+@media (max-width: 767px) {
+  .builder { display: block; height: 100dvh; max-height: 100dvh; overflow-y: auto; overscroll-behavior: contain; border-radius: 0; }
+  .stage { position: sticky; top: 0; z-index: 1; display: block; height: min(56dvh, 520px); min-height: 300px; padding: 0; border-inline-end: 0; border-bottom: 1px solid var(--line); }
+  .stage-head { position: absolute; z-index: 2; inset: 0 0 auto 0; padding: 12px 60px 26px 16px; background: linear-gradient(var(--surface-2) 58%, transparent); pointer-events: none; }
+  .stage-head small { font-size: 11px; }
+  .stage-head h2 { font-size: 19px; line-height: 1.15; }
+  .stage-head p { display: none; }
+  .stage-algs { margin-top: 5px; }
+  .stage-art { position: absolute; inset: 70px 6px 38px; margin: 0; }
+  .stage-art svg { transform: scale(1.07); }
+  .stage-sum { position: absolute; z-index: 2; inset: auto 12px 9px; flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; scrollbar-width: none; min-height: 0; }
+  .stage-sum::-webkit-scrollbar { display: none; }
+  .stage-sum .mod { flex: none; }
+  .stage-hint { display: none; }
+  .ps-frame { width: 100%; height: auto; max-height: 100%; border-radius: 18px; }
+  .close-fab { position: fixed; top: 10px; inset-inline-end: 10px; z-index: 6; width: 40px; height: 40px; border-radius: 50%; }
+
+  .opts { display: block; }
+  .opts-scroll { overflow: visible; padding: 18px 16px 14px; gap: 22px; }
+  .opts-sec h3 { font-size: 16px; margin-bottom: 10px; }
+  .size-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .size-card { padding: 14px; border-radius: 16px; }
+  .size-card b { font-size: 16px; }
+
+  /* Ingredients as list rows: photo · name · price · tick */
+  .ing-grid { grid-template-columns: 1fr; gap: 0; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--surface); }
+  .ing { grid-template-columns: 46px minmax(0, 1fr) auto 28px; justify-items: start; align-items: center; column-gap: 12px; padding: 9px 12px; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; text-align: start; min-height: 64px; }
+  .ing:last-child { border-bottom: 0; }
+  .ing:active { transform: none; background: var(--sunken); }
+  .ing .th { grid-column: 1; grid-row: 1; width: 46px; height: 46px; }
+  .ing .th img { width: 40px; height: 40px; }
+  .ing .nm { grid-column: 2; grid-row: 1; font-size: 14.5px; font-weight: 600; }
+  .ing .pr { grid-column: 3; grid-row: 1; justify-self: end; font-size: 13px; font-weight: 600; color: var(--text-2); }
+  .ing .mark { grid-column: 4; grid-row: 1; position: static; width: 28px; height: 28px; transform: none; border: 2px solid var(--line-strong); background: var(--surface); color: transparent; }
+  .ing.in, .ing.on, .ing.out { border-color: var(--line); }
+  .ing.in .mark { border-color: var(--green); background: var(--green); color: #fff; }
+  .ing.on { background: var(--brand-soft); }
+  .ing.on .mark { border-color: var(--brand-strong); background: var(--brand); color: var(--brand-ink); }
+  .ing.out { opacity: 1; border-style: solid; }
+  .ing.out .nm { color: var(--muted); }
+  .ing.out .mark { border-color: var(--red); background: var(--red-soft); color: var(--red); }
+  .ing.out .th { opacity: .5; filter: grayscale(.6); }
+
+  .opts-foot { position: sticky; bottom: 0; z-index: 3; gap: 10px; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); box-shadow: 0 -8px 20px rgba(16, 24, 40, .06); }
+  .opts-foot .btn.lg { height: 54px; border-radius: 16px; font-size: 15.5px; }
+}
