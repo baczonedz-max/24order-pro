@@ -23,15 +23,6 @@
       "-fries": "menu.nofries.webp",
       "-fries -lettuce": "menu.nofries.nolettuce.webp"
     },
-    "1794750428_RULL.webp": {
-      "+cheese": "rull.cheese.webp",
-      "+onion": "rull.onion.webp",
-      "+corn": "rull.corn.webp",
-      "+jalapeno": "rull.jalapeno.webp",
-      "+tomato": "rull.tomato.webp",
-      "+pineapple": "rull.pineapple.webp",
-      "+garlic": "rull.garlic.webp"
-    },
     "1794751528_Rullekebab kylling 1.webp": {
       "+cheese": "kyllingrull.cheese.webp",
       "+onion": "kyllingrull.onion.webp",

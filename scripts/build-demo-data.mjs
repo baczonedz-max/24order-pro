@@ -63,7 +63,7 @@ const kebabImg = C + '1794833229_kebab%202.webp';
 const kb = [
   // Kebab or chicken: choose one; each choice shows its own photo of the dish.
   ['KEBAB I RULL', 120, 'Kebab / kylling', [
-    { name: 'Kebab', state: 'selected', choice: 'Kjøtt', image: F + encodeURI('1794750428_RULL.webp') },
+    { name: 'Kebab', state: 'selected', choice: 'Kjøtt', image: '/img/dish/rull.kebab.webp' }, // the kebab pair cut from the product photo
     { name: 'Kylling', state: 'optional', choice: 'Kjøtt', image: F + encodeURI('1794751528_Rullekebab kylling 1.webp') },
   ]],
   ['EKSTRA STOR TYRKISK KEBAB', 120],

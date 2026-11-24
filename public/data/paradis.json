@@ -1817,7 +1817,7 @@
        "name": "Kebab",
        "state": "selected",
        "choice": "Kjøtt",
-       "image": "https://paradis-server.24order.com/storage/foods/1794750428_RULL.webp"
+       "image": "/img/dish/rull.kebab.webp"
       },
       {
        "name": "Kylling",
