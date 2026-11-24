@@ -18,6 +18,8 @@ const props = defineProps({
   fly: { type: Object, default: null },
   // True while the "oven" effect plays after "Add to cart".
   baking: { type: Boolean, default: false },
+  // Pizza size: 1 = the biggest size; smaller sizes draw a smaller pizza (e.g. Medium ≈ .8).
+  scale: { type: Number, default: 1 },
 });
 const svg = ref(null);
 
@@ -32,55 +34,82 @@ const isOn = (kind) => on.value.some((i) => i.kind === kind);
 /* ---------- Pizza ---------- */
 const sauceOn = computed(() => (has('sauce_tomato') ? on.value.some((i) => i.kind === 'sauce_tomato' && i.base) : true));
 const cheeseOn = computed(() => (has('cheese') ? on.value.some((i) => i.kind === 'cheese' && i.base) : true));
-const extraCheese = computed(() => on.value.some((i) => i.kind === 'cheese' && !i.base));
-// Two stacked base photos: the raw base (dough + sauce, or plain dough) and the baked pizza with cheese.
-// Toggling cheese cross-fades between them.
+// Base photos: the baked pizza (sauce + melted cheese), the raw base with sauce, and the plain crust.
+// The baked photo holds both sauce and cheese, so it is shown only when both are on;
+// without sauce the crust gets melted cheese pieces instead (a "white" pizza), without cheese the sauced base.
 const bakedBase = computed(() => photoUrl('base.pizza'));
-const rawBase = computed(() => (sauceOn.value ? photoUrl('base.pizza_sauce') : photoUrl('base.dough') || photoUrl('base.pizza_sauce')));
-const showBaked = computed(() => !!bakedBase.value && (cheeseOn.value || !rawBase.value));
+const rawBase = computed(() => (sauceOn.value ? photoUrl('base.pizza_sauce') : photoUrl('base.dough')) || photoUrl('base.pizza_sauce'));
+const showBaked = computed(() => !!bakedBase.value && ((cheeseOn.value && sauceOn.value) || !rawBase.value));
 const basePhoto = computed(() => bakedBase.value || rawBase.value);
+const cheesePieces = computed(() => variants('top.cheese'));
+const whiteCheese = computed(() => cheeseOn.value && !showBaked.value && cheesePieces.value.length > 0);
+// The product's own photo (the real baked pizza) is always the picture: extras are baked onto it, and
+// removed ingredients are listed under it by the builder. A pizza is only assembled from the ingredient
+// library when the product has no photo of its own.
+const usePhoto = computed(() => props.mode === 'pizza' && !!props.image);
+
 // Sauce colours for the drizzle: body, darker edge, gloss.
 const SAUCE = {
   sauce_white: ['#f4ecd6', '#cdbf9c', '#ffffff'],
   sauce_bbq: ['#5c2615', '#341209', '#b06a4c'],
   sauce_chili: ['#d2421d', '#952b10', '#ff9f7f'],
+  sauce_tomato: ['#c63a1d', '#8a240f', '#ff8d6e'],
 };
-/** A smooth zig-zag that stays inside the pizza (radius r), like sauce poured from a bottle. */
-function drizzlePath(seed, r = 74) {
+/** One line of sauce across the pizza at height y (radius r), like one pass of a squeeze bottle:
+    a gentle wave, plus small pools where the bottle slowed down at the turns. */
+function stripePath(y, amp, seed, r) {
+  const half = Math.sqrt(Math.max(0, r * r - y * y)) * 0.88;
   const R = rng(seed);
-  const n = 9;
+  const n = Math.max(3, Math.round(half / 9));
   const pts = [];
-  for (let k = 0; k < n; k++) {
-    const x = -r * 0.92 + (k * 2 * r * 0.92) / (n - 1) + (R() - 0.5) * 6;
-    const lim = Math.sqrt(Math.max(0, r * r - x * x)) * 0.86;
-    pts.push([x, (k % 2 ? -1 : 1) * lim * (0.75 + R() * 0.25)]);
-  }
+  for (let k = 0; k <= n; k++) pts.push([-half + (k * 2 * half) / n + (R() - 0.5) * 2, y + (k % 2 ? -1 : 1) * amp * (0.5 + R() * 0.5)]);
   let d = `M${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`;
-  for (let k = 1; k < n; k++) {
+  for (let k = 1; k < pts.length; k++) {
     const [x0, y0] = pts[k - 1];
     const [x1, y1] = pts[k];
-    d += ` C${(x0 + (x1 - x0) * 0.5).toFixed(1)} ${y0.toFixed(1)} ${(x0 + (x1 - x0) * 0.5).toFixed(1)} ${y1.toFixed(1)} ${x1.toFixed(1)} ${y1.toFixed(1)}`;
+    const mx = (x0 + x1) / 2;
+    d += ` C${mx.toFixed(1)} ${y0.toFixed(1)} ${mx.toFixed(1)} ${y1.toFixed(1)} ${x1.toFixed(1)} ${y1.toFixed(1)}`;
   }
-  return d;
+  // A little pool where the bottle started and stopped.
+  const dots = [{ x: pts[0][0], y: pts[0][1], r: 2.4 }, { x: pts[n][0], y: pts[n][1], r: 2.1 }];
+  return { d, dots };
 }
-
-const cheesePieces = computed(() => variants('top.cheese'));
+// Sauces never cross: they all run the same way and take turns line by line
+// (garlic, tomato, garlic, tomato…), with more space between neighbours than a line is wide.
+const SAUCE_TILT = -22;
+const sauces = computed(() => {
+  const list = on.value.filter((i) => isSauce(i.kind) && !(i.kind === 'sauce_tomato' && i.base));
+  const S = list.length;
+  if (!S) return [];
+  const per = S === 1 ? 6 : S === 2 ? 4 : 3;
+  const T = per * S;
+  const r = 78;
+  const gap = (2 * r) / (T + 1);
+  const amp = Math.min(3.4, gap * 0.22);
+  return list.map((i, k) => ({
+    id: i.id,
+    c: SAUCE[i.kind] || SAUCE.sauce_white,
+    lines: Array.from({ length: per }, (_, j) => stripePath(-r + gap * (j * S + k + 1), amp, i.id * 13 + j, r)),
+  }));
+});
 // Piece sizes (in pizza units; the pizza is ~200 wide) and counts per ingredient, close to a real pizza.
 const SIZE = { cheese: 26, ham: 34, salami: 34, pepperoni: 30, mushroom: 30, onion: 32, leek: 26, olive: 18, jalapeno: 22, pepper: 30, pineapple: 26, corn: 16, meatball: 26, chicken: 28, kebab: 34, beef: 24, bacon: 32, tomato: 32, garlic: 18, herbs: 26, shrimp: 30, tuna: 24, egg: 40, lettuce: 30, pickles: 24 };
 const COUNT = { olive: 8, corn: 10, garlic: 7, herbs: 6, beef: 9, kebab: 7, jalapeno: 8, egg: 3 };
 const toppings = computed(() => {
-  const list = on.value.filter((i) => i.kind !== 'sauce_tomato');
+  const list = on.value.filter((i) => !isSauce(i.kind) && !(usePhoto.value && i.base));
   const out = [];
+  let baseCheese = null;
   for (const i of list) {
     if (i.kind === 'cheese') {
-      // Base cheese is in the base photo; extra cheese adds shredded mozzarella on top.
-      if (i.base || !cheesePieces.value.length) continue;
-      out.push({ id: i.id, vs: cheesePieces.value, size: SIZE.cheese, pts: scatter(i.id * 11 + 5, 12, 74) });
-      continue;
-    }
-    if (isSauce(i.kind)) {
-      const c = SAUCE[i.kind] || SAUCE.sauce_white;
-      out.push({ id: i.id, sauce: drizzlePath(i.id * 13 + 7), rot: (i.id * 47) % 180, c });
+      if (!cheesePieces.value.length) continue;
+      // Base cheese is in the baked photo; on a pizza without sauce it is melted pieces on the crust.
+      if (i.base) {
+        if (whiteCheese.value) baseCheese = { id: i.id, cheese: true, vs: cheesePieces.value, size: 30, pts: scatter(i.id * 11 + 9, 22, 76) };
+        continue;
+      }
+      // Extra cheese: melted mozzarella patches with browned spots (raw shreds would look uncooked).
+      const R = rng(i.id * 5 + 2);
+      out.push({ id: i.id, cheese: true, melt: true, pts: scatter(i.id * 11 + 5, 15, 70).map((q) => ({ ...q, rx: 8 + R() * 5, ry: 6.5 + R() * 4, spot: R() < 0.55 })) });
       continue;
     }
     const vs = variants(`top.${i.kind}`);
@@ -89,7 +118,32 @@ const toppings = computed(() => {
     // Spread to the edge of the topping area (the crust starts at ~85), like a real pizza.
     out.push({ id: i.id, vs, size: SIZE[i.kind] || 30, pts: scatter(i.id * 7 + 3, n, 74) });
   }
+  // Melted cheese goes over the toppings, as it does in the oven.
+  if (baseCheese) out.push(baseCheese);
   return out.map((tp, order) => ({ ...tp, order }));
+});
+
+/* Cooked look: melted cheese creeps over the edges of each piece. The patches are cut from the baked
+   pizza photo itself, so where there is no piece they match the cheese underneath and can't be seen. */
+const meltSrc = computed(() => (usePhoto.value ? props.image : bakedBase.value));
+const meltBlobs = computed(() => {
+  if (!usePhoto.value && !showBaked.value) return [];
+  const out = [];
+  for (const tp of toppings.value) {
+    if (tp.cheese) continue;
+    tp.pts.forEach((p, n) => {
+      const R = rng(tp.id * 31 + n * 7 + 1);
+      const s = tp.size * p.s;
+      const a0 = R() * Math.PI * 2;
+      for (let k = 0; k < 3; k++) {
+        const a = a0 + k * 2.1 + (R() - 0.5) * 0.8;
+        const d = s * (0.32 + R() * 0.1);
+        out.push({ x: p.x + Math.cos(a) * d, y: p.y + Math.sin(a) * d, r: s * (0.12 + R() * 0.08), o: 0.95 });
+      }
+      out.push({ x: p.x, y: p.y, r: s * 0.3, o: 0.2 }); // a thin cheesy glaze over the middle
+    });
+  }
+  return out;
 });
 
 /* Pieces fly from the tapped button to their place on the pizza (Web Animations API). */
@@ -105,10 +159,11 @@ watch(() => props.fly, async (f) => {
   if (!f) return;
   await nextTick();
   const from = toSvg(f.x, f.y);
+  const k = props.scale || 1; // the pieces sit inside the size-scaled group
   const nodes = svg.value?.querySelectorAll(`[data-top="${f.id}"] .fly`) || [];
   nodes.forEach((el, i) => {
     const tx = Number(el.dataset.x), ty = Number(el.dataset.y);
-    const start = from ? `translate(${from.x - tx}px, ${from.y - ty}px) scale(.55)` : 'translateY(-40px) scale(1.4)';
+    const start = from ? `translate(${from.x / k - tx}px, ${from.y / k - ty}px) scale(.55)` : 'translateY(-40px) scale(1.4)';
     el.animate([{ transform: start, opacity: 0.2 }, { transform: 'none', opacity: 1 }], { duration: 620, delay: i * 38, easing: SPRING, fill: 'backwards' });
   });
   svg.value?.querySelectorAll(`[data-top="${f.id}"] .drizzle`).forEach((el) => {
@@ -157,21 +212,17 @@ const burgerX = computed(() => (fries.value ? 118 : 150));
 
 /* ---------- Which picture to show ---------- */
 const view = computed(() => {
-  if (props.mode === 'pizza' && basePhoto.value) return 'pizza';
-  if (props.mode === 'burger' && stack.value) return 'burger';
+  if (props.mode === 'pizza' && (props.image || basePhoto.value)) return 'pizza';
+  // Burgers are shown as their real photo; the layered drawing is only used when there is no photo.
+  if (props.mode === 'burger' && stack.value && !props.image) return 'burger';
   return 'photo';
 });
 
-/* ---------- Product photo + ingredients around it ---------- */
-const ring = computed(() => {
-  const list = on.value.slice(0, 12);
-  const n = Math.max(list.length, 6);
-  return list.map((i, k) => {
-    const a = (-90 + (k * 360) / n) * (Math.PI / 180);
-    const label = i.name.length > 12 ? i.name.slice(0, 11) + '…' : i.name;
-    return { id: i.id, extra: !i.base, x: Math.cos(a) * 116, y: Math.sin(a) * 116, photo: thumbPhoto(i.kind), label, lw: label.length * 6.4 + 16 };
-  });
-});
+/* ---------- Product photo, with the changes pinned on it ---------- */
+// The photo stays exactly as the restaurant took it; added extras and removed ingredients appear as labels.
+const changes = computed(() => props.items
+  .filter((i) => (i.base ? !i.on : i.on))
+  .map((i) => ({ id: i.id, minus: i.base, name: i.name, photo: thumbPhoto(i.kind) })));
 </script>
 
 <template>
@@ -179,33 +230,103 @@ const ring = computed(() => {
   <svg v-if="view === 'pizza'" ref="svg" viewBox="-118 -118 236 236" role="img" aria-hidden="true" :class="{ baking }">
     <defs>
       <radialGradient id="pcShadow"><stop offset="0" stop-color="#000" stop-opacity=".42" /><stop offset=".5" stop-color="#000" stop-opacity=".14" /><stop offset=".72" stop-color="#000" stop-opacity="0" /></radialGradient>
+      <radialGradient id="plateShadow"><stop offset=".82" stop-color="#000" stop-opacity=".22" /><stop offset="1" stop-color="#000" stop-opacity="0" /></radialGradient>
       <radialGradient id="ovenGlow"><stop offset="0" stop-color="#fd992f" stop-opacity=".55" /><stop offset=".45" stop-color="#df4d0c" stop-opacity=".28" /><stop offset=".72" stop-color="#df4d0c" stop-opacity="0" /></radialGradient>
+      <!-- Baked toppings: warmer, a little less fresh, with browned edges -->
+      <filter id="cooked" x="-15%" y="-15%" width="130%" height="130%" color-interpolation-filters="sRGB">
+        <feColorMatrix type="matrix" values="1.04 .06 0 0 -.01  .03 .93 0 0 -.03  0 .02 .8 0 -.03  0 0 0 1 0" result="warm" />
+        <feMorphology in="SourceAlpha" operator="erode" radius="1" result="inner" />
+        <feComposite in="SourceAlpha" in2="inner" operator="out" result="rim" />
+        <feGaussianBlur in="rim" stdDeviation=".9" result="rimSoft" />
+        <feFlood flood-color="#5b2a0a" flood-opacity=".6" />
+        <feComposite in2="rimSoft" operator="in" />
+        <feComposite in2="SourceAlpha" operator="in" result="burn" />
+        <feMerge><feMergeNode in="warm" /><feMergeNode in="burn" /></feMerge>
+      </filter>
+      <!-- Sauce: slightly uneven edges, a soft shadow on the pizza and a wet, glossy highlight -->
+      <filter id="sauceFx" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency=".11" numOctaves="2" seed="11" result="n" />
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="2.4" xChannelSelector="R" yChannelSelector="G" result="body" />
+        <feGaussianBlur in="body" stdDeviation="1" result="bodyBlur" />
+        <feOffset in="bodyBlur" dx=".6" dy="1.3" result="sh" />
+        <feColorMatrix in="sh" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .38 0" result="shadow" />
+        <feSpecularLighting in="bodyBlur" surfaceScale="2.2" specularConstant=".9" specularExponent="24" lighting-color="#fff" result="spec">
+          <feDistantLight azimuth="225" elevation="48" />
+        </feSpecularLighting>
+        <feComposite in="spec" in2="body" operator="in" result="gloss" />
+        <feComposite in="body" in2="gloss" operator="arithmetic" k1="0" k2="1" k3=".55" k4="0" result="wet" />
+        <feMerge><feMergeNode in="shadow" /><feMergeNode in="wet" /></feMerge>
+      </filter>
+      <!-- Melted mozzarella: creamy centre, golden edge that fades into the pizza, wobbly outline, soft sheen -->
+      <radialGradient id="meltCheese"><stop offset="0" stop-color="#fff8e0" /><stop offset=".55" stop-color="#fbeab8" /><stop offset=".85" stop-color="#efcf83" stop-opacity=".85" /><stop offset="1" stop-color="#e2b65e" stop-opacity="0" /></radialGradient>
+      <filter id="cheeseMelt" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency=".18" numOctaves="2" seed="4" result="n" />
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="6" xChannelSelector="R" yChannelSelector="G" result="body" />
+        <feGaussianBlur in="body" stdDeviation="1.4" result="b" />
+        <feSpecularLighting in="b" surfaceScale="1.6" specularConstant=".55" specularExponent="16" lighting-color="#fff" result="spec"><feDistantLight azimuth="225" elevation="55" /></feSpecularLighting>
+        <feComposite in="spec" in2="body" operator="in" result="gloss" />
+        <feComposite in="body" in2="gloss" operator="arithmetic" k1="0" k2="1" k3=".4" k4="0" />
+      </filter>
+      <!-- Ragged, soft edges for the melted cheese patches -->
+      <filter id="meltEdge" filterUnits="userSpaceOnUse" x="-118" y="-118" width="236" height="236">
+        <feTurbulence type="fractalNoise" baseFrequency=".32" numOctaves="2" seed="7" result="n" />
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G" />
+        <feGaussianBlur stdDeviation=".6" />
+      </filter>
+      <mask id="melt" maskUnits="userSpaceOnUse" x="-118" y="-118" width="236" height="236">
+        <g filter="url(#meltEdge)"><circle v-for="(b, k) in meltBlobs" :key="k" :cx="b.x.toFixed(1)" :cy="b.y.toFixed(1)" :r="b.r.toFixed(1)" fill="#fff" :fill-opacity="b.o" /></g>
+      </mask>
     </defs>
-    <ellipse cx="0" cy="9" rx="104" ry="100" fill="#000" opacity=".14" />
-    <g class="base-in">
-      <image v-if="rawBase" :href="rawBase" x="-108" y="-108" width="216" height="216" preserveAspectRatio="xMidYMid meet" />
-      <image v-if="bakedBase" class="base-baked" :style="{ opacity: showBaked ? 1 : 0 }" :href="bakedBase" x="-108" y="-108" width="216" height="216" preserveAspectRatio="xMidYMid meet" />
-    </g>
-    <TransitionGroup tag="g" name="top">
-      <g v-for="tp in toppings" :key="tp.id" :data-top="tp.id">
-        <!-- Sauce: a glossy drizzle across the whole pizza -->
-        <g v-if="tp.sauce" :transform="`rotate(${tp.rot})`" class="pop-in" :style="{ '--d': (intro ? 250 + tp.order * STEP : 0) + 'ms' }">
-          <path :d="tp.sauce" fill="none" stroke="#000" stroke-opacity=".22" stroke-width="5.2" stroke-linecap="round" transform="translate(1.2 2)" class="drizzle" pathLength="1" stroke-dasharray="1" />
-          <path :d="tp.sauce" fill="none" :stroke="tp.c[1]" stroke-width="4.6" stroke-linecap="round" class="drizzle" pathLength="1" stroke-dasharray="1" />
-          <path :d="tp.sauce" fill="none" :stroke="tp.c[0]" stroke-width="3.4" stroke-linecap="round" class="drizzle" pathLength="1" stroke-dasharray="1" />
-          <path :d="tp.sauce" fill="none" :stroke="tp.c[2]" stroke-opacity=".7" stroke-width="1" stroke-linecap="round" transform="translate(-.5 -.8)" class="drizzle" pathLength="1" stroke-dasharray="1" />
+    <!-- Everything on the pizza grows or shrinks with the chosen size -->
+    <g class="pz-size" :style="{ transform: `scale(${scale})` }">
+      <ellipse cx="0" cy="8" rx="100" ry="97" fill="url(#plateShadow)" />
+      <g class="base-in">
+        <g class="base-baked" :style="{ opacity: usePhoto ? 0 : 1 }">
+          <image v-if="rawBase" :href="rawBase" x="-108" y="-108" width="216" height="216" preserveAspectRatio="xMidYMid meet" />
+          <image v-if="bakedBase" class="base-baked" :style="{ opacity: showBaked ? 1 : 0 }" :href="bakedBase" x="-108" y="-108" width="216" height="216" preserveAspectRatio="xMidYMid meet" />
         </g>
-        <!-- Pieces: real photo cut-outs with a soft shadow, each landing with a spring -->
-        <g v-for="(p, i) in tp.pts || []" :key="i" :transform="`translate(${p.x.toFixed(1)} ${p.y.toFixed(1)})`">
-          <g class="fly pop-in" :data-x="p.x.toFixed(1)" :data-y="p.y.toFixed(1)" :style="{ '--d': (intro ? 250 + tp.order * STEP : 0) + i * 38 + 'ms' }">
-            <circle :r="tp.size * 0.42" :cx="tp.size * 0.07" :cy="tp.size * 0.11" fill="url(#pcShadow)" />
-            <g :transform="`rotate(${p.rot.toFixed(0)}) scale(${p.s.toFixed(2)})`">
-              <image class="topping" :style="{ '--d': (intro ? 250 + tp.order * STEP : 0) + i * 38 + 'ms' }" :href="tp.vs[i % tp.vs.length]" :x="-tp.size / 2" :y="-tp.size / 2" :width="tp.size" :height="tp.size" preserveAspectRatio="xMidYMid meet" />
+        <!-- The product's own photo: exactly the pizza the restaurant sells -->
+        <image v-if="image" class="base-baked" :style="{ opacity: usePhoto ? 1 : 0 }" :href="image" x="-108" y="-108" width="216" height="216" preserveAspectRatio="xMidYMid meet" />
+      </g>
+      <TransitionGroup tag="g" name="top">
+        <g v-for="tp in toppings" :key="tp.id" :data-top="tp.id">
+          <!-- Extra cheese: melted patches -->
+          <g v-if="tp.melt" filter="url(#cheeseMelt)">
+            <g v-for="(p, i) in tp.pts" :key="i" :transform="`translate(${p.x.toFixed(1)} ${p.y.toFixed(1)}) rotate(${p.rot.toFixed(0)})`">
+              <g class="pop-in" :style="{ '--d': (intro ? 250 + tp.order * STEP : 0) + i * 30 + 'ms' }">
+                <ellipse :rx="p.rx.toFixed(1)" :ry="p.ry.toFixed(1)" fill="url(#meltCheese)" />
+                <ellipse v-if="p.spot" :cx="(p.rx * 0.25).toFixed(1)" :cy="(-p.ry * 0.2).toFixed(1)" :rx="(p.rx * 0.28).toFixed(1)" :ry="(p.ry * 0.22).toFixed(1)" fill="#b8742f" opacity=".45" />
+              </g>
+            </g>
+          </g>
+          <!-- Pieces: real photo cut-outs, baked, each landing with a spring -->
+          <g v-for="(p, i) in tp.melt ? [] : tp.pts" :key="i" :transform="`translate(${p.x.toFixed(1)} ${p.y.toFixed(1)})`">
+            <g class="fly pop-in" :data-x="p.x.toFixed(1)" :data-y="p.y.toFixed(1)" :style="{ '--d': (intro ? 250 + tp.order * STEP : 0) + i * 38 + 'ms' }">
+              <circle :r="tp.size * 0.38" :cx="tp.size * 0.05" :cy="tp.size * 0.07" fill="url(#pcShadow)" opacity=".6" />
+              <g :transform="`rotate(${p.rot.toFixed(0)}) scale(${p.s.toFixed(2)})`">
+                <image class="topping" :style="{ '--d': (intro ? 250 + tp.order * STEP : 0) + i * 38 + 'ms' }" :href="tp.vs[i % tp.vs.length]" :x="-tp.size / 2" :y="-tp.size / 2" :width="tp.size" :height="tp.size" preserveAspectRatio="xMidYMid meet" />
+              </g>
             </g>
           </g>
         </g>
+      </TransitionGroup>
+      <!-- Melted cheese over the edges of the toppings -->
+      <image v-if="meltBlobs.length" class="melt" :href="meltSrc" x="-108" y="-108" width="216" height="216" preserveAspectRatio="xMidYMid meet" mask="url(#melt)" />
+      <!-- Sauces on top, in parallel lines that never cross; glossy and uneven like real sauce -->
+      <g :transform="`rotate(${SAUCE_TILT})`">
+        <TransitionGroup tag="g" name="top">
+          <g v-for="(sc, k) in sauces" :key="sc.id" :data-top="sc.id" class="pop-in" filter="url(#sauceFx)" :style="{ '--d': (intro ? 250 + (toppings.length + k) * STEP : 0) + 'ms' }">
+            <g v-for="(ln, j) in sc.lines" :key="j">
+              <path :d="ln.d" fill="none" :stroke="sc.c[1]" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round" class="drizzle" pathLength="1" stroke-dasharray="1" />
+              <path :d="ln.d" fill="none" :stroke="sc.c[0]" stroke-width="3.7" stroke-linecap="round" stroke-linejoin="round" class="drizzle" pathLength="1" stroke-dasharray="1" />
+              <!-- wet shine along the top of the line -->
+              <path :d="ln.d" fill="none" :stroke="sc.c[2]" stroke-opacity=".75" stroke-width="1" stroke-linecap="round" transform="translate(-.5 -.9)" class="drizzle" pathLength="1" stroke-dasharray="1" />
+              <circle v-for="(dt, q) in ln.dots" :key="q" :cx="dt.x.toFixed(1)" :cy="dt.y.toFixed(1)" :r="dt.r.toFixed(1)" :fill="sc.c[0]" :stroke="sc.c[1]" stroke-width=".5" />
+            </g>
+          </g>
+        </TransitionGroup>
       </g>
-    </TransitionGroup>
+    </g>
     <circle class="oven" r="150" fill="url(#ovenGlow)" />
   </svg>
 
@@ -226,27 +347,15 @@ const ring = computed(() => {
     </transition>
   </svg>
 
-  <!-- PRODUCT PHOTO + INGREDIENTS -->
-  <svg v-else viewBox="-160 -160 320 320" role="img" aria-hidden="true">
-    <defs><clipPath id="photoClip"><circle r="90" /></clipPath></defs>
-    <circle r="96" fill="#fff" />
-    <circle r="96" fill="none" stroke="#000" stroke-opacity=".06" stroke-width="2" />
-    <image v-if="image" :href="image" x="-90" y="-90" width="180" height="180" preserveAspectRatio="xMidYMid slice" clip-path="url(#photoClip)" />
-    <TransitionGroup tag="g" name="top">
-      <g v-for="(r, i) in ring" :key="r.id">
-        <g :transform="`translate(${r.x.toFixed(1)} ${r.y.toFixed(1)})`">
-          <g class="orbit-in" :style="{ animationDelay: i * 30 + 'ms' }">
-            <template v-if="r.photo">
-              <circle r="23" fill="#fff" :stroke="r.extra ? '#ffc20e' : '#e5e7eb'" :stroke-width="r.extra ? 3 : 1.5" />
-              <image :href="r.photo" x="-17" y="-17" width="34" height="34" preserveAspectRatio="xMidYMid meet" />
-            </template>
-            <template v-else>
-              <rect :x="-r.lw / 2" y="-12" :width="r.lw" height="24" rx="12" fill="#fff" :stroke="r.extra ? '#ffc20e' : '#e5e7eb'" :stroke-width="r.extra ? 2.5 : 1.5" />
-              <text y="4" text-anchor="middle" font-size="11" font-weight="600" fill="#1f2937" font-family="Readex Pro, sans-serif">{{ r.label }}</text>
-            </template>
-          </g>
-        </g>
-      </g>
-    </TransitionGroup>
-  </svg>
+  <!-- PRODUCT PHOTO, exactly as the restaurant took it, with the changes pinned on it -->
+  <div v-else class="ps">
+    <div class="ps-frame">
+      <img v-if="image" :src="image" alt="" class="ps-img">
+      <TransitionGroup tag="div" name="chip" class="ps-chips">
+        <span v-for="c in changes" :key="c.id" class="ps-chip" :class="c.minus ? 'minus' : 'plus'">
+          <img v-if="c.photo" :src="c.photo" alt=""><b>{{ c.minus ? '−' : '+' }}</b>{{ c.name }}
+        </span>
+      </TransitionGroup>
+    </div>
+  </div>
 </template>

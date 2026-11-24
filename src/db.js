@@ -1,7 +1,7 @@
 // D1 schema. Tables are created on the first request, so a new database needs no manual step.
 // Each statement is idempotent; bump SCHEMA_VERSION and add statements to migrate later.
 
-export const SCHEMA_VERSION = 2;
+export const SCHEMA_VERSION = 3;
 
 const SCHEMA = [
   `CREATE TABLE IF NOT EXISTS media (
@@ -118,6 +118,7 @@ export async function ensureSchema(env, request) {
     await env.DB.prepare(`INSERT OR REPLACE INTO settings(key, value) VALUES ('schema_version', ?)`).bind(String(SCHEMA_VERSION)).run();
     const count = await env.DB.prepare(`SELECT COUNT(*) AS n FROM categories`).first();
     if (!count?.n) await seedDemoMenu(env, request);
+    else if (version < 3) await refreshDemoPhotos(env, request);
   }
   ready = true;
 }
@@ -134,6 +135,16 @@ async function seedDemoMenu(env, request) {
     env.DB.prepare(`INSERT OR REPLACE INTO settings(key, value) VALUES ('restaurant_logo', ?)`).bind(r.logo || ''),
     env.DB.prepare(`INSERT OR REPLACE INTO settings(key, value) VALUES ('currency', ?)`).bind(r.currency || 'kr'),
   ]);
+}
+
+/** v3: demo products that were seeded with their category's photo get their own photo. */
+async function refreshDemoPhotos(env, request) {
+  const res = await env.ASSETS.fetch(new Request(new URL('/data/paradis.json', request.url)));
+  if (!res.ok) return;
+  const data = await res.json();
+  const stmts = (data.categories || []).flatMap((c) => (c.foods || []).filter((f) => f.image).map((f) =>
+    env.DB.prepare(`UPDATE foods SET image = ? WHERE name = ? AND image LIKE '%/storage/categories/%'`).bind(f.image, f.name)));
+  if (stmts.length) await env.DB.batch(stmts);
 }
 
 /** Import a menu in the app's JSON format (see scripts/build-demo-data.mjs). */

@@ -12,6 +12,7 @@ const props = defineProps({
   food: { type: Object, required: true },
   line: { type: Object, default: null },
   categoryName: { type: String, default: '' },
+  allergens: { type: Array, default: () => [] }, // allergen keys (order page): shown as names
 });
 const emit = defineEmits(['close', 'save']);
 
@@ -34,6 +35,14 @@ const stageItems = computed(() => comps.value.map((c) => ({
   id: c.id, name: c.name, kind: c.kind, base: c.state === 'selected',
   on: c.state === 'selected' ? !removed.value.has(c.id) : added.value.has(c.id),
 })));
+
+// The pizza on the stage grows with the size: the cheapest size is drawn at 80 %, the biggest at 100 %.
+const stageScale = computed(() => {
+  const list = [...props.food.sizes].sort((x, y) => x.price - y.price);
+  if (list.length < 2) return 1;
+  const i = Math.max(0, list.findIndex((z) => z.id === sizeId.value));
+  return 0.8 + (0.2 * i) / (list.length - 1);
+});
 
 const title = computed(() => ({ pizza: t('buildPizza'), burger: t('buildBurger') })[mode.value] || t('buildDish'));
 
@@ -93,15 +102,19 @@ onUnmounted(() => { window.removeEventListener('keydown', onKey); document.body.
             <small>{{ title }}<template v-if="food.number"> · #{{ food.number }}</template></small>
             <h2>{{ food.name }}</h2>
             <p v-if="food.description">{{ food.description }}</p>
+            <div v-if="allergens.length" class="stage-algs"><span v-for="a in allergens" :key="a">{{ t('alg_' + a) }}</span></div>
           </div>
         </div>
         <div class="stage-art">
-          <FoodStage :mode="mode" :image="food.image || ''" :items="stageItems" :fly="fly" :baking="baking" />
+          <FoodStage :mode="mode" :image="food.image || ''" :items="stageItems" :fly="fly" :baking="baking" :scale="stageScale" />
         </div>
         <div class="stage-sum">
           <span v-if="food.sizes.length > 1 && size" class="mod note">{{ size.label || size.code }}</span>
-          <span v-for="c in base.filter((c) => removed.has(c.id))" :key="'r' + c.id" class="mod minus">{{ c.name }}</span>
-          <span v-for="c in extras.filter((c) => added.has(c.id))" :key="'a' + c.id" class="mod plus">+ {{ c.name }}</span>
+          <!-- Pizzas list the changes here; other products pin them on their photo -->
+          <template v-if="mode === 'pizza'">
+            <span v-for="c in base.filter((c) => removed.has(c.id))" :key="'r' + c.id" class="mod minus">{{ c.name }}</span>
+            <span v-for="c in extras.filter((c) => added.has(c.id))" :key="'a' + c.id" class="mod plus">+ {{ c.name }}</span>
+          </template>
         </div>
         <p v-if="comps.length" class="stage-hint">{{ t('builderHint') }}</p>
       </section>

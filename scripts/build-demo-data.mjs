@@ -120,5 +120,34 @@ const data = {
   categories: [pizza, kebab, burgers, salater, pommes, drikke, sauser],
 };
 
+// Each product's own photo, as shown on paradis-order.24order.com (pizzas already have theirs above).
+const PHOTOS = {
+  'KEBAB I RULL': '1794750428_RULL.webp',
+  'EKSTRA STOR TYRKISK KEBAB': '1794831387_TYRKISK KEBAB.webp',
+  'STOR TYRKISK KEBAB': '1794831332_TYRKISK KEBAB.webp',
+  'LITEN TYRKISK KEBAB': '1794831357_TYRKISK KEBAB.webp',
+  'EKSTRA STOR KYLLINGKEBAB': '1794751546_Rullekebab kylling 1.webp',
+  'STOR KYLLINGKEBAB': '1794751528_Rullekebab kylling 1.webp',
+  'LITEN KYLLINGKEBAB': '1794751580_Rullekebab kylling 1.webp',
+  'KEBABMIDDAG (TYRKISK)': '1794832857_KEBABMIDDAG (TYRKISK).webp',
+  'KYLLINGMIDDAG (TYRKISK)': '1794832300_KYLLINGMIDDAG (TYRKISK) .webp',
+  'HAMBURGER MENY 200G': '1794750658_Hamburgertallerken.webp',
+  'HAMBURGER MENY 150G': '1794750674_Hamburgertallerken.webp',
+  'HAMBURGER 150G': '1794750694_Hamburge.webp',
+  'HAMBURGER 200G': '1794750710_Hamburge.webp',
+  'KYLLINGSALAT': '1794750730_Kyllingsalat.webp',
+  'SKINKESALAT': '1794750745_Skinkesalat.webp',
+  'POMMES FRITES – STOR': '1794750846_Chips.webp',
+  'POMMES FRITES – LITEN': '1794750864_Chips.webp',
+  'Hvitløksaus': '1794750879_Hvitløkssaus.webp',
+  'BBQ-saus': '1794750890_BBQsuce.webp',
+  'Chilisaus': '1794750903_CHILLISAUS.webp',
+  'Bearnaisesaus': '1794750917_Béarnaisesaus.webp', // the server stores the accent decomposed (e + ´)
+  'Tomatsaus': '1794750939_Tomatsaus2.webp',
+  'MINERALVANN 0,5 LITER': '1794751364_MINERALVANN 0,5 LITER.webp',
+  'MINERALVANN 1,5 LITER (TAKEAWAY)': '1794751478_MINERALVANN 1,5 LITER.webp',
+};
+for (const c of data.categories) for (const f of c.foods) if (PHOTOS[f.name]) f.image = F + encodeURI(PHOTOS[f.name]);
+
 fs.writeFileSync(new URL('../public/data/paradis.json', import.meta.url), JSON.stringify(data, null, 1));
 console.log('categories', data.categories.length, 'foods', data.categories.reduce((a, c) => a + c.foods.length, 0));

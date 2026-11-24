@@ -9,13 +9,13 @@ import { NAV, SOON } from './nav.js';
 
 const route = useRoute();
 const router = useRouter();
-const isPublic = computed(() => route.meta.public);
+const isPublic = computed(() => route.meta.public || route.meta.shop);
 const moreOpen = ref(false);
 const scrolled = ref(false);
 const dark = ref(document.documentElement.dataset.theme === 'dark');
 
 watch(() => route.fullPath, () => (moreOpen.value = false));
-watch([() => route.meta.title, () => i18n.lang], ([k]) => (document.title = k ? `${t(k)} · 24order Pro` : '24order Pro'), { immediate: true });
+watch([() => route.meta.title, () => i18n.lang], ([k]) => !route.meta.shop && (document.title = k ? `${t(k)} · 24order Pro` : '24order Pro'), { immediate: true });
 
 const onScroll = () => (scrolled.value = window.scrollY > 4);
 let timer;

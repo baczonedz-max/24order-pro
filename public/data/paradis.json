@@ -1803,7 +1803,7 @@
      "id": 22,
      "number": 1,
      "name": "KEBAB I RULL",
-     "image": "https://paradis-server.24order.com/storage/categories/1794833229_kebab%202.webp",
+     "image": "https://paradis-server.24order.com/storage/foods/1794750428_RULL.webp",
      "prices": [
       {
        "size": "",
@@ -1867,7 +1867,7 @@
      "id": 23,
      "number": 2,
      "name": "EKSTRA STOR TYRKISK KEBAB",
-     "image": "https://paradis-server.24order.com/storage/categories/1794833229_kebab%202.webp",
+     "image": "https://paradis-server.24order.com/storage/foods/1794831387_TYRKISK%20KEBAB.webp",
      "prices": [
       {
        "size": "",
@@ -1923,7 +1923,7 @@
      "id": 24,
      "number": 3,
      "name": "STOR TYRKISK KEBAB",
-     "image": "https://paradis-server.24order.com/storage/categories/1794833229_kebab%202.webp",
+     "image": "https://paradis-server.24order.com/storage/foods/1794831332_TYRKISK%20KEBAB.webp",
      "prices": [
       {
        "size": "",
@@ -1979,7 +1979,7 @@
      "id": 25,
      "number": 4,
      "name": "LITEN TYRKISK KEBAB",
-     "image": "https://paradis-server.24order.com/storage/categories/1794833229_kebab%202.webp",
+     "image": "https://paradis-server.24order.com/storage/foods/1794831357_TYRKISK%20KEBAB.webp",
      "prices": [
       {
        "size": "",
@@ -2035,7 +2035,7 @@
      "id": 26,
      "number": 5,
      "name": "EKSTRA STOR KYLLINGKEBAB",
-     "image": "https://paradis-server.24order.com/storage/categories/1794833229_kebab%202.webp",
+     "image": "https://paradis-server.24order.com/storage/foods/1794751546_Rullekebab%20kylling%201.webp",
      "prices": [
       {
        "size": "",
@@ -2091,7 +2091,7 @@
      "id": 27,
      "number": 6,
      "name": "STOR KYLLINGKEBAB",
-     "image": "https://paradis-server.24order.com/storage/categories/1794833229_kebab%202.webp",
+     "image": "https://paradis-server.24order.com/storage/foods/1794751528_Rullekebab%20kylling%201.webp",
      "prices": [
       {
        "size": "",
@@ -2147,7 +2147,7 @@
      "id": 28,
      "number": 7,
      "name": "LITEN KYLLINGKEBAB",
-     "image": "https://paradis-server.24order.com/storage/categories/1794833229_kebab%202.webp",
+     "image": "https://paradis-server.24order.com/storage/foods/1794751580_Rullekebab%20kylling%201.webp",
      "prices": [
       {
        "size": "",
@@ -2203,7 +2203,7 @@
      "id": 29,
      "number": 8,
      "name": "KEBABMIDDAG (TYRKISK)",
-     "image": "https://paradis-server.24order.com/storage/categories/1794833229_kebab%202.webp",
+     "image": "https://paradis-server.24order.com/storage/foods/1794832857_KEBABMIDDAG%20(TYRKISK).webp",
      "prices": [
       {
        "size": "",
@@ -2264,7 +2264,7 @@
      "id": 30,
      "number": 9,
      "name": "KYLLINGMIDDAG (TYRKISK)",
-     "image": "https://paradis-server.24order.com/storage/categories/1794833229_kebab%202.webp",
+     "image": "https://paradis-server.24order.com/storage/foods/1794832300_KYLLINGMIDDAG%20(TYRKISK)%20.webp",
      "prices": [
       {
        "size": "",
@@ -2338,7 +2338,7 @@
      "id": 31,
      "number": 1,
      "name": "HAMBURGER MENY 200G",
-     "image": "https://paradis-server.24order.com/storage/categories/1794833183_Hamburger.webp",
+     "image": "https://paradis-server.24order.com/storage/foods/1794750658_Hamburgertallerken.webp",
      "prices": [
       {
        "size": "",
@@ -2367,7 +2367,7 @@
      "id": 32,
      "number": 2,
      "name": "HAMBURGER MENY 150G",
-     "image": "https://paradis-server.24order.com/storage/categories/1794833183_Hamburger.webp",
+     "image": "https://paradis-server.24order.com/storage/foods/1794750674_Hamburgertallerken.webp",
      "prices": [
       {
        "size": "",
@@ -2396,7 +2396,7 @@
      "id": 33,
      "number": 3,
      "name": "HAMBURGER 200G",
-     "image": "https://paradis-server.24order.com/storage/categories/1794833183_Hamburger.webp",
+     "image": "https://paradis-server.24order.com/storage/foods/1794750710_Hamburge.webp",
      "prices": [
       {
        "size": "",
@@ -2417,7 +2417,7 @@
      "id": 34,
      "number": 4,
      "name": "HAMBURGER 150G",
-     "image": "https://paradis-server.24order.com/storage/categories/1794833183_Hamburger.webp",
+     "image": "https://paradis-server.24order.com/storage/foods/1794750694_Hamburge.webp",
      "prices": [
       {
        "size": "",
@@ -2445,7 +2445,7 @@
      "id": 35,
      "number": 1,
      "name": "KYLLINGSALAT",
-     "image": "https://paradis-server.24order.com/storage/categories/1794833021_Salater2.webp",
+     "image": "https://paradis-server.24order.com/storage/foods/1794750730_Kyllingsalat.webp",
      "prices": [
       {
        "size": "",
@@ -2461,7 +2461,7 @@
      "id": 36,
      "number": 2,
      "name": "SKINKESALAT",
-     "image": "https://paradis-server.24order.com/storage/categories/1794833021_Salater2.webp",
+     "image": "https://paradis-server.24order.com/storage/foods/1794750745_Skinkesalat.webp",
      "prices": [
       {
        "size": "",
@@ -2484,7 +2484,7 @@
      "id": 37,
      "number": 1,
      "name": "POMMES FRITES – STOR",
-     "image": "https://paradis-server.24order.com/storage/categories/1794833267_chips.webp",
+     "image": "https://paradis-server.24order.com/storage/foods/1794750846_Chips.webp",
      "prices": [
       {
        "size": "",
@@ -2500,7 +2500,7 @@
      "id": 38,
      "number": 2,
      "name": "POMMES FRITES – LITEN",
-     "image": "https://paradis-server.24order.com/storage/categories/1794833267_chips.webp",
+     "image": "https://paradis-server.24order.com/storage/foods/1794750864_Chips.webp",
      "prices": [
       {
        "size": "",
@@ -2523,7 +2523,7 @@
      "id": 39,
      "number": 1,
      "name": "MINERALVANN 1,5 LITER (TAKEAWAY)",
-     "image": "https://paradis-server.24order.com/storage/categories/1794833133_Drikke.webp",
+     "image": "https://paradis-server.24order.com/storage/foods/1794751478_MINERALVANN%201,5%20LITER.webp",
      "prices": [
       {
        "size": "",
@@ -2539,7 +2539,7 @@
      "id": 40,
      "number": 2,
      "name": "MINERALVANN 0,5 LITER",
-     "image": "https://paradis-server.24order.com/storage/categories/1794833133_Drikke.webp",
+     "image": "https://paradis-server.24order.com/storage/foods/1794751364_MINERALVANN%200,5%20LITER.webp",
      "prices": [
       {
        "size": "",
@@ -2562,7 +2562,7 @@
      "id": 41,
      "number": 1,
      "name": "Hvitløksaus",
-     "image": "https://paradis-server.24order.com/storage/categories/1794833050_dressing.webp",
+     "image": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp",
      "prices": [
       {
        "size": "",
@@ -2578,7 +2578,7 @@
      "id": 42,
      "number": 2,
      "name": "BBQ-saus",
-     "image": "https://paradis-server.24order.com/storage/categories/1794833050_dressing.webp",
+     "image": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp",
      "prices": [
       {
        "size": "",
@@ -2594,7 +2594,7 @@
      "id": 43,
      "number": 3,
      "name": "Chilisaus",
-     "image": "https://paradis-server.24order.com/storage/categories/1794833050_dressing.webp",
+     "image": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp",
      "prices": [
       {
        "size": "",
@@ -2610,7 +2610,7 @@
      "id": 44,
      "number": 4,
      "name": "Bearnaisesaus",
-     "image": "https://paradis-server.24order.com/storage/categories/1794833050_dressing.webp",
+     "image": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp",
      "prices": [
       {
        "size": "",
@@ -2626,7 +2626,7 @@
      "id": 45,
      "number": 5,
      "name": "Tomatsaus",
-     "image": "https://paradis-server.24order.com/storage/categories/1794833050_dressing.webp",
+     "image": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp",
      "prices": [
       {
        "size": "",

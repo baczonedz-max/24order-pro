@@ -5,6 +5,16 @@ import { api } from './api.js';
 const soon = () => import('./views/ComingSoon.vue');
 
 const routes = [
+  // Customer ordering page ("order" link): public, no sign-in.
+  {
+    path: '/order', component: () => import('./order/ShopLayout.vue'), meta: { shop: true },
+    children: [
+      { path: '', component: () => import('./order/ShopHome.vue'), meta: { shop: true } },
+      { path: 'menu/:slug', component: () => import('./order/ShopMenu.vue'), meta: { shop: true } },
+      { path: 'orders', component: () => import('./order/ShopOrders.vue'), meta: { shop: true } },
+      { path: 'track/:code', component: () => import('./order/ShopOrders.vue'), meta: { shop: true } },
+    ],
+  },
   { path: '/login', component: () => import('./views/Login.vue'), meta: { public: true } },
   { path: '/setup', component: () => import('./views/Setup.vue'), meta: { public: true } },
   { path: '/', component: () => import('./views/Home.vue'), meta: { title: 'navHome' } },
@@ -30,7 +40,12 @@ const routes = [
 
 export const router = createRouter({ history: createWebHistory(), routes });
 
+// On an "order" host (order.example.com or name-order.example.com) the start page is the ordering page.
+const ORDER_HOST = /^order\.|-order\./i.test(location.hostname);
+
 router.beforeEach(async (to) => {
+  if (to.meta.shop) return true;
+  if (ORDER_HOST && to.path === '/') return '/order';
   if (!store.checked) await loadSession();
   if (to.meta.public) {
     if (store.user) return '/';

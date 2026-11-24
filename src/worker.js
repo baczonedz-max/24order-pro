@@ -6,6 +6,7 @@ import { listMedia, getMedia, putMedia, deleteMedia, generateImage, aiStatus } f
 import { hashPassword, verifyPassword, startSession, endSession, currentUser, requireUser } from './auth.js';
 import { loadCatalog, priceCart, createOrder, getOrder, setStatus, listOrders, summary, STATUSES } from './orders.js';
 import { menuRoute, statsRoute } from './menu24.js';
+import { shopMenu, shopPrice, shopPlaceOrder, shopTrack } from './shop.js';
 
 const app = new Hono().basePath('/api');
 
@@ -105,6 +106,12 @@ priv.get('/stats', (c) => statsRoute(c));
 
 /* ---------- MTV (TV menus): public, the TVs read it without signing in ---------- */
 app.get('/menu', (c) => menuRoute(c));
+
+/* ---------- Customer ordering page ("order" link): public ---------- */
+app.get('/shop/menu', (c) => shopMenu(c));
+app.post('/shop/price', (c) => shopPrice(c));
+app.post('/shop/orders', (c) => shopPlaceOrder(c));
+app.get('/shop/orders/:code', (c) => shopTrack(c));
 
 /* ---------- Media (ingredient photos): read is public so TVs and the order page can show them ---------- */
 app.get('/media', async (c) => c.json({ success: true, data: await listMedia(c.env.DB) }));
