@@ -1,7 +1,7 @@
 // D1 schema. Tables are created on the first request, so a new database needs no manual step.
 // Each statement is idempotent; bump SCHEMA_VERSION and add statements to migrate later.
 
-export const SCHEMA_VERSION = 3;
+export const SCHEMA_VERSION = 4;
 
 const SCHEMA = [
   `CREATE TABLE IF NOT EXISTS media (
@@ -118,7 +118,10 @@ export async function ensureSchema(env, request) {
     await env.DB.prepare(`INSERT OR REPLACE INTO settings(key, value) VALUES ('schema_version', ?)`).bind(String(SCHEMA_VERSION)).run();
     const count = await env.DB.prepare(`SELECT COUNT(*) AS n FROM categories`).first();
     if (!count?.n) await seedDemoMenu(env, request);
-    else if (version < 3) await refreshDemoPhotos(env, request);
+    else {
+      if (version < 3) await refreshDemoPhotos(env, request);
+      if (version < 4) await fillRestaurantInfo(env, request);
+    }
   }
   ready = true;
 }
@@ -145,6 +148,17 @@ async function refreshDemoPhotos(env, request) {
   const stmts = (data.categories || []).flatMap((c) => (c.foods || []).filter((f) => f.image).map((f) =>
     env.DB.prepare(`UPDATE foods SET image = ? WHERE name = ? AND image LIKE '%/storage/categories/%'`).bind(f.image, f.name)));
   if (stmts.length) await env.DB.batch(stmts);
+}
+
+/** v4: a restaurant without a name or logo gets the demo restaurant's (never overwrites a value that is set). */
+async function fillRestaurantInfo(env, request) {
+  const res = await env.ASSETS.fetch(new Request(new URL('/data/paradis.json', request.url)));
+  if (!res.ok) return;
+  const r = (await res.json()).restaurant || {};
+  const put = (key, value) => env.DB.prepare(
+    `INSERT INTO settings(key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value WHERE settings.value IS NULL OR settings.value = ''`,
+  ).bind(key, value);
+  await env.DB.batch([put('restaurant_name', r.name || 'Restaurant'), put('restaurant_logo', r.logo || ''), put('currency', r.currency || 'kr')]);
 }
 
 /** Import a menu in the app's JSON format (see scripts/build-demo-data.mjs). */
