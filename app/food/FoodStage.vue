@@ -356,7 +356,13 @@ const changes = computed(() => changed.value
                   <circle v-for="(dt, q) in ln.dots" :key="q" :cx="dt.x.toFixed(1)" :cy="dt.y.toFixed(1)" :r="dt.r.toFixed(1)" fill="#fff" />
                 </g>
               </mask>
-              <g opacity=".35">
+              <!-- Solid sauce underneath: the photo texture on top must never let the pizza show through -->
+              <g>
+                <path v-for="(ln, j) in sc.lines" :key="'e' + j" :d="ln.d" fill="none" :stroke="sc.c[1]" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" class="drizzle" pathLength="1" stroke-dasharray="1" />
+                <path v-for="(ln, j) in sc.lines" :key="'b' + j" :d="ln.d" fill="none" :stroke="sc.c[0]" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" class="drizzle" pathLength="1" stroke-dasharray="1" />
+                <circle v-for="(dt, q) in sc.lines.flatMap((l) => l.dots)" :key="'d' + q" :cx="dt.x.toFixed(1)" :cy="dt.y.toFixed(1)" :r="dt.r.toFixed(1)" :fill="sc.c[0]" />
+              </g>
+              <g opacity="0">
                 <path v-for="(ln, j) in sc.lines" :key="j" :d="ln.d" fill="none" :stroke="sc.c[1]" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" class="drizzle" pathLength="1" stroke-dasharray="1" />
               </g>
               <image :href="sc.tex" x="-150" y="-150" width="300" height="300" preserveAspectRatio="xMidYMid slice" :mask="`url(#sm${sc.id})`" />

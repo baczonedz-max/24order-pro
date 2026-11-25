@@ -7,7 +7,7 @@
   "country": "NO"
  },
  "source": "24order:paradis-server.24order.com",
- "imported_at": "2026-11-24T23:18:52.770Z",
+ "imported_at": "2026-11-25T17:45:53.175Z",
  "categories": [
   {
    "id": 1,
@@ -77,27 +77,32 @@
       {
        "name": "Hvitløksaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Tomatsaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp"
       },
       {
        "name": "Bearnaisesaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp"
       },
       {
        "name": "BBQ-saus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp"
       },
       {
        "name": "Chilisaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp"
       }
      ],
      "allergens": []
@@ -177,27 +182,32 @@
       {
        "name": "Hvitløksaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Tomatsaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp"
       },
       {
        "name": "Bearnaisesaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp"
       },
       {
        "name": "BBQ-saus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp"
       },
       {
        "name": "Chilisaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp"
       }
      ],
      "allergens": []
@@ -283,27 +293,32 @@
       {
        "name": "Hvitløksaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Tomatsaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp"
       },
       {
        "name": "Bearnaisesaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp"
       },
       {
        "name": "BBQ-saus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp"
       },
       {
        "name": "Chilisaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp"
       }
      ],
      "allergens": []
@@ -374,27 +389,32 @@
       {
        "name": "Hvitløksaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Tomatsaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp"
       },
       {
        "name": "Bearnaisesaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp"
       },
       {
        "name": "BBQ-saus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp"
       },
       {
        "name": "Chilisaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp"
       }
      ],
      "allergens": []
@@ -480,27 +500,32 @@
       {
        "name": "Hvitløksaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Tomatsaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp"
       },
       {
        "name": "Bearnaisesaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp"
       },
       {
        "name": "BBQ-saus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp"
       },
       {
        "name": "Chilisaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp"
       }
      ],
      "allergens": []
@@ -586,27 +611,32 @@
       {
        "name": "Hvitløksaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Tomatsaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp"
       },
       {
        "name": "Bearnaisesaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp"
       },
       {
        "name": "BBQ-saus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp"
       },
       {
        "name": "Chilisaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp"
       }
      ],
      "allergens": []
@@ -692,27 +722,32 @@
       {
        "name": "Hvitløksaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Tomatsaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp"
       },
       {
        "name": "Bearnaisesaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp"
       },
       {
        "name": "BBQ-saus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp"
       },
       {
        "name": "Chilisaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp"
       }
      ],
      "allergens": []
@@ -792,27 +827,32 @@
       {
        "name": "Hvitløksaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Tomatsaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp"
       },
       {
        "name": "Bearnaisesaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp"
       },
       {
        "name": "BBQ-saus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp"
       },
       {
        "name": "Chilisaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp"
       }
      ],
      "allergens": []
@@ -892,27 +932,32 @@
       {
        "name": "Hvitløksaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Tomatsaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp"
       },
       {
        "name": "Bearnaisesaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp"
       },
       {
        "name": "BBQ-saus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp"
       },
       {
        "name": "Chilisaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp"
       }
      ],
      "allergens": []
@@ -974,27 +1019,32 @@
       {
        "name": "Hvitløksaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Tomatsaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp"
       },
       {
        "name": "Bearnaisesaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp"
       },
       {
        "name": "BBQ-saus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp"
       },
       {
        "name": "Chilisaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp"
       }
      ],
      "allergens": []
@@ -1062,27 +1112,32 @@
       {
        "name": "Hvitløksaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Tomatsaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp"
       },
       {
        "name": "Bearnaisesaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp"
       },
       {
        "name": "BBQ-saus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp"
       },
       {
        "name": "Chilisaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp"
       },
       {
        "name": "Jalapenos",
@@ -1168,27 +1223,32 @@
       {
        "name": "Hvitløksaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Tomatsaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp"
       },
       {
        "name": "Bearnaisesaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp"
       },
       {
        "name": "BBQ-saus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp"
       },
       {
        "name": "Chilisaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp"
       },
       {
        "name": "Jalapenos",
@@ -1204,7 +1264,7 @@
      "number": 13,
      "name": "GRENSELØS",
      "image": "https://paradis-server.24order.com/storage/foods/1794754609_Lag%20din%20egen%20pizza%20copy.webp",
-     "description": "Sett sammen egen pizza. Fem ingredienser (over fem, M: 190,- S: 270,-)",
+     "description": "Lag din egen pizza: velg ingrediensene du vil ha (inntil fem).",
      "prices": [
       {
        "size": "1-1",
@@ -1219,6 +1279,20 @@
      ],
      "components": [
       {
+       "name": "Pizzasaus",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835924_Tomatsaus.webp"
+      },
+      {
+       "name": "Ost",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
+      },
+      {
        "name": "Ekstra ost",
        "state": "optional",
        "extra": {
@@ -1229,33 +1303,157 @@
       {
        "name": "Hvitløksaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Tomatsaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp"
       },
       {
        "name": "Bearnaisesaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp"
       },
       {
        "name": "BBQ-saus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp"
       },
       {
        "name": "Chilisaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp"
       },
       {
        "name": "Jalapenos",
        "state": "optional",
        "extra": 25,
        "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp"
+      },
+      {
+       "name": "Skinke",
+       "state": "optional",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835949_Skinke.webp",
+       "suggested": true
+      },
+      {
+       "name": "Salami",
+       "state": "optional",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835973_Salami.webp",
+       "suggested": true
+      },
+      {
+       "name": "Pepperoni",
+       "state": "optional",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836339_Pepperoni.webp",
+       "suggested": true
+      },
+      {
+       "name": "Biffkjøtt",
+       "state": "optional",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836048_Marinert%20Biffkj%C3%B8tt.webp",
+       "suggested": true
+      },
+      {
+       "name": "Kebabkjøtt",
+       "state": "optional",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836644_Marinert%20kebabkj%C3%B8tt.webp",
+       "suggested": true
+      },
+      {
+       "name": "Kylling",
+       "state": "optional",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836657_Kyllingfilet.webp",
+       "suggested": true
+      },
+      {
+       "name": "Kjøttboller",
+       "state": "optional",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836219_Kj%C3%B8ttboller.webp",
+       "suggested": true
+      },
+      {
+       "name": "Bacon",
+       "state": "optional",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836229_Bacon.webp",
+       "suggested": true
+      },
+      {
+       "name": "Champignon",
+       "state": "optional",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836126_Sjampinjong.webp",
+       "suggested": true
+      },
+      {
+       "name": "Paprika",
+       "state": "optional",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836078_Paprika.webp",
+       "suggested": true
+      },
+      {
+       "name": "Løk",
+       "state": "optional",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836135_L%C3%B8k.webp",
+       "suggested": true
+      },
+      {
+       "name": "Mais",
+       "state": "optional",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836436_Mais.webp",
+       "suggested": true
+      },
+      {
+       "name": "Ananas",
+       "state": "optional",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836327_Ananas.webp",
+       "suggested": true
+      },
+      {
+       "name": "Oliven",
+       "state": "optional",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836446_Oliven.webp",
+       "suggested": true
+      },
+      {
+       "name": "Hvitløk",
+       "state": "optional",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836426_Hvitl%C3%B8k.webp",
+       "suggested": true
+      },
+      {
+       "name": "Chillipepper",
+       "state": "optional",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836113_Gr%C3%B8nn%20chili.webp",
+       "suggested": true
+      },
+      {
+       "name": "Purreløk",
+       "state": "optional",
+       "extra": 0,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836387_purrel%C3%B8k.webp",
+       "suggested": true
       }
      ],
      "allergens": []
@@ -1335,27 +1533,32 @@
       {
        "name": "Hvitløksaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Tomatsaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp"
       },
       {
        "name": "Bearnaisesaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp"
       },
       {
        "name": "BBQ-saus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp"
       },
       {
        "name": "Chilisaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp"
       },
       {
        "name": "Jalapenos",
@@ -1441,27 +1644,32 @@
       {
        "name": "Hvitløksaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Tomatsaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp"
       },
       {
        "name": "Bearnaisesaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp"
       },
       {
        "name": "BBQ-saus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp"
       },
       {
        "name": "Chilisaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp"
       },
       {
        "name": "Jalapenos",
@@ -1547,27 +1755,32 @@
       {
        "name": "Hvitløksaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Tomatsaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp"
       },
       {
        "name": "Bearnaisesaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp"
       },
       {
        "name": "BBQ-saus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp"
       },
       {
        "name": "Chilisaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp"
       },
       {
        "name": "Jalapenos",
@@ -1659,27 +1872,32 @@
       {
        "name": "Hvitløksaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Tomatsaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp"
       },
       {
        "name": "Bearnaisesaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp"
       },
       {
        "name": "BBQ-saus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp"
       },
       {
        "name": "Chilisaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp"
       },
       {
        "name": "Jalapenos",
@@ -1771,27 +1989,32 @@
       {
        "name": "Hvitløksaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Tomatsaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp"
       },
       {
        "name": "Bearnaisesaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp"
       },
       {
        "name": "BBQ-saus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp"
       },
       {
        "name": "Chilisaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp"
       },
       {
        "name": "Jalapenos",
@@ -1871,27 +2094,32 @@
       {
        "name": "Hvitløksaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Tomatsaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp"
       },
       {
        "name": "Bearnaisesaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp"
       },
       {
        "name": "BBQ-saus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp"
       },
       {
        "name": "Chilisaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp"
       },
       {
        "name": "Jalapenos",
@@ -1983,27 +2211,32 @@
       {
        "name": "Hvitløksaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Tomatsaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp"
       },
       {
        "name": "Bearnaisesaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp"
       },
       {
        "name": "BBQ-saus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp"
       },
       {
        "name": "Chilisaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp"
       },
       {
        "name": "Jalapenos",
@@ -2071,27 +2304,32 @@
       {
        "name": "Hvitløksaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Tomatsaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp"
       },
       {
        "name": "Bearnaisesaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp"
       },
       {
        "name": "BBQ-saus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp"
       },
       {
        "name": "Chilisaus",
        "state": "optional",
-       "extra": 25
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp"
       },
       {
        "name": "Jalapenos",
@@ -2219,6 +2457,41 @@
        "state": "optional",
        "extra": 5,
        "icon": null
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp",
+       "suggested": true
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp",
+       "suggested": true
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp",
+       "suggested": true
       }
      ],
      "allergens": []
@@ -2324,6 +2597,41 @@
        "state": "optional",
        "extra": 5,
        "icon": null
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp",
+       "suggested": true
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp",
+       "suggested": true
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp",
+       "suggested": true
       }
      ],
      "allergens": []
@@ -2429,6 +2737,41 @@
        "state": "optional",
        "extra": 5,
        "icon": null
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp",
+       "suggested": true
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp",
+       "suggested": true
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp",
+       "suggested": true
       }
      ],
      "allergens": []
@@ -2534,6 +2877,41 @@
        "state": "optional",
        "extra": 5,
        "icon": null
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp",
+       "suggested": true
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp",
+       "suggested": true
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp",
+       "suggested": true
       }
      ],
      "allergens": []
@@ -2639,6 +3017,41 @@
        "state": "optional",
        "extra": 5,
        "icon": null
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp",
+       "suggested": true
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp",
+       "suggested": true
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp",
+       "suggested": true
       }
      ],
      "allergens": []
@@ -2744,6 +3157,41 @@
        "state": "optional",
        "extra": 5,
        "icon": null
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp",
+       "suggested": true
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp",
+       "suggested": true
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp",
+       "suggested": true
       }
      ],
      "allergens": []
@@ -2849,6 +3297,41 @@
        "state": "optional",
        "extra": 5,
        "icon": null
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp",
+       "suggested": true
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp",
+       "suggested": true
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp",
+       "suggested": true
       }
      ],
      "allergens": []
@@ -2960,6 +3443,41 @@
        "state": "optional",
        "extra": 5,
        "icon": null
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp",
+       "suggested": true
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp",
+       "suggested": true
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp",
+       "suggested": true
       }
      ],
      "allergens": []
@@ -3071,6 +3589,41 @@
        "state": "optional",
        "extra": 5,
        "icon": null
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp",
+       "suggested": true
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp",
+       "suggested": true
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp",
+       "suggested": true
       }
      ],
      "allergens": []
@@ -3097,6 +3650,25 @@
      ],
      "components": [
       {
+       "name": "Burgerdressing",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true
+      },
+      {
+       "name": "Agurk",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true
+      },
+      {
+       "name": "Tomat",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836670_Tomat.webp"
+      },
+      {
        "name": "Pommes frites",
        "state": "selected",
        "extra": 0,
@@ -3113,6 +3685,83 @@
        "state": "optional",
        "extra": 5,
        "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp",
+       "suggested": true
+      },
+      {
+       "name": "Løk",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836135_L%C3%B8k.webp",
+       "suggested": true
+      },
+      {
+       "name": "Hvitløk",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836426_Hvitl%C3%B8k.webp",
+       "suggested": true
+      },
+      {
+       "name": "Mais",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836436_Mais.webp",
+       "suggested": true
+      },
+      {
+       "name": "Tomater",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836670_Tomat.webp",
+       "suggested": true
+      },
+      {
+       "name": "X-dressing",
+       "state": "optional",
+       "extra": 5,
+       "icon": null,
+       "suggested": true
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp",
+       "suggested": true
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp",
+       "suggested": true
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp",
+       "suggested": true
       }
      ],
      "allergens": []
@@ -3132,6 +3781,25 @@
      ],
      "components": [
       {
+       "name": "Burgerdressing",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true
+      },
+      {
+       "name": "Agurk",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true
+      },
+      {
+       "name": "Tomat",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836670_Tomat.webp"
+      },
+      {
        "name": "Pommes frites",
        "state": "selected",
        "extra": 0,
@@ -3148,6 +3816,83 @@
        "state": "optional",
        "extra": 5,
        "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp",
+       "suggested": true
+      },
+      {
+       "name": "Løk",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836135_L%C3%B8k.webp",
+       "suggested": true
+      },
+      {
+       "name": "Hvitløk",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836426_Hvitl%C3%B8k.webp",
+       "suggested": true
+      },
+      {
+       "name": "Mais",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836436_Mais.webp",
+       "suggested": true
+      },
+      {
+       "name": "Tomater",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836670_Tomat.webp",
+       "suggested": true
+      },
+      {
+       "name": "X-dressing",
+       "state": "optional",
+       "extra": 5,
+       "icon": null,
+       "suggested": true
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp",
+       "suggested": true
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp",
+       "suggested": true
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp",
+       "suggested": true
       }
      ],
      "allergens": []
@@ -3167,10 +3912,113 @@
      ],
      "components": [
       {
+       "name": "Burgerdressing",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true
+      },
+      {
+       "name": "Agurk",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true
+      },
+      {
+       "name": "Tomat",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836670_Tomat.webp"
+      },
+      {
+       "name": "Isbergsalat",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836725_Salat.webp"
+      },
+      {
        "name": "Ost",
        "state": "optional",
        "extra": 5,
        "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp",
+       "suggested": true
+      },
+      {
+       "name": "Løk",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836135_L%C3%B8k.webp",
+       "suggested": true
+      },
+      {
+       "name": "Hvitløk",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836426_Hvitl%C3%B8k.webp",
+       "suggested": true
+      },
+      {
+       "name": "Mais",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836436_Mais.webp",
+       "suggested": true
+      },
+      {
+       "name": "Tomater",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836670_Tomat.webp",
+       "suggested": true
+      },
+      {
+       "name": "X-dressing",
+       "state": "optional",
+       "extra": 5,
+       "icon": null,
+       "suggested": true
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp",
+       "suggested": true
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp",
+       "suggested": true
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp",
+       "suggested": true
       }
      ],
      "allergens": []
@@ -3190,10 +4038,113 @@
      ],
      "components": [
       {
+       "name": "Burgerdressing",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true
+      },
+      {
+       "name": "Agurk",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true
+      },
+      {
+       "name": "Tomat",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836670_Tomat.webp"
+      },
+      {
+       "name": "Isbergsalat",
+       "state": "selected",
+       "extra": 0,
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836725_Salat.webp"
+      },
+      {
        "name": "Ost",
        "state": "optional",
        "extra": 5,
        "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp"
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp",
+       "suggested": true
+      },
+      {
+       "name": "Løk",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836135_L%C3%B8k.webp",
+       "suggested": true
+      },
+      {
+       "name": "Hvitløk",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836426_Hvitl%C3%B8k.webp",
+       "suggested": true
+      },
+      {
+       "name": "Mais",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836436_Mais.webp",
+       "suggested": true
+      },
+      {
+       "name": "Tomater",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836670_Tomat.webp",
+       "suggested": true
+      },
+      {
+       "name": "X-dressing",
+       "state": "optional",
+       "extra": 5,
+       "icon": null,
+       "suggested": true
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp",
+       "suggested": true
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp",
+       "suggested": true
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp",
+       "suggested": true
       }
      ],
      "allergens": []
@@ -3265,6 +4216,90 @@
        "state": "selected",
        "extra": 0,
        "suggested": true
+      },
+      {
+       "name": "Ost",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp",
+       "suggested": true
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp",
+       "suggested": true
+      },
+      {
+       "name": "Løk",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836135_L%C3%B8k.webp",
+       "suggested": true
+      },
+      {
+       "name": "Ananas",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836327_Ananas.webp",
+       "suggested": true
+      },
+      {
+       "name": "Hvitløk",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836426_Hvitl%C3%B8k.webp",
+       "suggested": true
+      },
+      {
+       "name": "Tomater",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836670_Tomat.webp",
+       "suggested": true
+      },
+      {
+       "name": "X-dressing",
+       "state": "optional",
+       "extra": 5,
+       "icon": null,
+       "suggested": true
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp",
+       "suggested": true
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp",
+       "suggested": true
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp",
+       "suggested": true
       }
      ],
      "allergens": []
@@ -3329,6 +4364,90 @@
        "state": "selected",
        "extra": 0,
        "suggested": true
+      },
+      {
+       "name": "Ost",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794835909_pizzaost.webp",
+       "suggested": true
+      },
+      {
+       "name": "Jalapenos",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836036_Jalapen%CC%83os.webp",
+       "suggested": true
+      },
+      {
+       "name": "Løk",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836135_L%C3%B8k.webp",
+       "suggested": true
+      },
+      {
+       "name": "Ananas",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836327_Ananas.webp",
+       "suggested": true
+      },
+      {
+       "name": "Hvitløk",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836426_Hvitl%C3%B8k.webp",
+       "suggested": true
+      },
+      {
+       "name": "Tomater",
+       "state": "optional",
+       "extra": 5,
+       "icon": "https://paradis-server.24order.com/storage/component_items/1794836670_Tomat.webp",
+       "suggested": true
+      },
+      {
+       "name": "X-dressing",
+       "state": "optional",
+       "extra": 5,
+       "icon": null,
+       "suggested": true
+      },
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp",
+       "suggested": true
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp",
+       "suggested": true
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp",
+       "suggested": true
       }
      ],
      "allergens": []
@@ -3353,7 +4472,43 @@
        "price": 60
       }
      ],
-     "components": [],
+     "components": [
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp",
+       "suggested": true
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp",
+       "suggested": true
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp",
+       "suggested": true
+      }
+     ],
      "allergens": []
     },
     {
@@ -3369,7 +4524,43 @@
        "price": 40
       }
      ],
-     "components": [],
+     "components": [
+      {
+       "name": "Hvitløksaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "BBQ-saus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750890_BBQsuce.webp",
+       "suggested": true
+      },
+      {
+       "name": "Chilisaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750903_CHILLISAUS.webp",
+       "suggested": true
+      },
+      {
+       "name": "Bearnaisesaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750917_Be%CC%81arnaisesaus.webp",
+       "suggested": true
+      },
+      {
+       "name": "Tomatsaus",
+       "state": "optional",
+       "extra": 25,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750939_Tomatsaus2.webp",
+       "suggested": true
+      }
+     ],
      "allergens": []
     }
    ]

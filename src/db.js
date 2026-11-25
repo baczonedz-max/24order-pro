@@ -1,7 +1,7 @@
 // D1 schema. Tables are created on the first request, so a new database needs no manual step.
 // Each statement is idempotent; bump SCHEMA_VERSION and add statements to migrate later.
 
-export const SCHEMA_VERSION = 6;
+export const SCHEMA_VERSION = 7;
 
 const SCHEMA = [
   `CREATE TABLE IF NOT EXISTS media (
@@ -137,7 +137,8 @@ export async function ensureSchema(env, request) {
       if (version < 4) await fillRestaurantInfo(env, request);
       if (version < 5) await applyDemoChoices(env, request);
       // v6: the full real menu from 24order (all products, sizes, ingredients, extras and their photos).
-      if (version < 6) await reimportDemoMenu(env, request);
+      // v7: again, now with extras on every product that can be changed (burgers, salads, fries, kebab plates…).
+      if (version < 7) await reimportDemoMenu(env, request);
     }
   }
   ready = true;

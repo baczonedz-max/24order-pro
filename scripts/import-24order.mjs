@@ -108,6 +108,36 @@ for (const c of categories) for (const f of c.foods) {
     f.components.unshift(...names.filter((n) => !have.has(n.toLowerCase())).map((n) => ({ name: n, state: 'selected', extra: 0, suggested: true })));
   }
 }
+// Every product that can be changed gets extras, using the restaurant's own extras and prices:
+// the 5 kr toppings from its kebab menu and its sauces (sold at 25 kr each).
+const kebabExtras = (categories.flatMap((c) => c.foods).find((f) => f.name === 'EKSTRA STOR TYRKISK KEBAB')?.components || [])
+  .filter((x) => x.state === 'optional').map(({ name, extra, icon }) => ({ name, extra, icon }));
+const sauceFoods = (categories.find((c) => /saus/i.test(c.name))?.foods || []).map((f) => ({ name: f.name, extra: f.prices[0]?.price || 25, icon: f.image }));
+const PIZZA_TOPPINGS = ['Skinke', 'Salami', 'Pepperoni', 'Biffkjøtt', 'Kebabkjøtt', 'Kylling', 'Kjøttboller', 'Bacon', 'Champignon', 'Paprika', 'Løk', 'Mais', 'Ananas', 'Oliven', 'Jalapenos', 'Hvitløk', 'Chillipepper', 'Purreløk'];
+const EXTRAS = [
+  [/^HAMBURGER/i, () => [...kebabExtras.filter((x) => !/ananas/i.test(x.name)), ...sauceFoods]],
+  [/SALAT/i, () => [...kebabExtras, ...sauceFoods]],
+  [/POMMES/i, () => sauceFoods],
+  [/KEBAB|MIDDAG/i, () => sauceFoods],
+  [/GRENSELØS/i, () => PIZZA_TOPPINGS.map((name) => ({ name, extra: 0 }))],
+];
+const BASE = [
+  [/^HAMBURGER (150|200)G/i, ['Isbergsalat', 'Tomat', 'Agurk', 'Burgerdressing']],
+  [/^HAMBURGER MENY/i, ['Tomat', 'Agurk', 'Burgerdressing']],
+  [/GRENSELØS/i, ['Ost', 'Pizzasaus']],
+];
+for (const c of categories) for (const f of c.foods) {
+  const have = new Set(f.components.map((x) => x.name.toLowerCase()));
+  for (const [re, names] of BASE) if (re.test(f.name)) for (const n of names) if (!have.has(n.toLowerCase())) {
+    f.components.unshift({ name: n, state: 'selected', extra: 0, suggested: true }); have.add(n.toLowerCase());
+  }
+  const set = EXTRAS.find(([re]) => re.test(f.name));
+  if (set) for (const x of set[1]()) if (!have.has(x.name.toLowerCase())) {
+    f.components.push({ name: x.name, state: 'optional', extra: x.extra, icon: x.icon || null, suggested: true }); have.add(x.name.toLowerCase());
+  }
+  if (/GRENSELØS/i.test(f.name)) f.description = 'Lag din egen pizza: velg ingrediensene du vil ha (inntil fem).';
+}
+
 // Suggested ingredients get the restaurant's own photo of the same ingredient when it has one.
 const iconOf = new Map();
 for (const c of categories) for (const f of c.foods) for (const x of f.components) if (x.icon && !iconOf.has(x.name.toLowerCase())) iconOf.set(x.name.toLowerCase(), x.icon);

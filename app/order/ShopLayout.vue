@@ -49,18 +49,18 @@ const initials = computed(() => (shop.restaurant.name || '?').split(/\s+/).map((
     </aside>
 
     <!-- Phone: top bar -->
+    <!-- Phone: logo in the middle, language on one side, light/dark on the other -->
     <header class="sh-top">
-      <RouterLink to="/order" class="sh-logo sm" :aria-label="shop.restaurant.name">
-        <img v-if="shop.restaurant.logo" :src="shop.restaurant.logo" alt="">
-        <span v-else class="sh-initials">{{ initials }}</span>
-      </RouterLink>
-      <strong class="sh-top-name">{{ shop.restaurant.name }}</strong>
       <label class="sh-round sm" :title="t('language')">
         <Icon name="globe" :size="18" />
         <select :value="i18n.lang" :aria-label="t('language')" @change="setLang($event.target.value)">
           <option v-for="(v, k) in LANGS" :key="k" :value="k">{{ v }}</option>
         </select>
       </label>
+      <RouterLink to="/order" class="sh-logo sm" :aria-label="shop.restaurant.name">
+        <img v-if="shop.restaurant.logo" :src="shop.restaurant.logo" alt="">
+        <span v-else class="sh-initials">{{ initials }}</span>
+      </RouterLink>
       <button class="sh-round sm" type="button" :aria-label="dark ? t('lightMode') : t('darkMode')" @click="flipTheme"><Icon :name="dark ? 'sun' : 'moon'" :size="18" /></button>
     </header>
 

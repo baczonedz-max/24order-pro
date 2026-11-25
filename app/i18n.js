@@ -218,6 +218,8 @@ const D = {
   builderHint: ['اضغط على المكونات لترى طلبك يتكوّن أمامك', 'Tap the ingredients to watch your order come together', 'Touchez les ingrédients pour voir votre commande prendre forme', 'Trykk på ingrediensene og se retten bli til'],
 
   // customer ordering page
+  shopSeeIngredients: ['شاهد المكونات', 'See ingredients', 'Voir les ingrédients', 'Se ingredienser'],
+  shopOrderThis: ['اطلب', 'Order', 'Commander', 'Bestill'],
   shopMenu: ['المنيو', 'Menu', 'Menu', 'Meny'],
   shopMyOrders: ['طلباتي', 'My orders', 'Mes commandes', 'Mine bestillinger'],
   shopCart: ['السلة', 'Cart', 'Panier', 'Kurv'],
