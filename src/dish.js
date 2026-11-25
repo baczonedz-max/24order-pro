@@ -82,6 +82,8 @@ export async function shopDish(c) {
   const now = Date.now();
   const job = await db.prepare(`SELECT status, started_at FROM dish_jobs WHERE key = ?`).bind(key).first();
   if (job?.status === 'running' && now - Date.parse(job.started_at) < STALE_MS) return c.json({ success: true, data: { status: 'pending' } });
+  // A photo that just failed isn't retried for 30 minutes (each try costs quota).
+  if (job?.status === 'failed' && now - Date.parse(job.started_at) < 30 * 60_000) return c.json({ success: true, data: { status: 'none' } });
   // Free quota used up today: don't try again before tomorrow (UTC).
   const today = new Date().toISOString().slice(0, 10);
   const flags = await db.prepare(`SELECT key, value FROM settings WHERE key IN ('dish_quota_day', 'dish_count_day', 'dish_count')`).all();
@@ -102,27 +104,32 @@ export async function shopDish(c) {
 
 async function generate(env, key, srcUrl, text) {
   const db = env.DB;
+  let step = 'start';
   try {
+    step = 'source';
     const res = await env.ASSETS.fetch(new Request(srcUrl));
     if (!res.ok) throw new Error('No source photo for this product');
+    const input = await res.arrayBuffer();
+    step = 'ai';
     const form = new FormData();
     form.append('prompt', text);
-    form.append('input_image_0', new Blob([await res.arrayBuffer()], { type: 'image/jpeg' }), 'in.jpg');
-    form.append('width', '1024');
-    form.append('height', '1024');
+    form.append('input_image_0', new Blob([input], { type: 'image/jpeg' }), 'in.jpg');
+    form.append('width', '768');
+    form.append('height', '768');
     const body = new Response(form);
     const out = await env.AI.run(MODEL, { multipart: { body: body.body, contentType: body.headers.get('content-type') } });
     if (!out?.image) throw new Error('The AI returned no image');
+    step = 'save';
     const bin = atob(out.image);
     const bytes = new Uint8Array(bin.length);
     for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
     const mime = bytes[0] === 0x89 ? 'image/png' : bytes[0] === 0xff ? 'image/jpeg' : 'image/webp';
     await db.batch([
-      db.prepare(`INSERT OR REPLACE INTO media (key, mime, data, w, h, source, updated_at) VALUES (?, ?, ?, 1024, 1024, 'ai-dish', ?)`).bind(key, mime, bytes.buffer, new Date().toISOString()),
+      db.prepare(`INSERT OR REPLACE INTO media (key, mime, data, w, h, source, updated_at) VALUES (?, ?, ?, 768, 768, 'ai-dish', ?)`).bind(key, mime, bytes.buffer, new Date().toISOString()),
       db.prepare(`UPDATE dish_jobs SET status = 'done' WHERE key = ?`).bind(key),
     ]);
   } catch (e) {
-    const msg = String(e?.message || e).slice(0, 300);
+    const msg = `[${step}] ${String(e?.message || e)}`.slice(0, 300);
     const stmts = [db.prepare(`UPDATE dish_jobs SET status = 'failed', error = ? WHERE key = ?`).bind(msg, key)];
     if (/4006|allocation|quota|neurons/i.test(msg)) stmts.push(db.prepare(`INSERT OR REPLACE INTO settings(key, value) VALUES ('dish_quota_day', ?)`).bind(new Date().toISOString().slice(0, 10)));
     await db.batch(stmts);
