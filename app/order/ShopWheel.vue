@@ -33,7 +33,7 @@ const front = computed(() => {
 const turn = computed(() => -index.value * STEP);
 const slots = computed(() => items.value.map((f, k) => {
   const a = geo.value.base + k * STEP;
-  return { f, k, a, near: Math.abs(k - index.value) <= 2 };
+  return { f, k, a, near: Math.abs(k - index.value) <= 3 };
 }));
 
 const go = (k) => { if (!items.value.length) return; index.value = (k + items.value.length) % items.value.length; };
@@ -48,7 +48,7 @@ function onWheel(e) {
   const atEnd = dir > 0 ? index.value >= items.value.length - 1 : index.value <= 0;
   if (atEnd) return;
   e.preventDefault();
-  stopAuto();
+  pauseAuto();
   if (Date.now() < lock) return;
   lock = Date.now() + 650;
   go(index.value + dir);
@@ -59,26 +59,40 @@ const onTouchStart = (e) => { sx = e.touches[0].clientX; sy = e.touches[0].clien
 function onTouchEnd(e) {
   const dx = e.changedTouches[0].clientX - sx;
   const dy = e.changedTouches[0].clientY - sy;
-  if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) { stopAuto(); dx < 0 ? next() : prev(); }
+  if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) { pauseAuto(); dx < 0 ? next() : prev(); }
 }
-const onKey = (e) => { if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { stopAuto(); next(); } if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { stopAuto(); prev(); } };
+const onKey = (e) => { if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { pauseAuto(); next(); } if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { pauseAuto(); prev(); } };
 
-// Turns by itself every few seconds until the customer takes over.
-let auto;
-const stopAuto = () => { clearInterval(auto); auto = null; };
+// Turns by itself, always: after the customer turns it by hand it waits a moment, then carries on.
+const AUTO_MS = 4600;
+let auto, resume;
+const tick = () => { if (!document.hidden) next(); };
+const startAuto = () => { clearInterval(auto); auto = setInterval(tick, AUTO_MS); };
+const pauseAuto = () => { clearInterval(auto); clearTimeout(resume); resume = setTimeout(startAuto, 7000); };
 onMounted(() => {
   mq = matchMedia('(max-width: 760px)');
   phone.value = mq.matches;
   mq.addEventListener?.('change', (e) => (phone.value = e.matches));
-  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) auto = setInterval(next, 5200);
+  startAuto();
 });
-onUnmounted(stopAuto);
+onUnmounted(() => { clearInterval(auto); clearTimeout(resume); });
 
-// Ingredients that "arrive" around the dish: the restaurant's own cut-out photos of what's on it.
-const floaters = computed(() => {
-  const list = (cur.value?.components || []).filter((c) => c.icon && c.state === 'selected' && !c.choice).slice(0, 4);
-  const spots = phone.value ? [[-38, -30], [36, -34], [40, 30], [-40, 26]] : [[-44, -26], [40, -38], [46, 24], [-30, 40]];
-  return list.map((c, k) => ({ id: `${cur.value.id}-${c.id}`, icon: c.icon, x: spots[k][0], y: spots[k][1], r: (k * 67) % 50 - 25, d: 120 + k * 110 }));
+// Fresh decorations around the dish (like the tomatoes and basil in a food shoot): whole vegetables from the
+// restaurant's own ingredient photos. Never sauces, cheese or meat. Uses the dish's own fresh ingredients first.
+const FRESH = /tomat|paprika|chilli|chili|hvitløk|oliven|champignon|sopp|løk|purreløk|jalape|mais|ruccola|basilikum/i;
+const NOT = /saus|dressing/i;
+const freshIcons = computed(() => {
+  const m = new Map();
+  for (const c of shop.categories) for (const f of c.foods) for (const x of f.components) if (x.icon && FRESH.test(x.name) && !NOT.test(x.name) && !m.has(x.name)) m.set(x.name, x.icon);
+  return m;
+});
+const decor = computed(() => {
+  if (!cur.value) return [];
+  const own = (cur.value.components || []).filter((c) => c.icon && FRESH.test(c.name) && !NOT.test(c.name)).map((c) => c.icon);
+  const fallback = ['Ferske tomater', 'Tomater', 'Chillipepper', 'Hvitløk', 'Paprika', 'Oliven'].map((n) => freshIcons.value.get(n)).filter(Boolean);
+  const pick = [...new Set([...own, ...fallback])].slice(0, 3);
+  const spots = phone.value ? [[-48, -40, 30], [50, -30, 26], [44, 44, 30]] : [[-56, -34, 30], [54, -44, 24], [50, 42, 32]];
+  return pick.map((icon, k) => ({ id: `${cur.value.id}-${k}`, icon, x: spots[k][0], y: spots[k][1], w: spots[k][2], r: [-18, 24, -8][k], d: 280 + k * 140 }));
 });
 
 const kr = (n) => `${Number.isInteger(Number(n)) ? n : Number(n).toFixed(2).replace('.', ',')}`;
@@ -89,10 +103,10 @@ const engraved = computed(() => `${shop.restaurant.name || ''} · ${cats.value.m
 </script>
 
 <template>
-  <section v-if="cur" class="wh" tabindex="0" :aria-label="cat?.name" @wheel="onWheel" @touchstart.passive="onTouchStart" @touchend.passive="onTouchEnd" @keydown="onKey" @mouseenter="stopAuto">
+  <section v-if="cur" class="wh" tabindex="0" :aria-label="cat?.name" @wheel="onWheel" @touchstart.passive="onTouchStart" @touchend.passive="onTouchEnd" @keydown="onKey">
     <!-- Category switch -->
     <div class="wh-cats">
-      <button v-for="c in cats" :key="c.id" type="button" :class="{ on: c.id === cat.id }" @click="stopAuto(); catId = c.id">{{ c.name }}</button>
+      <button v-for="c in cats" :key="c.id" type="button" :class="{ on: c.id === cat.id }" @click="pauseAuto(); catId = c.id">{{ c.name }}</button>
     </div>
 
     <!-- The board with the dishes on its ring -->
@@ -109,18 +123,19 @@ const engraved = computed(() => `${shop.restaurant.name || ''} · ${cats.value.m
         </div>
       </div>
 
-      <!-- Ingredients dropping in around the dish in front -->
+      <!-- Fresh vegetables arriving around the dish in front -->
       <div class="wh-float" :style="{ left: front.x + 'cqw', top: `calc(${geo.cy}% + ${front.dy}cqw)`, width: geo.size + 'cqw' }">
         <TransitionGroup name="wh-ing">
-          <img v-for="f in floaters" :key="f.id" :src="f.icon" alt="" class="wh-ing"
-            :style="{ left: 50 + f.x + '%', top: 50 + f.y + '%', rotate: f.r + 'deg', transitionDelay: f.d + 'ms' }">
+          <span v-for="f in decor" :key="f.id" class="wh-ing" :style="{ left: 50 + f.x + '%', top: 50 + f.y + '%', width: f.w + '%', transitionDelay: f.d + 'ms' }">
+            <img :src="f.icon" alt="" :style="{ rotate: f.r + 'deg' }">
+          </span>
         </TransitionGroup>
         <button type="button" class="wh-peek" @click="openFood(cur, cat.name)">{{ t('shopSeeIngredients') }}</button>
       </div>
     </div>
 
     <!-- What's in front: name, story, ingredients, allergens, price -->
-    <Transition name="wh-txt" mode="out-in">
+    <Transition name="wh-txt">
       <div :key="cur.id" class="wh-info">
         <div class="wh-count"><span>{{ pad(index + 1) }}</span><i></i><span>{{ pad(items.length) }}</span></div>
         <h2>{{ cur.name }}</h2>
@@ -139,9 +154,9 @@ const engraved = computed(() => `${shop.restaurant.name || ''} · ${cats.value.m
 
     <!-- Progress dots and arrows -->
     <div class="wh-nav">
-      <button type="button" class="wh-arrow" :aria-label="t('shopBack')" @click="stopAuto(); prev()"><Icon name="chevronLeft" :size="18" class="flip-rtl" /></button>
-      <div class="wh-dots"><i v-for="(f, k) in items" :key="f.id" :class="{ on: k === index }" @click="stopAuto(); go(k)"></i></div>
-      <button type="button" class="wh-arrow" aria-label="→" @click="stopAuto(); next()"><Icon name="chevronRight" :size="18" class="flip-rtl" /></button>
+      <button type="button" class="wh-arrow" :aria-label="t('shopBack')" @click="pauseAuto(); prev()"><Icon name="chevronLeft" :size="18" class="flip-rtl" /></button>
+      <div class="wh-dots"><i v-for="(f, k) in items" :key="f.id" :class="{ on: k === index }" @click="pauseAuto(); go(k)"></i></div>
+      <button type="button" class="wh-arrow" aria-label="→" @click="pauseAuto(); next()"><Icon name="chevronRight" :size="18" class="flip-rtl" /></button>
     </div>
   </section>
 </template>

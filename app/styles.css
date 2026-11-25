@@ -447,6 +447,15 @@ img { display: block; max-width: 100%; }
 .ps-img { width: 100%; height: 100%; object-fit: contain; display: block; }
 .ps-over { position: absolute; inset: 0; }
 .ps-frame { background: #fff; }
+.ps-adds { position: absolute; inset: 0; pointer-events: none; }
+.ps-add-group { position: absolute; inset: 0; }
+/* Small contact shadow and slightly softer colour so the pieces sit in the photo's light */
+.ps-add { position: absolute; aspect-ratio: 1; object-fit: contain; translate: -50% -50%; filter: drop-shadow(0 2px 2px rgba(0, 0, 0, .35)) drop-shadow(0 5px 6px rgba(0, 0, 0, .15)) saturate(.94) contrast(.97) brightness(.98); }
+.ps-add-group.sauce .ps-add { filter: drop-shadow(0 10px 14px rgba(0, 0, 0, .3)); }
+.ps-drop-enter-active .ps-add { transition: opacity .3s ease, transform .6s cubic-bezier(.3, 1.45, .45, 1); }
+.ps-drop-enter-from .ps-add { opacity: 0; transform: translateY(-60px) scale(1.25); }
+.ps-drop-leave-active { transition: opacity .25s ease; }
+.ps-drop-leave-to { opacity: 0; }
 .ps-making { position: absolute; top: 10px; inset-inline-start: 50%; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 7px; height: 28px; padding: 0 12px; border-radius: 99px; background: rgba(17, 17, 17, .78); color: #fff; font-size: 12px; font-weight: 600; white-space: nowrap; backdrop-filter: blur(6px); }
 [dir='rtl'] .ps-making { transform: translateX(50%); }
 .ps-making i { width: 12px; height: 12px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, .35); border-top-color: #fff; animation: sh-spin .8s linear infinite; }

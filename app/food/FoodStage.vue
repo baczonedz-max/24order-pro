@@ -247,9 +247,90 @@ const liveCovered = computed(() => (live.value?.status === 'ready' ? changed.val
 const shownUrl = computed(() => (live.value?.status === 'ready' ? live.value.url : shown.value.url));
 const preparing = computed(() => live.value?.status === 'pending' || pizzaLive.value?.status === 'pending');
 // Changes that the photo doesn't show yet are pinned on it as labels.
-const changes = computed(() => changed.value
+// Changes the photo doesn't show yet.
+const notShown = computed(() => changed.value
   .filter((i) => !liveCovered.value.includes(i.id))
-  .filter((i) => !shown.value.covered.includes((i.base ? '-' : '+') + i.kind))
+  .filter((i) => !shown.value.covered.includes((i.base ? '-' : '+') + i.kind)));
+// Added extras go straight onto the dish: a small pile of real cut pieces (onion rings, jalapeño slices…) from
+// the photo library, or the restaurant's own photo of the ingredient; sauces stand beside the dish in their bowl.
+// Where the food is in the photo: the solid (non-transparent) part, away from its edges. Read once per photo
+// from a tiny copy of it; extras are scattered over those points so they sit on the food, not on the plate rim.
+const foodSpots = ref([]);
+watch(() => props.image, async (src) => {
+  foodSpots.value = [];
+  if (!src || props.mode === 'pizza') return;
+  try {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.src = src;
+    await img.decode();
+    const N = 48;
+    const cv = document.createElement('canvas');
+    cv.width = cv.height = N;
+    const g = cv.getContext('2d', { willReadFrequently: true });
+    g.drawImage(img, 0, 0, N, N);
+    const a = g.getImageData(0, 0, N, N).data;
+    const solid = (x, y) => x >= 0 && y >= 0 && x < N && y < N && a[(y * N + x) * 4 + 3] > 220;
+    const pts = [];
+    let sx = 0, sy = 0;
+    for (let y = 3; y < N - 3; y += 2) for (let x = 3; x < N - 3; x += 2) {
+      if (solid(x, y) && solid(x - 3, y) && solid(x + 3, y) && solid(x, y - 3) && solid(x, y + 3)) { pts.push([x, y]); sx += x; sy += y; }
+    }
+    if (pts.length < 4) return;
+    const cx = sx / pts.length, cy = sy / pts.length;
+    pts.sort((p, q) => Math.hypot(p[0] - cx, p[1] - cy) - Math.hypot(q[0] - cx, q[1] - cy));
+    const inner = pts.slice(0, Math.max(6, Math.round(pts.length * 0.75)));
+    // Spread evenly: each new point is the one farthest from those already taken.
+    const chosen = [inner[0]];
+    while (chosen.length < 18 && chosen.length < inner.length) {
+      let best = null, bd = -1;
+      for (const p of inner) {
+        const d = Math.min(...chosen.map((q) => Math.hypot(p[0] - q[0], p[1] - q[1])));
+        if (d > bd) { bd = d; best = p; }
+      }
+      chosen.push(best);
+    }
+    foodSpots.value = chosen.map(([x, y]) => [((x + 0.5) / N) * 100, ((y + 0.5) / N) * 100]);
+  } catch { /* photo can't be read: fixed spots below */ }
+}, { immediate: true });
+const FALLBACK = [[50, 50], [40, 45], [60, 45], [45, 58], [57, 57], [50, 40], [36, 54], [64, 54], [42, 48], [58, 50], [48, 62], [53, 44]];
+
+// Added extras go onto the food: small real cut pieces (onion rings, jalapeño slices, pineapple…) from the photo
+// library, scattered and interleaved with the other extras like a cook would add them; the restaurant's own
+// photo of the ingredient when there are no pieces. Sauces stand beside the dish in their bowl.
+const onDish = computed(() => {
+  const spots = foodSpots.value.length ? foodSpots.value : FALLBACK;
+  const extras = notShown.value.filter((i) => !i.base);
+  const solids = extras.filter((i) => !(isSauce(i.kind) || /saus|dressing/i.test(i.name)));
+  const E = Math.max(1, solids.length);
+  let side = 0;
+  const out = [];
+  for (const i of extras) {
+    if (isSauce(i.kind) || /saus|dressing/i.test(i.name)) {
+      if (!i.icon) continue;
+      const k = side++;
+      out.push({ id: i.id, sauce: true, pieces: [{ url: i.icon, x: 84 - k * 15, y: 85 - (k % 2) * 3, w: 22, r: 0 }] });
+      continue;
+    }
+    const e = solids.indexOf(i);
+    const lib = variants(`top.${i.kind}`);
+    const count = lib.length ? 4 : 1;
+    const pieces = [];
+    for (let k = 0; k < count; k++) {
+      const [x, y] = spots[(e + k * E) % spots.length];
+      const seed = (i.id * 31 + k * 17) % 100;
+      pieces.push(lib.length
+        ? { url: lib[k % lib.length], x: x + ((seed % 7) - 3) * 0.6, y: y + ((seed % 5) - 2) * 0.6, w: 9.5 + (seed % 4), r: seed * 3.6 }
+        : { url: i.icon, x, y, w: 16, r: (seed % 30) - 15 });
+    }
+    out.push({ id: i.id, pieces });
+  }
+  return out;
+});
+const onDishIds = computed(() => new Set(onDish.value.map((a) => a.id)));
+// Pinned as labels: what was taken off (until the AI photo shows it), and extras without any photo.
+const changes = computed(() => notShown.value
+  .filter((i) => i.base || !onDishIds.value.has(i.id))
   .map((i) => ({ id: i.id, minus: i.base, name: i.name, photo: i.icon || thumbPhoto(i.kind) })));
 </script>
 
@@ -404,6 +485,12 @@ const changes = computed(() => changed.value
     <div class="ps-frame">
       <img v-if="image" :src="image" alt="" class="ps-img">
       <transition name="ps-swap"><img v-if="shownUrl && shownUrl !== image" :key="shownUrl" :src="shownUrl" alt="" class="ps-img ps-over"></transition>
+      <!-- Extras placed on the dish -->
+      <TransitionGroup tag="div" name="ps-drop" class="ps-adds">
+        <div v-for="a in onDish" :key="a.id" class="ps-add-group" :class="{ sauce: a.sauce }">
+          <img v-for="(p, k) in a.pieces" :key="k" :src="p.url" alt="" class="ps-add" :style="{ left: p.x + '%', top: p.y + '%', width: p.w + '%', rotate: p.r + 'deg', transitionDelay: k * 70 + 'ms' }">
+        </div>
+      </TransitionGroup>
       <transition name="fade"><span v-if="preparing" class="ps-making"><i></i>{{ t('makingPhoto') }}</span></transition>
       <TransitionGroup tag="div" name="chip" class="ps-chips">
         <span v-for="c in changes" :key="c.id" class="ps-chip" :class="c.minus ? 'minus' : 'plus'">

@@ -7,7 +7,7 @@
   "country": "NO"
  },
  "source": "24order:paradis-server.24order.com",
- "imported_at": "2026-11-25T17:45:53.175Z",
+ "imported_at": "2026-11-25T21:02:34.071Z",
  "categories": [
   {
    "id": 1,
@@ -2392,7 +2392,8 @@
        "name": "Kebabsaus",
        "state": "selected",
        "extra": 0,
-       "suggested": true
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Kebab",
@@ -2456,7 +2457,7 @@
        "name": "X-dressing",
        "state": "optional",
        "extra": 5,
-       "icon": null
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Hvitløksaus",
@@ -2548,7 +2549,8 @@
        "name": "Kebabsaus",
        "state": "selected",
        "extra": 0,
-       "suggested": true
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Ost",
@@ -2596,7 +2598,7 @@
        "name": "X-dressing",
        "state": "optional",
        "extra": 5,
-       "icon": null
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Hvitløksaus",
@@ -2688,7 +2690,8 @@
        "name": "Kebabsaus",
        "state": "selected",
        "extra": 0,
-       "suggested": true
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Ost",
@@ -2736,7 +2739,7 @@
        "name": "X-dressing",
        "state": "optional",
        "extra": 5,
-       "icon": null
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Hvitløksaus",
@@ -2828,7 +2831,8 @@
        "name": "Kebabsaus",
        "state": "selected",
        "extra": 0,
-       "suggested": true
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Ost",
@@ -2876,7 +2880,7 @@
        "name": "X-dressing",
        "state": "optional",
        "extra": 5,
-       "icon": null
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Hvitløksaus",
@@ -2968,7 +2972,8 @@
        "name": "Kebabsaus",
        "state": "selected",
        "extra": 0,
-       "suggested": true
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Ost",
@@ -3016,7 +3021,7 @@
        "name": "X-dressing",
        "state": "optional",
        "extra": 5,
-       "icon": null
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Hvitløksaus",
@@ -3108,7 +3113,8 @@
        "name": "Kebabsaus",
        "state": "selected",
        "extra": 0,
-       "suggested": true
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Ost",
@@ -3156,7 +3162,7 @@
        "name": "X-dressing",
        "state": "optional",
        "extra": 5,
-       "icon": null
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Hvitløksaus",
@@ -3248,7 +3254,8 @@
        "name": "Kebabsaus",
        "state": "selected",
        "extra": 0,
-       "suggested": true
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Ost",
@@ -3296,7 +3303,7 @@
        "name": "X-dressing",
        "state": "optional",
        "extra": 5,
-       "icon": null
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Hvitløksaus",
@@ -3388,7 +3395,8 @@
        "name": "Kebabsaus",
        "state": "selected",
        "extra": 0,
-       "suggested": true
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Pommes frites",
@@ -3442,7 +3450,7 @@
        "name": "X-dressing",
        "state": "optional",
        "extra": 5,
-       "icon": null
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Hvitløksaus",
@@ -3534,7 +3542,8 @@
        "name": "Kebabsaus",
        "state": "selected",
        "extra": 0,
-       "suggested": true
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Pommes frites",
@@ -3588,7 +3597,7 @@
        "name": "X-dressing",
        "state": "optional",
        "extra": 5,
-       "icon": null
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Hvitløksaus",
@@ -3653,7 +3662,8 @@
        "name": "Burgerdressing",
        "state": "selected",
        "extra": 0,
-       "suggested": true
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Agurk",
@@ -3725,7 +3735,7 @@
        "name": "X-dressing",
        "state": "optional",
        "extra": 5,
-       "icon": null,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp",
        "suggested": true
       },
       {
@@ -3784,7 +3794,8 @@
        "name": "Burgerdressing",
        "state": "selected",
        "extra": 0,
-       "suggested": true
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Agurk",
@@ -3856,7 +3867,7 @@
        "name": "X-dressing",
        "state": "optional",
        "extra": 5,
-       "icon": null,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp",
        "suggested": true
       },
       {
@@ -3915,7 +3926,8 @@
        "name": "Burgerdressing",
        "state": "selected",
        "extra": 0,
-       "suggested": true
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Agurk",
@@ -3982,7 +3994,7 @@
        "name": "X-dressing",
        "state": "optional",
        "extra": 5,
-       "icon": null,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp",
        "suggested": true
       },
       {
@@ -4041,7 +4053,8 @@
        "name": "Burgerdressing",
        "state": "selected",
        "extra": 0,
-       "suggested": true
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Agurk",
@@ -4108,7 +4121,7 @@
        "name": "X-dressing",
        "state": "optional",
        "extra": 5,
-       "icon": null,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp",
        "suggested": true
       },
       {
@@ -4215,7 +4228,8 @@
        "name": "Dressing",
        "state": "selected",
        "extra": 0,
-       "suggested": true
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Ost",
@@ -4263,7 +4277,7 @@
        "name": "X-dressing",
        "state": "optional",
        "extra": 5,
-       "icon": null,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp",
        "suggested": true
       },
       {
@@ -4363,7 +4377,8 @@
        "name": "Dressing",
        "state": "selected",
        "extra": 0,
-       "suggested": true
+       "suggested": true,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp"
       },
       {
        "name": "Ost",
@@ -4411,7 +4426,7 @@
        "name": "X-dressing",
        "state": "optional",
        "extra": 5,
-       "icon": null,
+       "icon": "https://paradis-server.24order.com/storage/foods/1794750879_Hvitl%C3%B8kssaus.webp",
        "suggested": true
       },
       {

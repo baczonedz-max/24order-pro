@@ -141,7 +141,7 @@ for (const c of categories) for (const f of c.foods) {
 // Suggested ingredients get the restaurant's own photo of the same ingredient when it has one.
 const iconOf = new Map();
 for (const c of categories) for (const f of c.foods) for (const x of f.components) if (x.icon && !iconOf.has(x.name.toLowerCase())) iconOf.set(x.name.toLowerCase(), x.icon);
-const ALIAS = { tomat: ['tomater', 'tomat'], rødløk: ['løk', 'rødløk'], kebabkjøtt: ['kebab'], isbergsalat: ['salat', 'isbergsalat'], kebabsaus: ['x-dressing', 'dressing'], dressing: ['x-dressing'], kylling: ['kylling'], skinke: ['skinke'], mais: ['mais'], agurk: ['agurk'] };
+const ALIAS = { tomat: ['tomater', 'tomat'], rødløk: ['løk', 'rødløk'], kebabkjøtt: ['kebab'], isbergsalat: ['salat', 'isbergsalat'], kebabsaus: ['x-dressing', 'hvitløksaus'], dressing: ['x-dressing', 'hvitløksaus'], 'x-dressing': ['hvitløksaus'], burgerdressing: ['hvitløksaus'], kylling: ['kylling'], skinke: ['skinke'], mais: ['mais'], agurk: ['agurk'] };
 for (const c of categories) for (const f of c.foods) for (const x of f.components) {
   if (x.icon) continue;
   const names = ALIAS[x.name.toLowerCase()] || [x.name.toLowerCase()];
